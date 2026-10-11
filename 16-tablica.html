@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ćwiczenie 16 · Tablica Na Kole za cztery tygodnie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F4460; --navy-d:#163450; --navy-x:#102839;
+  --gold:#E8B62C; --gold-d:#5C4810; --gold-t:#FDF4DC;
+  --text:#2C3540; --mid:#6B7680; --line:#D8DDE3; --bg:#F5F5F7;
+  --dim:#C3D2DE; --green:#1E6B4F; --green-t:#ECF6F1; --wine:#8E2749; --wine-t:#F7ECF0;
+  --blue-t:#F0F6FB;
+  --f:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 0 44px;background:var(--bg);color:var(--text);
+  font-family:var(--f);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{background:var(--navy-x);color:#fff;margin:0 -16px 18px;padding:30px 16px 26px}
+header .in{max-width:1080px;margin:0 auto}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--gold)}
+h1{margin:12px 0 10px;font-size:29px;line-height:1.12;font-weight:700;letter-spacing:-.3px}
+header p{margin:0;color:var(--dim);font-size:14.5px;max-width:56ch}
+.wroc{display:inline-block;margin-bottom:4px;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  color:var(--dim);text-decoration:none}
+.wroc:hover{color:var(--gold)}
+h2{font-size:10.5px;letter-spacing:1.8px;color:var(--mid);margin:0 0 12px;font-weight:700}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 16px;margin:12px 0}
+.krok{display:flex;gap:12px;align-items:flex-start;margin:0 0 10px}
+.krok .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--gold);color:var(--gold-d);
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.krok p{margin:0;font-size:14.5px;line-height:1.45}
+.wyj{background:var(--gold);color:var(--gold-d);border-radius:8px;padding:16px;margin:14px 0}
+.wyj b{display:block;font-size:10px;font-weight:700;letter-spacing:1.6px;margin-bottom:7px}
+.wyj p{margin:0;font-size:14px;line-height:1.45}
+.dane{background:var(--blue-t);border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13.5px}
+.dane b{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--navy);margin-bottom:6px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:4px;
+  display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.prog{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.count{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;letter-spacing:.4px}
+.nrk{font-size:10.5px;font-weight:700;letter-spacing:1.6px;color:var(--gold)}
+.sprawa{font-size:20px;font-weight:700;color:var(--navy);line-height:1.28;margin:8px 0 6px}
+.od{font-size:12px;color:var(--mid);margin:0 0 4px;letter-spacing:.3px}
+.pyt{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--mid);margin:20px 0 8px;
+  padding-top:14px;border-top:1px solid var(--line)}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opts.dwa{grid-template-columns:1fr 1fr}
+.opts.trzy{grid-template-columns:1fr}
+button.opt{text-align:left;font:inherit;font-size:14.5px;cursor:pointer;min-height:50px;width:100%;
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:11px 13px;color:var(--text);
+  display:flex;gap:10px;align-items:center;transition:.12s}
+button.opt:hover{border-color:var(--navy);background:var(--blue-t)}
+button.opt .m{color:var(--gold);font-size:17px;flex:0 0 auto;line-height:1}
+button.opt small{display:block;font-size:11.5px;opacity:.7;font-weight:400;margin-top:1px}
+button.opt b{font-weight:700}
+button.opt.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+button.opt.sel .m{color:var(--gold)}
+.nav{display:flex;gap:8px;margin-top:18px}
+.nav .btn{flex:1}
+.btn{font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;border-radius:7px;padding:13px 18px;
+  min-height:48px;border:none;letter-spacing:.2px}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);color:var(--gold-d)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.35;cursor:default}
+.akcje{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.akcje .btn{flex:1 1 auto}
+.siatka{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.kw{aspect-ratio:1;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;
+  font-size:13px;font-weight:700;color:var(--mid);cursor:pointer;padding:0}
+.kw.ok{background:var(--navy);border-color:var(--navy);color:#fff}
+.kw.tu{outline:2px solid var(--gold);outline-offset:1px}
+.big{background:var(--navy-x);color:#fff;border-radius:8px;padding:26px 20px;text-align:center;margin:12px 0}
+.big .num{font-size:52px;font-weight:700;line-height:1;color:var(--gold);letter-spacing:-1px}
+.big .lab{font-size:12.5px;color:var(--dim);margin-top:10px;max-width:36ch;margin-left:auto;margin-right:auto}
+.tab{display:grid;grid-template-columns:1fr auto;gap:0 12px;font-size:14.5px}
+.tab .n{padding:10px 0;border-bottom:1px solid var(--line)}
+.tab .v{padding:10px 0;border-bottom:1px solid var(--line);font-weight:700;color:var(--navy);text-align:right}
+.tab .n.s,.tab .v.s{border-bottom:none;border-top:2px solid var(--navy);font-weight:700}
+label.f{display:block;font-size:10px;font-weight:700;letter-spacing:1.3px;color:var(--mid);margin:16px 0 6px}
+input[type=text],input[type=number],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--text);
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:12px}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+textarea{min-height:84px;resize:vertical}
+.msg{font-size:12.5px;color:var(--mid);margin-top:10px;min-height:18px}
+.por{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;font-size:13.5px;
+  padding:9px 0;border-bottom:1px solid var(--line)}
+.por .zn{font-weight:700}
+.por.z .zn{color:var(--green)} .por.r .zn{color:var(--wine)}
+.box{border-radius:7px;padding:14px;margin:12px 0;font-size:13.5px;line-height:1.45}
+.box b{display:block;font-size:10px;letter-spacing:1.4px;margin-bottom:6px}
+.box.blue{background:var(--blue-t)} .box.blue b{color:var(--navy)}
+.box.green{background:var(--green-t)} .box.green b{color:var(--green)}
+.box.gold2{background:var(--gold-t)} .box.gold2 b{color:var(--gold-d)}
+.box.wine{background:var(--wine-t)} .box.wine b{color:var(--wine)}
+.wz{display:grid;grid-template-columns:1fr;gap:10px}
+.wz .row{border:1px solid var(--line);border-radius:7px;padding:12px;background:#fff}
+.wz .row.wzor{background:var(--gold-t);border-color:var(--gold)}
+.wz .row h3{margin:0 0 8px;font-size:15px;color:var(--navy);font-weight:700;line-height:1.3}
+.wz .row .lb{font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--mid);margin:10px 0 5px}
+.mini{font-size:12.5px;color:var(--mid);margin:4px 0 0}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{background:var(--navy);color:#fff;text-align:left;padding:9px 10px;font-size:11.5px;
+  letter-spacing:.6px;font-weight:700}
+table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:nth-child(even) td{background:var(--bg)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mid);
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hide{display:none!important}
+@media (min-width:660px){
+  header{padding:40px 16px 34px} h1{font-size:36px}
+  .card{padding:22px 24px}
+  .opts{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .opts.trzy{grid-template-columns:repeat(3,1fr)}
+  .akcje .btn{flex:0 0 auto}
+  .kroki2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  .wz{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1000px){
+  .wrap{padding:0 32px}
+  header{padding:48px 32px 40px}
+  h1{font-size:42px}
+  header p{font-size:15.5px;max-width:66ch}
+  .big .num{font-size:62px}
+}
+@media print{body{background:#fff}.bar,.akcje,.nav,.noprint{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header><div class="in">
+  <a class="wroc" href="index.html">← WSZYSTKIE ĆWICZENIA</a>
+  <div class="kicker">ĆWICZENIE 16 · 30 MINUT · INDYWIDUALNIE, OMÓWIENIE NA FORUM</div>
+  <h1>Tablica Na Kole za cztery tygodnie</h1>
+  <p>Surowe dane z czterech kolejnych tygodni kwietnia i maja. Przepisujesz je do tablicy, odczytujesz kierunki i wypełniasz piątą kolumnę — decyzję na najbliższy tydzień.</p>
+</div></header>
+
+<div class="wrap">
+
+<section id="intro">
+  <div class="card">
+    <div class="kroki2">
+    <div class="krok"><div class="n">1</div><p>Przepisz do tablicy cztery liczby dla każdego z czterech tygodni: ilu klientów, ile zostaje z usług, ile poprawek, ile czeka w kolejce.</p></div>
+    <div class="krok"><div class="n">2</div><p>Odpowiedz na trzy pytania pod tablicą: co rośnie, co spada i która para liczb zachowuje się dziwnie razem.</p></div>
+    <div class="krok"><div class="n">3</div><p>Spójrz na rozbicie poprawek na osoby i napisz, co z niego wynika.</p></div>
+    <div class="krok"><div class="n">4</div><p>Wypełnij piątą kolumnę dla tygodnia piątego: jedno zdanie z czasownikiem i imieniem. Nie trzy zdania — jedno.</p></div>
+    </div>
+    <div class="dane"><b>SKĄD DANE</b>Karta firmy, część 9 — cztery tygodnie. Wszystkie liczby są podane, nic nie trzeba szacować.</div>
+    <div class="wyj"><b>GOTOWE, KIEDY</b><p>tablica jest wypełniona, a w piątej kolumnie stoi jedno konkretne zdanie.</p></div>
+    <div class="akcje"><button class="btn primary" id="start">Zaczynam</button></div>
+    <div class="msg" id="wznow"></div>
+  </div>
+</section>
+
+
+<section id="zad" class="hide">
+  <div class="bar"><div class="prog"><i id="pi"></i></div><div class="count" id="pc">0 / 16</div></div>
+  <div class="card">
+    <h2>PRZEPISZ LICZBY</h2>
+    <div id="wiersze"></div>
+  </div>
+  <div class="card">
+    <h2>TWOJA TABLICA</h2>
+    <div class="scroll"><table class="t" id="grid"></table></div>
+    <div id="kier"></div>
+    <div class="akcje"><button class="btn gold" id="doWyniku">Przejdź do odczytu</button></div>
+  </div>
+</section>
+
+<section id="wynik" class="hide">
+  <div class="card"><h2>TABLICA</h2><div class="scroll"><table class="t" id="grid2"></table></div></div>
+  <div class="card">
+    <h2>TRZY PYTANIA</h2>
+    <label class="f" for="p1">1 · CO ROŚNIE, A CO SPADA</label>
+    <input type="text" id="p1" placeholder="jedno zdanie">
+    <label class="f" for="p2">2 · KTÓRA PARA LICZB ZACHOWUJE SIĘ DZIWNIE RAZEM</label>
+    <input type="text" id="p2" placeholder="jedno zdanie">
+    <label class="f" for="p3">3 · CO WYNIKA Z ROZBICIA POPRAWEK NA OSOBY</label>
+    <textarea id="p3" placeholder="jedno zdanie"></textarea>
+  </div>
+  <div class="card">
+    <h2>PIĄTA KOLUMNA — DECYZJA NA TYDZIEŃ PIĄTY</h2>
+    <p class="mini" style="margin-bottom:8px">Jedno zdanie z czasownikiem i imieniem. „Paweł uczy Kamila centrowania w środę” działa; „poprawić jakość” nie działa.</p>
+    <textarea id="dec" placeholder="kto, co i kiedy robi inaczej od poniedziałku"></textarea>
+    <div id="testDec"></div>
+    <div class="akcje">
+      <button class="btn primary" id="zapisz">Zapisz do teczki</button>
+      <button class="btn ghost" id="kopiuj">Kopiuj tablicę</button>
+      <button class="btn ghost noprint" id="drukuj">Drukuj tablicę</button>
+    </div>
+    <div class="msg" id="stan"></div>
+  </div>
+  <div class="card noprint">
+    <h2>ODCZYT PROWADZĄCEGO</h2>
+    <p style="font-size:13.5px;margin:0">Otwiera się po wypełnieniu tablicy i piątej kolumny.</p>
+    <div class="akcje">
+      <button class="btn ghost" id="pokazKlucz" disabled>Pokaż odczyt</button>
+      <button class="btn ghost" id="odNowa">Zacznij od nowa</button>
+    </div>
+    <div id="klucz" class="hide" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<footer>
+  <span>ZMIANOLOGICA · dr Marcin Żółtak</span>
+  <span>Zarządzanie operacyjne · dzień 4 · ćwiczenie 16</span>
+</footer>
+</div>
+
+<script>
+
+var Teczka=(function(){var K='zo-nakole-v1';
+function all(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+function put(o){try{localStorage.setItem(K,JSON.stringify(o));return true}catch(e){return false}}
+return{zapisz:function(p,d){var a=all();a[p]={dane:d,ts:Date.now()};return put(a)},
+ czytaj:function(p){var w=all()[p];return w?w.dane:null},
+ usun:function(p){var a=all();delete a[p];return put(a)},
+ lista:function(){return Object.keys(all())},
+ kopiuj:function(t,btn){function ok(){if(!btn)return;var s=btn.textContent;btn.textContent='Skopiowane';
+   setTimeout(function(){btn.textContent=s},1600)}
+  function zap(){var e=document.createElement('textarea');e.value=t;e.style.position='fixed';e.style.opacity='0';
+   document.body.appendChild(e);e.select();try{document.execCommand('copy');ok()}catch(x){}document.body.removeChild(e)}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,zap)}else{zap()}}
+}})();
+var $=function(x){return document.getElementById(x)};
+
+var PUNKT='16';
+
+var T=[[1,64,4160,2,11,"Kamil 1, Paweł 1"],[2,68,4350,3,14,"Kamil 2, Paweł 1"],[3,60,3660,6,19,"Kamil 5, Paweł 1"],[4,56,3300,7,23,"Kamil 6, Paweł 1"]];
+var POLA=[['kl','Ilu klientów'],['zl','Ile zostaje z usług (zł)'],['po','Ile poprawek'],['ko','Ile czeka w kolejce']];
+var dane={};
+
+T.forEach(function(w){
+  var d=document.createElement('div');d.className='wz';d.style.marginBottom='10px';
+  d.innerHTML='<div class="row"><h3>Tydzień '+w[0]+'</h3>'+
+    '<p class="mini">z karty firmy: '+w[1]+' klientów · '+w[2]+' zł · '+w[3]+' poprawek · '+w[4]+' w kolejce'+
+    '<br>poprawki wg osób: '+w[5]+'</p>'+
+    POLA.map(function(p){return '<div class="lb">'+p[1].toUpperCase()+'</div><input type="number" min="0" id="'+p[0]+w[0]+'">'}).join('')+
+    '</div>';
+  $('wiersze').appendChild(d)});
+T.forEach(function(w){POLA.forEach(function(p){
+  $(p[0]+w[0]).oninput=function(){dane[w[0]]=dane[w[0]]||{};dane[w[0]][p[0]]=this.value;rysuj()}})});
+
+function ile(){var n=0;T.forEach(function(w){var a=dane[w[0]]||{};
+  POLA.forEach(function(p){if(a[p[0]]!==undefined&&a[p[0]]!=='')n++})});return n}
+function tabela(el){
+  var h='<tr><th>Tydzień</th><th>Klientów</th><th>Zostaje</th><th>Poprawek</th><th>W kolejce</th></tr>';
+  T.forEach(function(w){var a=dane[w[0]]||{};
+    h+='<tr><td><b>'+w[0]+'</b></td><td>'+(a.kl||'—')+'</td><td>'+(a.zl||'—')+'</td><td>'+(a.po||'—')+'</td><td>'+(a.ko||'—')+'</td></tr>'});
+  el.innerHTML=h}
+function trend(p){var v=T.map(function(w){var a=dane[w[0]]||{};return +a[p]||0});
+  if(v.some(function(x){return !x}))return null;return v[3]-v[0]}
+function rysuj(){
+  var n=ile();$('pc').textContent=n+' / 16';$('pi').style.width=(n/16*100)+'%';
+  tabela($('grid'));
+  if(n===16){
+    var dk=trend('kl'),dko=trend('ko'),dpo=trend('po');
+    $('kier').innerHTML='<div class="box '+(dk<0&&dko>0?'wine':'blue')+'"><b>KIERUNKI</b>'+
+      'Klienci '+(dk>0?'rosną o '+dk:'spadają o '+Math.abs(dk))+'. '+
+      'Kolejka '+(dko>0?'rośnie o '+dko:'maleje o '+Math.abs(dko))+'. '+
+      'Poprawki '+(dpo>0?'rosną o '+dpo:'maleją o '+Math.abs(dpo))+'.'+
+      (dk<0&&dko>0?' Klientów jest mniej, a kolejka rośnie — to jest ta para, która nie powinna się tak zachowywać.':'')+'</div>';
+  } else $('kier').innerHTML='';
+  $('doWyniku').textContent=n===16?'Przejdź do odczytu':'Odczyt ('+n+' z 16)';
+}
+function testDec(){var t=$('dec').value.trim();if(!t){$('testDec').innerHTML='';return}
+  var b=[];
+  if(!/(Paweł|Pawel|Kamil|Ola|ja |Ja )/.test(t))b.push('imienia osoby');
+  if(!/[a-ząćęłńóśżź]{3,}(uje|ie|a|i|ę|my|e)\b/.test(t))b.push('czasownika');
+  if(!/(poniedział|wtor|środ|srod|czwart|piąt|piat|sobot|codzien|tygodn|od jutra)/i.test(t))b.push('kiedy');
+  $('testDec').innerHTML='<div class="box '+(b.length?'gold2':'green')+'"><b>SPRAWDZENIE</b>'+
+    (b.length?'Nie widzę tu '+b.join(' ani ')+'. Piąta kolumna działa tylko wtedy, gdy wiadomo, kto, co i kiedy.'
+             :'Widzę osobę, czynność i termin. To jest decyzja, a nie postanowienie.')+'</div>'}
+$('start').onclick=function(){$('intro').classList.add('hide');$('zad').classList.remove('hide');rysuj()};
+$('doWyniku').onclick=function(){$('zad').classList.add('hide');$('wynik').classList.remove('hide');
+  tabela($('grid2'));
+  var z=Teczka.czytaj(PUNKT);
+  if(z){$('p1').value=z.p1||'';$('p2').value=z.p2||'';$('p3').value=z.p3||'';$('dec').value=z.dec||'';testDec()}
+  $('pokazKlucz').disabled=(ile()<16);window.scrollTo({top:0})};
+$('dec').oninput=function(){testDec();$('pokazKlucz').disabled=(ile()<16)};
+function tekst(){var s='ĆWICZENIE 16 — TABLICA NA KOLE\n\n';
+  T.forEach(function(w){var a=dane[w[0]]||{};
+    s+='Tydzień '+w[0]+': klientów '+(a.kl||'—')+', zostaje '+(a.zl||'—')+' zł, poprawek '+(a.po||'—')+', w kolejce '+(a.ko||'—')+'\n'});
+  s+='\n1. Co rośnie/spada: '+($('p1').value||'—')+'\n2. Dziwna para: '+($('p2').value||'—')+
+     '\n3. Poprawki wg osób: '+($('p3').value||'—')+'\n\nPIĄTA KOLUMNA: '+($('dec').value||'—')+'\n';return s}
+$('zapisz').onclick=function(){
+  var ok=Teczka.zapisz(PUNKT,{dane:dane,p1:$('p1').value,p2:$('p2').value,p3:$('p3').value,dec:$('dec').value});
+  $('stan').textContent=ok?'Zapisane. Ta tablica wraca w ćwiczeniu 17 — poprowadzisz na niej odprawę.'
+    :'Nie udało się zapisać — skopiuj tablicę.'};
+$('kopiuj').onclick=function(){Teczka.kopiuj(tekst(),this)};
+$('drukuj').onclick=function(){window.print()};
+$('pokazKlucz').onclick=function(){
+  $('klucz').innerHTML=
+   '<div class="box wine"><b>PARA, KTÓRA NIE POWINNA TAK WYGLĄDAĆ</b>Klientów jest coraz mniej — z sześćdziesięciu czterech do pięćdziesięciu sześciu. '+
+   'A kolejka rośnie z jedenastu do dwudziestu trzech. Gdyby problemem była sprzedaż, kolejka malałaby razem z liczbą klientów. '+
+   'Rośnie, więc problem jest po stronie przepustowości, nie po stronie rynku.</div>'+
+   '<div class="box gold2"><b>DLACZEGO PRZEPUSTOWOŚĆ SPADA</b>Poprawki rosną z dwóch do siedmiu tygodniowo. '+
+   'Poprawka to praca wykonana drugi raz za te same pieniądze — zjada moc, której nie widać w żadnym grafiku.</div>'+
+   '<div class="box blue"><b>ROZBICIE NA OSOBY</b>W tygodniu trzecim pięć z sześciu poprawek jest po Kamilu, w czwartym sześć z siedmiu. '+
+   'To nie jest informacja o tym, że Kamil się nie stara. To informacja o poziomie samodzielności — dostał zadania, do których nie został nauczony.</div>'+
+   '<div class="box green"><b>DECYZJA NA PIĄTY TYDZIEŃ</b>Nie „porozmawiać z Kamilem” i nie „przyjmować mniej rowerów”, tylko: '+
+   'w tym tygodniu blok uczenia dotyczy czynności, przy której powstają poprawki, a przez dwa tygodnie Paweł sprawdza każdą sztukę. '+
+   'Sprawdź, czy twoje zdanie w piątej kolumnie ma tę postać.</div>';
+  $('klucz').classList.remove('hide');this.disabled=true};
+$('odNowa').onclick=function(){if(!confirm('Skasować tablicę?'))return;
+  dane={};T.forEach(function(w){POLA.forEach(function(p){$(p[0]+w[0]).value=''})});
+  Teczka.usun(PUNKT);$('wynik').classList.add('hide');$('intro').classList.remove('hide');$('klucz').classList.add('hide');
+  ['p1','p2','p3','dec'].forEach(function(x){$(x).value=''});$('stan').textContent='';window.scrollTo({top:0})};
+(function(){var z=Teczka.czytaj(PUNKT);
+  if(z&&z.dane){dane=z.dane;
+    T.forEach(function(w){var a=dane[w[0]]||{};POLA.forEach(function(p){if(a[p[0]])$(p[0]+w[0]).value=a[p[0]]})});
+    $('wznow').textContent='Masz tu zapisaną tablicę z poprzedniego wejścia.'}})();
+
+</script>
+</body>
+</html>

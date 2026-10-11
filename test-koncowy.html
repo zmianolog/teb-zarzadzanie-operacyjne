@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test podsumowujący · Zarządzanie operacyjne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F4460; --navy-d:#163450; --navy-x:#102839;
+  --gold:#E8B62C; --gold-d:#5C4810; --gold-t:#FDF4DC;
+  --text:#2C3540; --mid:#6B7680; --line:#D8DDE3; --bg:#F5F5F7;
+  --dim:#C3D2DE; --green:#1E6B4F; --green-t:#ECF6F1; --wine:#8E2749; --wine-t:#F7ECF0;
+  --blue-t:#F0F6FB;
+  --f:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 0 44px;background:var(--bg);color:var(--text);
+  font-family:var(--f);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{background:var(--navy-x);color:#fff;margin:0 -16px 18px;padding:30px 16px 26px}
+header .in{max-width:1080px;margin:0 auto}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--gold)}
+h1{margin:12px 0 10px;font-size:29px;line-height:1.12;font-weight:700;letter-spacing:-.3px}
+header p{margin:0;color:var(--dim);font-size:14.5px;max-width:56ch}
+.wroc{display:inline-block;margin-bottom:4px;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  color:var(--dim);text-decoration:none}
+.wroc:hover{color:var(--gold)}
+h2{font-size:10.5px;letter-spacing:1.8px;color:var(--mid);margin:0 0 12px;font-weight:700}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 16px;margin:12px 0}
+.krok{display:flex;gap:12px;align-items:flex-start;margin:0 0 10px}
+.krok .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--gold);color:var(--gold-d);
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.krok p{margin:0;font-size:14.5px;line-height:1.45}
+.wyj{background:var(--gold);color:var(--gold-d);border-radius:8px;padding:16px;margin:14px 0}
+.wyj b{display:block;font-size:10px;font-weight:700;letter-spacing:1.6px;margin-bottom:7px}
+.wyj p{margin:0;font-size:14px;line-height:1.45}
+.dane{background:var(--blue-t);border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13.5px}
+.dane b{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--navy);margin-bottom:6px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:4px;
+  display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.prog{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.count{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;letter-spacing:.4px}
+.nrk{font-size:10.5px;font-weight:700;letter-spacing:1.6px;color:var(--gold)}
+.sprawa{font-size:20px;font-weight:700;color:var(--navy);line-height:1.28;margin:8px 0 6px}
+.od{font-size:12px;color:var(--mid);margin:0 0 4px;letter-spacing:.3px}
+.pyt{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--mid);margin:20px 0 8px;
+  padding-top:14px;border-top:1px solid var(--line)}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opts.dwa{grid-template-columns:1fr 1fr}
+.opts.trzy{grid-template-columns:1fr}
+button.opt{text-align:left;font:inherit;font-size:14.5px;cursor:pointer;min-height:50px;width:100%;
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:11px 13px;color:var(--text);
+  display:flex;gap:10px;align-items:center;transition:.12s}
+button.opt:hover{border-color:var(--navy);background:var(--blue-t)}
+button.opt .m{color:var(--gold);font-size:17px;flex:0 0 auto;line-height:1}
+button.opt small{display:block;font-size:11.5px;opacity:.7;font-weight:400;margin-top:1px}
+button.opt b{font-weight:700}
+button.opt.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+button.opt.sel .m{color:var(--gold)}
+.nav{display:flex;gap:8px;margin-top:18px}
+.nav .btn{flex:1}
+.btn{font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;border-radius:7px;padding:13px 18px;
+  min-height:48px;border:none;letter-spacing:.2px}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);color:var(--gold-d)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.35;cursor:default}
+.akcje{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.akcje .btn{flex:1 1 auto}
+.siatka{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.kw{aspect-ratio:1;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;
+  font-size:13px;font-weight:700;color:var(--mid);cursor:pointer;padding:0}
+.kw.ok{background:var(--navy);border-color:var(--navy);color:#fff}
+.kw.tu{outline:2px solid var(--gold);outline-offset:1px}
+.big{background:var(--navy-x);color:#fff;border-radius:8px;padding:26px 20px;text-align:center;margin:12px 0}
+.big .num{font-size:52px;font-weight:700;line-height:1;color:var(--gold);letter-spacing:-1px}
+.big .lab{font-size:12.5px;color:var(--dim);margin-top:10px;max-width:36ch;margin-left:auto;margin-right:auto}
+.tab{display:grid;grid-template-columns:1fr auto;gap:0 12px;font-size:14.5px}
+.tab .n{padding:10px 0;border-bottom:1px solid var(--line)}
+.tab .v{padding:10px 0;border-bottom:1px solid var(--line);font-weight:700;color:var(--navy);text-align:right}
+.tab .n.s,.tab .v.s{border-bottom:none;border-top:2px solid var(--navy);font-weight:700}
+label.f{display:block;font-size:10px;font-weight:700;letter-spacing:1.3px;color:var(--mid);margin:16px 0 6px}
+input[type=text],input[type=number],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--text);
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:12px}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+textarea{min-height:84px;resize:vertical}
+.msg{font-size:12.5px;color:var(--mid);margin-top:10px;min-height:18px}
+.por{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;font-size:13.5px;
+  padding:9px 0;border-bottom:1px solid var(--line)}
+.por .zn{font-weight:700}
+.por.z .zn{color:var(--green)} .por.r .zn{color:var(--wine)}
+.box{border-radius:7px;padding:14px;margin:12px 0;font-size:13.5px;line-height:1.45}
+.box b{display:block;font-size:10px;letter-spacing:1.4px;margin-bottom:6px}
+.box.blue{background:var(--blue-t)} .box.blue b{color:var(--navy)}
+.box.green{background:var(--green-t)} .box.green b{color:var(--green)}
+.box.gold2{background:var(--gold-t)} .box.gold2 b{color:var(--gold-d)}
+.box.wine{background:var(--wine-t)} .box.wine b{color:var(--wine)}
+.wz{display:grid;grid-template-columns:1fr;gap:10px}
+.wz .row{border:1px solid var(--line);border-radius:7px;padding:12px;background:#fff}
+.wz .row.wzor{background:var(--gold-t);border-color:var(--gold)}
+.wz .row h3{margin:0 0 8px;font-size:15px;color:var(--navy);font-weight:700;line-height:1.3}
+.wz .row .lb{font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--mid);margin:10px 0 5px}
+.mini{font-size:12.5px;color:var(--mid);margin:4px 0 0}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{background:var(--navy);color:#fff;text-align:left;padding:9px 10px;font-size:11.5px;
+  letter-spacing:.6px;font-weight:700}
+table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:nth-child(even) td{background:var(--bg)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mid);
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hide{display:none!important}
+@media (min-width:660px){
+  header{padding:40px 16px 34px} h1{font-size:36px}
+  .card{padding:22px 24px}
+  .opts{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .opts.trzy{grid-template-columns:repeat(3,1fr)}
+  .akcje .btn{flex:0 0 auto}
+  .kroki2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  .wz{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1000px){
+  .wrap{padding:0 32px}
+  header{padding:48px 32px 40px}
+  h1{font-size:42px}
+  header p{font-size:15.5px;max-width:66ch}
+  .big .num{font-size:62px}
+}
+@media print{body{background:#fff}.bar,.akcje,.nav,.noprint{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header><div class="in">
+  <a class="wroc" href="index.html">← WSZYSTKIE ĆWICZENIA</a>
+  <div class="kicker">TEST KOŃCOWY · 25 MINUT · 20 PYTAŃ · INDYWIDUALNIE</div>
+  <h1>Test podsumowujący</h1>
+  <p>Dwadzieścia pytań z całego kursu, po pięć z każdego dnia. Przy każdym pytaniu jedna odpowiedź jest poprawna. Wynik zobaczysz z rozbiciem na dni, więc od razu wiadomo, do czego wrócić.</p>
+</div></header>
+
+<div class="wrap">
+
+<section id="intro">
+  <div class="card">
+    <div class="kroki2">
+    <div class="krok"><div class="n">1</div><p>Odpowiadaj po kolei. Możesz wrócić do każdego pytania przed zakończeniem — po zakończeniu już nie.</p></div>
+    <div class="krok"><div class="n">2</div><p>Przy każdym pytaniu jest dokładnie jedna poprawna odpowiedź. Pozostałe trzy brzmią sensownie i właśnie o to chodzi.</p></div>
+    <div class="krok"><div class="n">3</div><p>Nie zaglądaj do materiałów. Jeżeli nie wiesz, zaznacz to, co wydaje ci się najbliższe — zobaczysz wyjaśnienie na końcu.</p></div>
+    <div class="krok"><div class="n">4</div><p>Po zakończeniu dostajesz wynik ogólny, wynik z każdego dnia i wyjaśnienie do każdego pytania.</p></div>
+    </div>
+    <div class="dane"><b>SKĄD DANE</b>Nie potrzebujesz karty firmy ani notatek. Test sprawdza to, co zostało, a nie to, co da się odszukać.</div>
+    <div class="wyj"><b>GOTOWE, KIEDY</b><p>odpowiedziałeś na wszystkie dwadzieścia pytań i przeczytałeś wyjaśnienia przy tych, w których się pomyliłeś.</p></div>
+    <div class="akcje"><button class="btn primary" id="start">Zaczynam</button></div>
+    <div class="msg" id="wznow"></div>
+  </div>
+</section>
+
+
+<section id="zad" class="hide">
+  <div class="bar"><div class="prog"><i id="pi"></i></div><div class="count" id="pc">0 / 20</div></div>
+  <div class="card">
+    <div class="nrk" id="nrk">PYTANIE 1 Z 20</div>
+    <p class="sprawa" id="tresc"></p>
+    <div class="opts" id="odp"></div>
+    <div class="nav">
+      <button class="btn ghost" id="wstecz">Wstecz</button>
+      <button class="btn primary" id="dalej">Dalej</button>
+    </div>
+  </div>
+  <div class="card noprint">
+    <h2>WSZYSTKIE PYTANIA</h2>
+    <div class="siatka" id="siatka" style="grid-template-columns:repeat(5,1fr)"></div>
+    <div class="akcje"><button class="btn gold" id="doWyniku">Zakończ test</button></div>
+    <div class="msg" id="info"></div>
+  </div>
+</section>
+
+<section id="wynik" class="hide">
+  <div class="big"><div class="num" id="pkt">—</div>
+    <div class="lab">poprawnych odpowiedzi na dwadzieścia pytań</div></div>
+  <div class="card"><h2>WYNIK Z KAŻDEGO DNIA</h2><div class="tab" id="tabDni"></div>
+    <div id="rada"></div></div>
+  <div class="card">
+    <h2>WSZYSTKIE PYTANIA Z WYJAŚNIENIEM</h2>
+    <div id="lista"></div>
+  </div>
+  <div class="card">
+    <div class="akcje">
+      <button class="btn primary" id="zapisz">Zapisz do teczki</button>
+      <button class="btn ghost" id="kopiuj">Kopiuj wynik</button>
+      <button class="btn ghost noprint" id="drukuj">Drukuj</button>
+      <button class="btn ghost noprint" id="odNowa">Zacznij od nowa</button>
+    </div>
+    <div class="msg" id="stan"></div>
+  </div>
+</section>
+
+<footer>
+  <span>ZMIANOLOGICA · dr Marcin Żółtak</span>
+  <span>Zarządzanie operacyjne · test podsumowujący · dni 1–4</span>
+</footer>
+</div>
+
+<script>
+
+var Teczka=(function(){var K='zo-nakole-v1';
+function all(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+function put(o){try{localStorage.setItem(K,JSON.stringify(o));return true}catch(e){return false}}
+return{zapisz:function(p,d){var a=all();a[p]={dane:d,ts:Date.now()};return put(a)},
+ czytaj:function(p){var w=all()[p];return w?w.dane:null},
+ usun:function(p){var a=all();delete a[p];return put(a)},
+ lista:function(){return Object.keys(all())},
+ kopiuj:function(t,btn){function ok(){if(!btn)return;var s=btn.textContent;btn.textContent='Skopiowane';
+   setTimeout(function(){btn.textContent=s},1600)}
+  function zap(){var e=document.createElement('textarea');e.value=t;e.style.position='fixed';e.style.opacity='0';
+   document.body.appendChild(e);e.select();try{document.execCommand('copy');ok()}catch(x){}document.body.removeChild(e)}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,zap)}else{zap()}}
+}})();
+var $=function(x){return document.getElementById(x)};
+
+var PUNKT='TEST';
+
+var P=[[1,"1.1","Kierowanie sprowadza się do trzech czynności. Dwie z nich to rozdzielanie pracy i uczenie. Która jest trzecia?",["Sprawdzanie wyniku","Wykonywanie najtrudniejszych zleceń","Rozmowa z klientami","Zamawianie materiałów"],0,"Sprawdzanie wyniku. Pozostałe trzy odpowiedzi to praca wykonawcy — potrzebna, ale wykonuje ją także ktoś, kto nikim nie kieruje."],[1,"1.2","Ola przychodzi zapytać, jaką cenę wpisać za usługę nietypową. Cennik jest w komputerze Pawła. Który to powód przerwania?",["Nie umie","Nie wie","Nie ma czym","Nie wolno mu"],1,"Nie wie. Informacja istnieje, ale nie tam, gdzie wykonywana jest praca. Lekarstwo: cennik przyklejony przy ladzie, a nie odpowiedź na pytanie."],[1,"1.3","Ile celów stawiasz na kwartał w firmie zatrudniającej dwie osoby?",["Po jednym celu na każdego pracownika","Tyle, ile wymaga sytuacja — limit ogranicza rozwój","Jeden cel biznesowy i najwyżej dwa priorytety operacyjne","Jeden cel, bez podziału na rodzaje"],2,"Jeden biznesowy i najwyżej dwa operacyjne. Powód jest arytmetyczny: na pracę nad firmą zostaje kilka godzin tygodniowo, a trzy pozycje da się przy takim budżecie doprowadzić do końca."],[1,"1.4","Cel jest poprawnie zapisany — ma liczbę, datę i osobę — ale nie ma dla niego godzin w kalendarzu. Co z tego wynika?",["Nic, zapis jest ważniejszy od kalendarza","Cel zostanie zrealizowany później niż planowano","Trzeba go rozbić na mniejsze cele","Cel jest deklaracją i nie zdarzy się"],3,"Jest deklaracją. Praca nad firmą jako jedyna nie upomina się o siebie, więc bez wyznaczonej godziny przegrywa z każdym klientem, który akurat wejdzie."],[1,"1.1","Dlaczego „szybciej zrobię sam” jest prawdą w piątek, a nieprawdą w skali roku?",["Bo w piątek jest mniej klientów niż w inne dni","Bo koszt nauczenia płacisz raz, a koszt nienauczenia co tydzień","Bo pracownik i tak zrobi to gorzej","Bo w piątek nie ma czasu na uczenie"],1,"Koszt nauczenia płacisz raz i z góry, koszt nienauczenia płacisz przy każdym powtórzeniu. Czterdzieści minut tygodniowo przez rok to ponad trzydzieści godzin wobec trzech na naukę."],[2,"2.1","Które trzy rzeczy klient faktycznie ocenia?",["Cenę, jakość i szybkość","Fachowość, cenę i lokalizację","Czas, powtarzalność i kontakt","Wygląd lokalu, obsługę i termin"],2,"Czas, powtarzalność i kontakt. Na fachowości klient się nie zna i zakłada ją z góry; ocenia to, co jest w stanie zauważyć."],[2,"2.2","Mapa procesu ma cztery kolumny. Która z nich decyduje o tym, czy krok da się komuś oddać?",["Kto go wykonuje","Ile trwa","Co może pójść źle","Co jest gotowe po tym kroku"],3,"Co jest gotowe po tym kroku. Bez opisanego efektu krok jest tylko nazwą czynności — nie da się sprawdzić, czy został wykonany, ani powierzyć go komuś bez stania nad ramieniem."],[2,"2.3","W procesie znalazłeś krok, w którym rower czeka dwa dni. Co się z takim czasem robi?",["Skraca się go, zmieniając kolejność albo usuwając powód czekania","Wypełnia się go inną pracą","Wlicza się go w termin podawany klientowi","Nic — czekanie jest nieuniknione"],0,"Skraca. Wypełnianie czekania inną pracą to najczęstszy błędny odruch — po nim w firmie robi się jeszcze ciaśniej, a czas przejścia się nie zmienia."],[2,"2.3","Po czym poznaje się wąskie gardło?",["Po tym, że jest to najdłuższa czynność w procesie","Po tym, że pracuje przy nim najmniej doświadczona osoba","Po tym, że rzeczy gromadzą się przed nim","Po tym, że najczęściej powstają tam błędy"],2,"Po kolejce, która przed nim rośnie. W Na Kole najdłuższą czynnością jest naprawa, ale wąskim gardłem jest zamawianie części po diagnozie — bo to tam wszystko czeka."],[2,"2.4","Biznesplan zakładał dwadzieścia jeden zleceń dziennie. Realnie mieści się około dwunastu. Skąd bierze się ta różnica?",["Z sezonowości i słabszego popytu","Z tego, że pracownicy pracują wolniej niż właściciel","Z błędu w biznesplanie, który zawyżył ceny","Z przerwań, zleceń dostępnych tylko dla jednej osoby i wolniejszego tempa uczącego się"],3,"Plan zakłada pracę bez przerwań, jednakowy typ wszystkich zleceń i pełne tempo każdej osoby od pierwszego dnia. Żadne z tych trzech założeń się nie zdarza."],[3,"3.1","Kiedy piszesz standard do czynności?",["Przy drugim powtórzeniu tego samego błędu","Po pierwszym błędzie","Zanim ktokolwiek zacznie ją wykonywać","Raz w roku, przy przeglądzie dokumentacji"],0,"Przy drugim powtórzeniu. Pierwszy błąd bywa przypadkiem; drugi jest informacją o konstrukcji pracy, a nie o człowieku."],[3,"3.1","Kto powinien napisać kartę standardu?",["Właściciel, bo on odpowiada za wynik","Osoba, która tę czynność wykonuje","Osoba najbardziej doświadczona w firmie","Ktoś z zewnątrz, żeby zachować obiektywizm"],1,"Osoba wykonująca — ona zna kroki, których właściciel dawno przestał zauważać. Właściciel zatwierdza i uzupełnia pole „na co uważać” o rzeczy znane z reklamacji."],[3,"3.2","Instruktaż ma cztery kroki: powiedz i pokaż, zróbcie razem, niech zrobi sam przy tobie. Który jest czwarty?",["Pochwal za dobrze wykonaną pracę","Zapisz czynność w standardzie","Przekaż odpowiedzialność za całe zadanie","Sprawdź po tygodniu"],3,"Sprawdzenie po tygodniu. To najczęściej pomijany krok — instruktaż wydaje się skończony, gdy człowiek raz wykonał czynność poprawnie, a wtedy nie wiadomo, co zostało i co zdążył sobie uprościć."],[3,"3.3","Kamil jest samodzielny w przeglądach, uczy się hamulców hydraulicznych i nigdy nie centrował koła. Co z tego wynika?",["Poziom samodzielności dotyczy pary człowiek–zadanie, nie samego człowieka","Kamil jest pracownikiem na poziomie średnim","Kamil powinien najpierw opanować wszystko na jednym poziomie","Poziom zależy od stażu pracy w firmie"],0,"Poziom przypisuje się parze człowiek–zadanie. Ta sama osoba jest jednego dnia na trzech różnych poziomach, a przy nowym typie usługi wszyscy wracają na poziom pierwszy."],[3,"3.4","Które czynności oddajesz w pierwszej kolejności?",["Najbardziej uciążliwe, bo one najbardziej męczą","Powtarzalne, o największym iloczynie częstości i czasu","Najtrudniejsze, bo tylko one wymagają twoich kompetencji","Te, które lubisz najmniej"],1,"Powtarzalne i nudne. Nauka jest krótka, wyjątków mało, a odzyskany czas duży. Rzeczy trudne i rzadkie oddane najpierw wracają po tygodniu w postaci pytań."],[4,"4.1","Miara musi przejść cztery pytania: co mierzę, skąd dane, kto liczy i jak często. Jakie jest czwarte?",["Ile to kosztuje","Kto za to odpowiada","Przy jakiej wartości reaguję","Jak długo mierzymy"],2,"Próg reakcji. Bez niego liczba jest ciekawostką — patrzysz na nią i nic z tego nie wynika."],[4,"4.1","Co odróżnia tablicę, która jest narzędziem sterowania, od tablicy informacyjnej?",["Kolumna z decyzją na najbliższy tydzień","Miejsce, w którym wisi","Liczba mierzonych wskaźników","Częstotliwość aktualizacji"],0,"Piąta kolumna: jedno zdanie tygodniowo o tym, co robimy inaczej. Bez niej ludzie patrzą na tablicę przez dwa tygodnie, a potem przestają, bo z patrzenia nic nie wynika."],[4,"4.2","Odprawa ma pięć punktów. Który z nich decyduje o tym, że nie jest tylko porannym rytuałem?",["Odczytanie liczby z tablicy","Przydział pracy na dziś","Ustalenie, co robimy inaczej od dziś","Zgłoszenie blokad"],2,"Punkt piąty. Pierwsze cztery to zwykła poranna informacja; dopiero ustalenie sprawia, że nazajutrz jest co sprawdzić w punkcie pierwszym."],[4,"4.3","Prowadzisz pięć razy „dlaczego”. Po czym poznajesz, że doszedłeś do właściwego poziomu?",["Po tym, że wiadomo, kto zawinił","Po tym, że odpowiedź przestaje dotyczyć człowieka, a zaczyna dotyczyć sposobu pracy","Po tym, że padło dokładnie pięć pytań","Po tym, że wszyscy zgadzają się co do przyczyny"],1,"Gdy odpowiedź dotyczy konstrukcji pracy. „Nie chciało mu się” prawie zawsze oznacza, że przerwaliśmy szukanie za wcześnie — bo z tej odpowiedzi nie wynika żadne działanie poza rozmową."],[4,"4.3","Kiedy zmiana wprowadzona po problemie jest naprawdę domknięta?",["Gdy zespół został o niej poinformowany na odprawie","Gdy problem nie powtórzył się przez miesiąc","Gdy właściciel ją zatwierdził","Gdy jest zapisana w standardzie albo w mapie procesu"],3,"Gdy jest zapisana w miejscu, do którego ktoś zagląda. Zmiana zapisana w zeszycie odprawy żyje do końca tygodnia; wpisana do standardu żyje tak długo, jak długo standard służy do uczenia następnej osoby."]];
+var odp={},i=0,zakonczony=false;
+
+P[0][3].forEach(function(_,k){
+  var b=document.createElement('button');b.type='button';b.className='opt';b.dataset.k=k;
+  b.innerHTML='<span class="m">'+String.fromCharCode(65+k)+'</span><span><b></b></span>';
+  b.onclick=function(){if(zakonczony)return;odp[i]=k;rysuj();
+    if(i<19)setTimeout(function(){i++;rysuj();window.scrollTo({top:0,behavior:'smooth'})},240)};
+  $('odp').appendChild(b)});
+for(var s=0;s<20;s++){(function(n){
+  var b=document.createElement('button');b.type='button';b.className='kw';b.textContent=n+1;b.id='kw'+n;
+  b.onclick=function(){i=n;rysuj();window.scrollTo({top:0,behavior:'smooth'})};
+  $('siatka').appendChild(b)})(s)}
+
+function ile(){var n=0;for(var k in odp)n++;return n}
+function rysuj(){
+  var w=P[i];
+  $('nrk').textContent='PYTANIE '+(i+1)+' Z 20  ·  DZIEŃ '+w[0];
+  $('tresc').textContent=w[2];
+  [].forEach.call($('odp').children,function(b,k){
+    b.querySelector('b').textContent=w[3][k];
+    b.classList.toggle('sel',odp[i]===k)});
+  $('wstecz').disabled=(i===0);$('dalej').disabled=(i===19);
+  var n=ile();$('pc').textContent=n+' / 20';$('pi').style.width=(n/20*100)+'%';
+  for(var s=0;s<20;s++){var kw=$('kw'+s);kw.classList.toggle('ok',odp[s]!==undefined);kw.classList.toggle('tu',s===i)}
+  $('doWyniku').textContent=n===20?'Zakończ test':'Zakończ test ('+n+' z 20)';
+}
+function licz(){
+  var pkt=0,dni={1:{p:0,n:0},2:{p:0,n:0},3:{p:0,n:0},4:{p:0,n:0}};
+  P.forEach(function(w,k){var d=w[0];dni[d].n++;
+    if(odp[k]===w[4]){pkt++;dni[d].p++}});
+  return{pkt:pkt,dni:dni};
+}
+$('start').onclick=function(){$('intro').classList.add('hide');$('zad').classList.remove('hide');rysuj()};
+$('wstecz').onclick=function(){if(i>0){i--;rysuj();window.scrollTo({top:0})}};
+$('dalej').onclick=function(){if(i<19){i++;rysuj();window.scrollTo({top:0})}};
+$('doWyniku').onclick=function(){
+  if(ile()<20){if(!confirm('Nie odpowiedziałeś na '+(20-ile())+' pytań. Zakończyć mimo to?'))return}
+  zakonczony=true;
+  var x=licz();
+  $('zad').classList.add('hide');$('wynik').classList.remove('hide');
+  $('pkt').textContent=x.pkt;
+  var h='',naj=0,najd=0;
+  [1,2,3,4].forEach(function(d){
+    var proc=Math.round(x.dni[d].p/x.dni[d].n*100);
+    if(x.dni[d].p<=naj||najd===0){if(najd===0||x.dni[d].p<naj){naj=x.dni[d].p;najd=d}}
+    h+='<div class="n">Dzień '+d+'</div><div class="v">'+x.dni[d].p+' / '+x.dni[d].n+'  ('+proc+'%)</div>'});
+  h+='<div class="n s">Razem</div><div class="v s">'+x.pkt+' / 20</div>';
+  $('tabDni').innerHTML=h;
+  var proc=Math.round(x.pkt/20*100);
+  $('rada').innerHTML='<div class="box '+(proc>=80?'green':proc>=60?'gold2':'wine')+'"><b>CO Z TEGO WYNIKA</b>'+
+    (proc>=80?'Materiał siedzi. Wróć tylko do pytań, w których się pomyliłeś — wyjaśnienia są niżej.'
+     :proc>=60?'Podstawa jest, ale są luki. Najsłabiej wypadł dzień '+najd+' — do niego wróć w pierwszej kolejności.'
+     :'Warto przejść materiał jeszcze raz, zaczynając od dnia '+najd+'. Wyjaśnienia niżej mówią, o co chodziło w każdym pytaniu.')+
+    '</div>';
+  var l='';
+  P.forEach(function(w,k){
+    var ok=(odp[k]===w[4]);
+    l+='<div class="box '+(ok?'green':'wine')+'"><b>'+(k+1)+' · DZIEŃ '+w[0]+' · CZĘŚĆ '+w[1]+'</b>'+
+       '<span style="display:block;font-weight:700;margin-bottom:6px">'+w[2]+'</span>'+
+       '<span style="display:block;margin-bottom:4px">Poprawna: <b>'+w[3][w[4]]+'</b></span>'+
+       (odp[k]===undefined?'<span style="display:block;margin-bottom:6px">Nie odpowiedziałeś.</span>'
+        :ok?'':'<span style="display:block;margin-bottom:6px">Ty: '+w[3][odp[k]]+'</span>')+
+       w[5]+'</div>'});
+  $('lista').innerHTML=l;
+  window.scrollTo({top:0});
+};
+function tekst(){var x=licz(),s='TEST PODSUMOWUJĄCY — ZARZĄDZANIE OPERACYJNE\n\n';
+  s+='Wynik: '+x.pkt+' / 20\n';
+  [1,2,3,4].forEach(function(d){s+='  dzień '+d+': '+x.dni[d].p+' / '+x.dni[d].n+'\n'});
+  s+='\nBłędne odpowiedzi:\n';
+  P.forEach(function(w,k){if(odp[k]!==w[4])s+='  '+(k+1)+'. (cz. '+w[1]+') '+w[2]+'\n'});
+  return s}
+$('zapisz').onclick=function(){var x=licz();
+  var ok=Teczka.zapisz('TEST',{odp:odp,pkt:x.pkt,dni:x.dni});
+  $('stan').textContent=ok?'Zapisane w teczce.':'Nie udało się zapisać — skopiuj wynik.'};
+$('kopiuj').onclick=function(){Teczka.kopiuj(tekst(),this)};
+$('drukuj').onclick=function(){window.print()};
+$('odNowa').onclick=function(){if(!confirm('Skasować odpowiedzi i zacząć test od nowa?'))return;
+  odp={};i=0;zakonczony=false;Teczka.usun('TEST');
+  $('wynik').classList.add('hide');$('intro').classList.remove('hide');
+  $('stan').textContent='';window.scrollTo({top:0})};
+(function(){var z=Teczka.czytaj('TEST');
+  if(z&&z.pkt!==undefined)$('wznow').textContent='Ten test masz już wypełniony — poprzedni wynik to '+z.pkt+' na 20.'})();
+
+</script>
+</body>
+</html>

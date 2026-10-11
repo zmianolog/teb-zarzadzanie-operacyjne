@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ćwiczenie 12 · Scenki instruktażowe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F4460; --navy-d:#163450; --navy-x:#102839;
+  --gold:#E8B62C; --gold-d:#5C4810; --gold-t:#FDF4DC;
+  --text:#2C3540; --mid:#6B7680; --line:#D8DDE3; --bg:#F5F5F7;
+  --dim:#C3D2DE; --green:#1E6B4F; --green-t:#ECF6F1; --wine:#8E2749; --wine-t:#F7ECF0;
+  --blue-t:#F0F6FB;
+  --f:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 0 44px;background:var(--bg);color:var(--text);
+  font-family:var(--f);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{background:var(--navy-x);color:#fff;margin:0 -16px 18px;padding:30px 16px 26px}
+header .in{max-width:1080px;margin:0 auto}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--gold)}
+h1{margin:12px 0 10px;font-size:29px;line-height:1.12;font-weight:700;letter-spacing:-.3px}
+header p{margin:0;color:var(--dim);font-size:14.5px;max-width:56ch}
+.wroc{display:inline-block;margin-bottom:4px;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  color:var(--dim);text-decoration:none}
+.wroc:hover{color:var(--gold)}
+h2{font-size:10.5px;letter-spacing:1.8px;color:var(--mid);margin:0 0 12px;font-weight:700}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 16px;margin:12px 0}
+.krok{display:flex;gap:12px;align-items:flex-start;margin:0 0 10px}
+.krok .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--gold);color:var(--gold-d);
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.krok p{margin:0;font-size:14.5px;line-height:1.45}
+.wyj{background:var(--gold);color:var(--gold-d);border-radius:8px;padding:16px;margin:14px 0}
+.wyj b{display:block;font-size:10px;font-weight:700;letter-spacing:1.6px;margin-bottom:7px}
+.wyj p{margin:0;font-size:14px;line-height:1.45}
+.dane{background:var(--blue-t);border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13.5px}
+.dane b{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--navy);margin-bottom:6px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:4px;
+  display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.prog{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.count{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;letter-spacing:.4px}
+.nrk{font-size:10.5px;font-weight:700;letter-spacing:1.6px;color:var(--gold)}
+.sprawa{font-size:20px;font-weight:700;color:var(--navy);line-height:1.28;margin:8px 0 6px}
+.od{font-size:12px;color:var(--mid);margin:0 0 4px;letter-spacing:.3px}
+.pyt{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--mid);margin:20px 0 8px;
+  padding-top:14px;border-top:1px solid var(--line)}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opts.dwa{grid-template-columns:1fr 1fr}
+.opts.trzy{grid-template-columns:1fr}
+button.opt{text-align:left;font:inherit;font-size:14.5px;cursor:pointer;min-height:50px;width:100%;
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:11px 13px;color:var(--text);
+  display:flex;gap:10px;align-items:center;transition:.12s}
+button.opt:hover{border-color:var(--navy);background:var(--blue-t)}
+button.opt .m{color:var(--gold);font-size:17px;flex:0 0 auto;line-height:1}
+button.opt small{display:block;font-size:11.5px;opacity:.7;font-weight:400;margin-top:1px}
+button.opt b{font-weight:700}
+button.opt.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+button.opt.sel .m{color:var(--gold)}
+.nav{display:flex;gap:8px;margin-top:18px}
+.nav .btn{flex:1}
+.btn{font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;border-radius:7px;padding:13px 18px;
+  min-height:48px;border:none;letter-spacing:.2px}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);color:var(--gold-d)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.35;cursor:default}
+.akcje{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.akcje .btn{flex:1 1 auto}
+.siatka{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.kw{aspect-ratio:1;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;
+  font-size:13px;font-weight:700;color:var(--mid);cursor:pointer;padding:0}
+.kw.ok{background:var(--navy);border-color:var(--navy);color:#fff}
+.kw.tu{outline:2px solid var(--gold);outline-offset:1px}
+.big{background:var(--navy-x);color:#fff;border-radius:8px;padding:26px 20px;text-align:center;margin:12px 0}
+.big .num{font-size:52px;font-weight:700;line-height:1;color:var(--gold);letter-spacing:-1px}
+.big .lab{font-size:12.5px;color:var(--dim);margin-top:10px;max-width:36ch;margin-left:auto;margin-right:auto}
+.tab{display:grid;grid-template-columns:1fr auto;gap:0 12px;font-size:14.5px}
+.tab .n{padding:10px 0;border-bottom:1px solid var(--line)}
+.tab .v{padding:10px 0;border-bottom:1px solid var(--line);font-weight:700;color:var(--navy);text-align:right}
+.tab .n.s,.tab .v.s{border-bottom:none;border-top:2px solid var(--navy);font-weight:700}
+label.f{display:block;font-size:10px;font-weight:700;letter-spacing:1.3px;color:var(--mid);margin:16px 0 6px}
+input[type=text],input[type=number],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--text);
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:12px}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+textarea{min-height:84px;resize:vertical}
+.msg{font-size:12.5px;color:var(--mid);margin-top:10px;min-height:18px}
+.por{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;font-size:13.5px;
+  padding:9px 0;border-bottom:1px solid var(--line)}
+.por .zn{font-weight:700}
+.por.z .zn{color:var(--green)} .por.r .zn{color:var(--wine)}
+.box{border-radius:7px;padding:14px;margin:12px 0;font-size:13.5px;line-height:1.45}
+.box b{display:block;font-size:10px;letter-spacing:1.4px;margin-bottom:6px}
+.box.blue{background:var(--blue-t)} .box.blue b{color:var(--navy)}
+.box.green{background:var(--green-t)} .box.green b{color:var(--green)}
+.box.gold2{background:var(--gold-t)} .box.gold2 b{color:var(--gold-d)}
+.box.wine{background:var(--wine-t)} .box.wine b{color:var(--wine)}
+.wz{display:grid;grid-template-columns:1fr;gap:10px}
+.wz .row{border:1px solid var(--line);border-radius:7px;padding:12px;background:#fff}
+.wz .row.wzor{background:var(--gold-t);border-color:var(--gold)}
+.wz .row h3{margin:0 0 8px;font-size:15px;color:var(--navy);font-weight:700;line-height:1.3}
+.wz .row .lb{font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--mid);margin:10px 0 5px}
+.mini{font-size:12.5px;color:var(--mid);margin:4px 0 0}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{background:var(--navy);color:#fff;text-align:left;padding:9px 10px;font-size:11.5px;
+  letter-spacing:.6px;font-weight:700}
+table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:nth-child(even) td{background:var(--bg)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mid);
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hide{display:none!important}
+@media (min-width:660px){
+  header{padding:40px 16px 34px} h1{font-size:36px}
+  .card{padding:22px 24px}
+  .opts{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .opts.trzy{grid-template-columns:repeat(3,1fr)}
+  .akcje .btn{flex:0 0 auto}
+  .kroki2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  .wz{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1000px){
+  .wrap{padding:0 32px}
+  header{padding:48px 32px 40px}
+  h1{font-size:42px}
+  header p{font-size:15.5px;max-width:66ch}
+  .big .num{font-size:62px}
+}
+@media print{body{background:#fff}.bar,.akcje,.nav,.noprint{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header><div class="in">
+  <a class="wroc" href="index.html">← WSZYSTKIE ĆWICZENIA</a>
+  <div class="kicker">ĆWICZENIE 12 · 30 MINUT · W PARACH Z OBSERWATOREM</div>
+  <h1>Scenki instruktażowe</h1>
+  <p>Trzy rundy po siedem minut. W każdej jedna osoba uczy, druga się uczy, trzecia obserwuje z listą kontrolną. Czynności są opisane na karcie — nie musisz znać tej branży.</p>
+</div></header>
+
+<div class="wrap">
+
+<section id="intro">
+  <div class="card">
+    <div class="kroki2">
+    <div class="krok"><div class="n">1</div><p>Dobierzcie się w trójki i rozdzielcie role: uczący, uczący się, obserwator.</p></div>
+    <div class="krok"><div class="n">2</div><p>Uczący wybiera czynność i czyta jej opis. Uczący się nie czyta — ma się dowiedzieć wszystkiego od uczącego.</p></div>
+    <div class="krok"><div class="n">3</div><p>Przeprowadź instruktaż w czterech krokach. Na krok trzeci — samodzielne wykonanie — przeznacz co najmniej połowę czasu.</p></div>
+    <div class="krok"><div class="n">4</div><p>Zakończ jednym z trzech pytań sprawdzających zrozumienie. Nie pytaj „wszystko jasne”.</p></div>
+    <div class="krok"><div class="n">5</div><p>Obserwator odhacza listę kontrolną i zapisuje, który krok został pominięty.</p></div>
+    <div class="krok"><div class="n">6</div><p>Zamieńcie się rolami. Trzy rundy, za każdym razem inna czynność.</p></div>
+    </div>
+    <div class="dane"><b>SKĄD DANE</b>Cztery czynności do wyboru z czterech różnych branż. Każda ma rozpisane kroki, punkt uwagi i kryterium dobrego wyniku.</div>
+    <div class="wyj"><b>GOTOWE, KIEDY</b><p>każda osoba w trójce była raz uczącym i raz obserwatorem, a każda runda ma wypełnioną listę kontrolną.</p></div>
+    <div class="akcje"><button class="btn primary" id="start">Zaczynam</button></div>
+    <div class="msg" id="wznow"></div>
+  </div>
+</section>
+
+
+<section id="zad" class="hide">
+  <div class="bar"><div class="prog"><i id="pi"></i></div><div class="count" id="pc">RUNDA 1 Z 3</div></div>
+  <div class="card">
+    <h2>CZYNNOŚĆ DO NAUCZENIA</h2>
+    <div class="opts dwa" id="czyn"></div>
+  </div>
+  <div class="card" id="opisCard" style="display:none">
+    <h2>OPIS DLA UCZĄCEGO — UCZĄCY SIĘ TEGO NIE CZYTA</h2>
+    <div id="opis"></div>
+  </div>
+  <div class="card">
+    <h2>LISTA KONTROLNA OBSERWATORA</h2>
+    <div class="opts" id="lista"></div>
+    <label class="f" for="uw">CO ZAUWAŻYŁEŚ — JEDNO ZDANIE</label>
+    <input type="text" id="uw" placeholder="np. krok trzeci trwał minutę, potem zaczął poprawiać">
+    <div class="akcje">
+      <button class="btn primary" id="dalejRunda">Zapisz rundę i przejdź dalej</button>
+      <button class="btn gold" id="doWyniku">Podsumowanie</button>
+    </div>
+    <div class="msg" id="info"></div>
+  </div>
+</section>
+
+<section id="wynik" class="hide">
+  <div class="card"><h2>TRZY RUNDY</h2><div class="scroll"><table class="t" id="grid"></table></div></div>
+  <div class="card">
+    <h2>JEDNO PYTANIE</h2>
+    <label class="f" for="p1">KTÓRY KROK BYŁ POMIJANY NAJCZĘŚCIEJ WE WSZYSTKICH TRZECH RUNDACH</label>
+    <textarea id="p1" placeholder="numer kroku i dlaczego akurat ten"></textarea>
+    <div class="akcje">
+      <button class="btn primary" id="zapisz">Zapisz do teczki</button>
+      <button class="btn ghost" id="kopiuj">Kopiuj wynik</button>
+      <button class="btn ghost noprint" id="drukuj">Drukuj</button>
+    </div>
+    <div class="msg" id="stan"></div>
+  </div>
+  <div class="card noprint">
+    <h2>KOMENTARZ PROWADZĄCEGO</h2>
+    <div class="akcje">
+      <button class="btn ghost" id="pokazKlucz">Pokaż komentarz</button>
+      <button class="btn ghost" id="odNowa">Zacznij od nowa</button>
+    </div>
+    <div id="klucz" class="hide" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<footer>
+  <span>ZMIANOLOGICA · dr Marcin Żółtak</span>
+  <span>Zarządzanie operacyjne · dzień 3 · ćwiczenie 12</span>
+</footer>
+</div>
+
+<script>
+
+var Teczka=(function(){var K='zo-nakole-v1';
+function all(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+function put(o){try{localStorage.setItem(K,JSON.stringify(o));return true}catch(e){return false}}
+return{zapisz:function(p,d){var a=all();a[p]={dane:d,ts:Date.now()};return put(a)},
+ czytaj:function(p){var w=all()[p];return w?w.dane:null},
+ usun:function(p){var a=all();delete a[p];return put(a)},
+ lista:function(){return Object.keys(all())},
+ kopiuj:function(t,btn){function ok(){if(!btn)return;var s=btn.textContent;btn.textContent='Skopiowane';
+   setTimeout(function(){btn.textContent=s},1600)}
+  function zap(){var e=document.createElement('textarea');e.value=t;e.style.position='fixed';e.style.opacity='0';
+   document.body.appendChild(e);e.select();try{document.execCommand('copy');ok()}catch(x){}document.body.removeChild(e)}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,zap)}else{zap()}}
+}})();
+var $=function(x){return document.getElementById(x)};
+
+var PUNKT='12';
+
+var C=[["ekspres","Mycie ekspresu na koniec dnia","kawiarnia",["Wyłącz ekspres i zdejmij kolby z grup.","Wyjmij sitka, wypłucz je pod gorącą wodą i odłóż na ściereczkę.","Włóż sitko ślepe, nasyp pół łyżeczki proszku i uruchom cykl czyszczenia pięć razy.","Przetrzyj uszczelki grup szczotką, sprawdź, czy nie ma resztek kawy.","Złóż kolby z powrotem, przepuść wodę przez każdą grupę przez pięć sekund.","Wytrzyj tacę ociekową i ramię pary wilgotną ściereczką."],"Uszczelki grup — jeżeli zostanie resztka kawy, następnego dnia kawa ma gorzki posmak.","Woda z grup leci czysta, tace suche, kolby założone."],["pies","Przyjęcie psa do strzyżenia","salon grooming",["Przywitaj się z psem, zanim dotkniesz właściciela — pies ma cię zobaczyć pierwszy.","Zapytaj o wiek, choroby skóry i czy pies był już strzyżony.","Obejrzyj sierść pod brzuchem i za uszami, pokaż właścicielowi kołtuny, jeżeli są.","Ustal wzór strzyżenia i długość, powtórz ustalenie głośno.","Zapisz zgłoszenie: imię psa, telefon, ustalenia, godzinę odbioru.","Odprowadź psa do boksu i pokaż właścicielowi, gdzie będzie czekał."],"Kołtuny pokazujesz przed strzyżeniem, nie po. Po strzyżeniu każdy skrót wygląda jak twoja decyzja.","Zgłoszenie ma wzór, długość, telefon i godzinę; właściciel widział kołtuny."],["hotdog","Wydanie hot doga","budka z hot dogami",["Sprawdź, czy bułka jest ciepła — jeżeli stoi dłużej niż dwadzieścia minut, weź nową.","Nadziej bułkę na trzpień na trzy sekundy, nie dłużej.","Włóż parówkę, zapytaj o sosy, nałóż w kolejności: musztarda, ketchup, reszta.","Owiń w papier tak, żeby dół był zamknięty.","Podaj i powiedz cenę, zanim klient zapyta.","Zetrzyj blat przy stanowisku sosów."],"Trzpień dłużej niż trzy sekundy wysusza bułkę. To najczęstsza reklamacja i najtrudniejsza do zauważenia.","Bułka ciepła, dół zamknięty, blat czysty, cena podana bez pytania."],["rower","Przyjęcie roweru do serwisu","serwis rowerowy",["Obejrzyj rower przy kliencie i zapisz widoczne uszkodzenia.","Zapytaj, co konkretnie nie działa.","Wpisz zgłoszenie: usterka, imię, telefon.","Sprawdź w kolejce najbliższy wolny dzień.","Podaj termin i powtórz go klientowi.","Przyklej numer na ramę i odstaw na regał przyjęć."],"Termin podajesz z kolejki, nigdy „z głowy”. Uszkodzenia zapisujesz przy kliencie.","Zgłoszenie ma usterkę, telefon i termin; rower ma numer i stoi na regale."]];
+var KON=[["k1","Krok 1 — powiedział i pokazał","Wykonał czynność wolno, mówiąc, co robi i dlaczego akurat tak."],["k2","Krok 2 — zrobili razem","Uczący się wykonywał, prowadzący był obok i prowadził."],["k3","Krok 3 — zrobił sam przy nim","Prowadzący nie pomagał i nie poprawiał w trakcie."],["k4","Krok 4 — umówili sprawdzenie","Padł konkretny termin ponownego sprawdzenia."],["p1","Zamiast „wszystko jasne?”","Zadał jedno z trzech pytań sprawdzających zrozumienie."],["p2","Nie poprawiał w trakcie","Uwagi zapisał i omówił po zakończeniu, a nie przerywał."]];
+var runda=1,wybrana='',check={},rundy=[];
+
+C.forEach(function(o){
+  var b=document.createElement('button');b.type='button';b.className='opt';b.dataset.k=o[0];
+  b.innerHTML='<span><b>'+o[1]+'</b><small>'+o[2]+'</small></span>';
+  b.onclick=function(){wybrana=o[0];
+    [].forEach.call($('czyn').children,function(x){x.classList.toggle('sel',x.dataset.k===wybrana)});
+    pokazOpis()};
+  $('czyn').appendChild(b)});
+KON.forEach(function(o){
+  var b=document.createElement('button');b.type='button';b.className='opt';b.dataset.k=o[0];
+  b.innerHTML='<span class="m">☐</span><span><b>'+o[1]+'</b><small>'+o[2]+'</small></span>';
+  b.onclick=function(){check[o[0]]=!check[o[0]];
+    b.classList.toggle('sel',check[o[0]]);
+    b.querySelector('.m').textContent=check[o[0]]?'☑':'☐'};
+  $('lista').appendChild(b)});
+
+function pokazOpis(){
+  var o=null;C.forEach(function(x){if(x[0]===wybrana)o=x});
+  if(!o){$('opisCard').style.display='none';return}
+  $('opisCard').style.display='';
+  $('opis').innerHTML='<p class="mini" style="margin-bottom:8px">'+o[2]+'</p>'+
+    '<div class="lb">KROKI</div><ol style="margin:0 0 10px;padding-left:20px;font-size:14px;line-height:1.5">'+
+    o[3].map(function(k){return '<li>'+k+'</li>'}).join('')+'</ol>'+
+    '<div class="box gold2"><b>NA CO UWAŻAĆ</b>'+o[4]+'</div>'+
+    '<div class="box green"><b>GOTOWE, GDY</b>'+o[5]+'</div>';
+}
+function nazwaCzyn(k){var n='—';C.forEach(function(x){if(x[0]===k)n=x[1]});return n}
+function reset(){wybrana='';check={};
+  [].forEach.call($('czyn').children,function(x){x.classList.remove('sel')});
+  [].forEach.call($('lista').children,function(x){x.classList.remove('sel');x.querySelector('.m').textContent='☐'});
+  $('uw').value='';$('opisCard').style.display='none'}
+$('start').onclick=function(){$('intro').classList.add('hide');$('zad').classList.remove('hide')};
+$('dalejRunda').onclick=function(){
+  if(!wybrana){$('info').textContent='Wybierz najpierw czynność.';return}
+  rundy.push({nr:runda,czyn:wybrana,check:JSON.parse(JSON.stringify(check)),uw:$('uw').value});
+  if(runda<3){runda++;$('pc').textContent='RUNDA '+runda+' Z 3';
+    $('pi').style.width=((runda-1)/3*100)+'%';reset();
+    $('info').textContent='Runda zapisana. Zamieńcie się rolami.';window.scrollTo({top:0})}
+  else{$('info').textContent='Trzy rundy zapisane. Przejdź do podsumowania.';$('pi').style.width='100%'}
+};
+$('doWyniku').onclick=function(){
+  if(wybrana&&rundy.length<3)rundy.push({nr:runda,czyn:wybrana,check:JSON.parse(JSON.stringify(check)),uw:$('uw').value});
+  $('zad').classList.add('hide');$('wynik').classList.remove('hide');
+  var h='<tr><th>Runda</th><th>Czynność</th><th>Odhaczone</th><th>Uwaga</th></tr>';
+  rundy.forEach(function(r){
+    var od=KON.filter(function(k){return r.check[k[0]]}).length;
+    h+='<tr><td><b>'+r.nr+'</b></td><td>'+nazwaCzyn(r.czyn)+'</td><td>'+od+' z 6</td><td>'+(r.uw||'—')+'</td></tr>'});
+  $('grid').innerHTML=h;
+  var z=Teczka.czytaj(PUNKT);if(z&&z.p1)$('p1').value=z.p1;
+  window.scrollTo({top:0})};
+function tekst(){var s='ĆWICZENIE 12 — SCENKI INSTRUKTAŻOWE\n\n';
+  rundy.forEach(function(r){s+='Runda '+r.nr+': '+nazwaCzyn(r.czyn)+'\n';
+    KON.forEach(function(k){s+='   '+(r.check[k[0]]?'[x] ':'[ ] ')+k[1]+'\n'});
+    s+='   uwaga: '+(r.uw||'—')+'\n'});
+  s+='\nNajczęściej pomijany krok: '+($('p1').value||'—')+'\n';return s}
+$('zapisz').onclick=function(){
+  var ok=Teczka.zapisz(PUNKT,{rundy:rundy,p1:$('p1').value});
+  $('stan').textContent=ok?'Zapisane w teczce.':'Nie udało się zapisać — skopiuj wynik.'};
+$('kopiuj').onclick=function(){Teczka.kopiuj(tekst(),this)};
+$('drukuj').onclick=function(){window.print()};
+$('pokazKlucz').onclick=function(){
+  var brak={};KON.forEach(function(k){brak[k[0]]=0});
+  rundy.forEach(function(r){KON.forEach(function(k){if(!r.check[k[0]])brak[k[0]]++})});
+  var naj='',max=-1;KON.forEach(function(k){if(brak[k[0]]>max){max=brak[k[0]];naj=k[1]}});
+  $('klucz').innerHTML=
+   '<div class="box gold2"><b>W TWOICH RUNDACH</b>Najczęściej brakowało: '+naj+' — w '+max+' z '+rundy.length+' rund.</div>'+
+   '<div class="box blue"><b>CO WYPADA NAJCZĘŚCIEJ NA SALI</b>Krok czwarty, czyli umówienie sprawdzenia. '+
+   'Instruktaż wydaje się skończony w momencie, w którym człowiek wykonał czynność poprawnie — a to jest dopiero krok trzeci. '+
+   'Bez czwartego nie wiesz, co zostało po tygodniu i co człowiek zdążył sobie uprościć.</div>'+
+   '<div class="box wine"><b>DRUGI CZĘSTY BŁĄD</b>Poprawianie w trakcie kroku trzeciego. Odruch jest naturalny i psuje cały krok: '+
+   'jeżeli podpowiadasz, nie dowiadujesz się, czego człowiek nie wie. Uwagi zapisz i omów po zakończeniu.</div>'+
+   '<div class="box green"><b>DLACZEGO CZYNNOŚCI Z OBCYCH BRANŻ</b>Bo instruktażu uczymy się jako metody, a nie jako fachu. '+
+   'Jeżeli potrafisz nauczyć kogoś mycia ekspresu, którego sam nie myłeś, to znaczy, że metoda działa niezależnie od treści.</div>';
+  $('klucz').classList.remove('hide');this.disabled=true};
+$('odNowa').onclick=function(){if(!confirm('Skasować rundy?'))return;
+  rundy=[];runda=1;reset();Teczka.usun(PUNKT);
+  $('pc').textContent='RUNDA 1 Z 3';$('pi').style.width='0%';
+  $('wynik').classList.add('hide');$('intro').classList.remove('hide');$('klucz').classList.add('hide');
+  $('p1').value='';$('stan').textContent='';window.scrollTo({top:0})};
+(function(){var z=Teczka.czytaj(PUNKT);
+  if(z&&z.rundy&&z.rundy.length){rundy=z.rundy;runda=Math.min(3,rundy.length+1);
+    $('pc').textContent='RUNDA '+runda+' Z 3';
+    $('wznow').textContent='Masz tu zapisane '+rundy.length+' rundy z poprzedniego wejścia.'}})();
+
+</script>
+</body>
+</html>

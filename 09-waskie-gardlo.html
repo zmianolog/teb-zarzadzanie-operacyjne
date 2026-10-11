@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ćwiczenie 9 · Znajdź wąskie gardło</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F4460; --navy-d:#163450; --navy-x:#102839;
+  --gold:#E8B62C; --gold-d:#5C4810; --gold-t:#FDF4DC;
+  --text:#2C3540; --mid:#6B7680; --line:#D8DDE3; --bg:#F5F5F7;
+  --dim:#C3D2DE; --green:#1E6B4F; --green-t:#ECF6F1; --wine:#8E2749; --wine-t:#F7ECF0;
+  --blue-t:#F0F6FB;
+  --f:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 0 44px;background:var(--bg);color:var(--text);
+  font-family:var(--f);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{background:var(--navy-x);color:#fff;margin:0 -16px 18px;padding:30px 16px 26px}
+header .in{max-width:1080px;margin:0 auto}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--gold)}
+h1{margin:12px 0 10px;font-size:29px;line-height:1.12;font-weight:700;letter-spacing:-.3px}
+header p{margin:0;color:var(--dim);font-size:14.5px;max-width:56ch}
+.wroc{display:inline-block;margin-bottom:4px;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  color:var(--dim);text-decoration:none}
+.wroc:hover{color:var(--gold)}
+h2{font-size:10.5px;letter-spacing:1.8px;color:var(--mid);margin:0 0 12px;font-weight:700}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 16px;margin:12px 0}
+.krok{display:flex;gap:12px;align-items:flex-start;margin:0 0 10px}
+.krok .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--gold);color:var(--gold-d);
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.krok p{margin:0;font-size:14.5px;line-height:1.45}
+.wyj{background:var(--gold);color:var(--gold-d);border-radius:8px;padding:16px;margin:14px 0}
+.wyj b{display:block;font-size:10px;font-weight:700;letter-spacing:1.6px;margin-bottom:7px}
+.wyj p{margin:0;font-size:14px;line-height:1.45}
+.dane{background:var(--blue-t);border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13.5px}
+.dane b{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--navy);margin-bottom:6px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:4px;
+  display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.prog{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.count{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;letter-spacing:.4px}
+.nrk{font-size:10.5px;font-weight:700;letter-spacing:1.6px;color:var(--gold)}
+.sprawa{font-size:20px;font-weight:700;color:var(--navy);line-height:1.28;margin:8px 0 6px}
+.od{font-size:12px;color:var(--mid);margin:0 0 4px;letter-spacing:.3px}
+.pyt{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--mid);margin:20px 0 8px;
+  padding-top:14px;border-top:1px solid var(--line)}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opts.dwa{grid-template-columns:1fr 1fr}
+.opts.trzy{grid-template-columns:1fr}
+button.opt{text-align:left;font:inherit;font-size:14.5px;cursor:pointer;min-height:50px;width:100%;
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:11px 13px;color:var(--text);
+  display:flex;gap:10px;align-items:center;transition:.12s}
+button.opt:hover{border-color:var(--navy);background:var(--blue-t)}
+button.opt .m{color:var(--gold);font-size:17px;flex:0 0 auto;line-height:1}
+button.opt small{display:block;font-size:11.5px;opacity:.7;font-weight:400;margin-top:1px}
+button.opt b{font-weight:700}
+button.opt.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+button.opt.sel .m{color:var(--gold)}
+.nav{display:flex;gap:8px;margin-top:18px}
+.nav .btn{flex:1}
+.btn{font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;border-radius:7px;padding:13px 18px;
+  min-height:48px;border:none;letter-spacing:.2px}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);color:var(--gold-d)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.35;cursor:default}
+.akcje{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.akcje .btn{flex:1 1 auto}
+.siatka{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.kw{aspect-ratio:1;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;
+  font-size:13px;font-weight:700;color:var(--mid);cursor:pointer;padding:0}
+.kw.ok{background:var(--navy);border-color:var(--navy);color:#fff}
+.kw.tu{outline:2px solid var(--gold);outline-offset:1px}
+.big{background:var(--navy-x);color:#fff;border-radius:8px;padding:26px 20px;text-align:center;margin:12px 0}
+.big .num{font-size:52px;font-weight:700;line-height:1;color:var(--gold);letter-spacing:-1px}
+.big .lab{font-size:12.5px;color:var(--dim);margin-top:10px;max-width:36ch;margin-left:auto;margin-right:auto}
+.tab{display:grid;grid-template-columns:1fr auto;gap:0 12px;font-size:14.5px}
+.tab .n{padding:10px 0;border-bottom:1px solid var(--line)}
+.tab .v{padding:10px 0;border-bottom:1px solid var(--line);font-weight:700;color:var(--navy);text-align:right}
+.tab .n.s,.tab .v.s{border-bottom:none;border-top:2px solid var(--navy);font-weight:700}
+label.f{display:block;font-size:10px;font-weight:700;letter-spacing:1.3px;color:var(--mid);margin:16px 0 6px}
+input[type=text],input[type=number],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--text);
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:12px}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+textarea{min-height:84px;resize:vertical}
+.msg{font-size:12.5px;color:var(--mid);margin-top:10px;min-height:18px}
+.por{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;font-size:13.5px;
+  padding:9px 0;border-bottom:1px solid var(--line)}
+.por .zn{font-weight:700}
+.por.z .zn{color:var(--green)} .por.r .zn{color:var(--wine)}
+.box{border-radius:7px;padding:14px;margin:12px 0;font-size:13.5px;line-height:1.45}
+.box b{display:block;font-size:10px;letter-spacing:1.4px;margin-bottom:6px}
+.box.blue{background:var(--blue-t)} .box.blue b{color:var(--navy)}
+.box.green{background:var(--green-t)} .box.green b{color:var(--green)}
+.box.gold2{background:var(--gold-t)} .box.gold2 b{color:var(--gold-d)}
+.box.wine{background:var(--wine-t)} .box.wine b{color:var(--wine)}
+.wz{display:grid;grid-template-columns:1fr;gap:10px}
+.wz .row{border:1px solid var(--line);border-radius:7px;padding:12px;background:#fff}
+.wz .row.wzor{background:var(--gold-t);border-color:var(--gold)}
+.wz .row h3{margin:0 0 8px;font-size:15px;color:var(--navy);font-weight:700;line-height:1.3}
+.wz .row .lb{font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--mid);margin:10px 0 5px}
+.mini{font-size:12.5px;color:var(--mid);margin:4px 0 0}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{background:var(--navy);color:#fff;text-align:left;padding:9px 10px;font-size:11.5px;
+  letter-spacing:.6px;font-weight:700}
+table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:nth-child(even) td{background:var(--bg)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mid);
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hide{display:none!important}
+@media (min-width:660px){
+  header{padding:40px 16px 34px} h1{font-size:36px}
+  .card{padding:22px 24px}
+  .opts{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .opts.trzy{grid-template-columns:repeat(3,1fr)}
+  .akcje .btn{flex:0 0 auto}
+  .kroki2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  .wz{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1000px){
+  .wrap{padding:0 32px}
+  header{padding:48px 32px 40px}
+  h1{font-size:42px}
+  header p{font-size:15.5px;max-width:66ch}
+  .big .num{font-size:62px}
+}
+@media print{body{background:#fff}.bar,.akcje,.nav,.noprint{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header><div class="in">
+  <a class="wroc" href="index.html">← WSZYSTKIE ĆWICZENIA</a>
+  <div class="kicker">ĆWICZENIE 9 · 20 MINUT · INDYWIDUALNIE</div>
+  <h1>Znajdź wąskie gardło</h1>
+  <p>Ta sama mapa Na Kole, tym razem z dwiema kolumnami czasu przy każdym kroku. Sumujesz je osobno, porównujesz i wskazujesz krok, który wyznacza tempo całej firmy.</p>
+</div></header>
+
+<div class="wrap">
+
+<section id="intro">
+  <div class="card">
+    <div class="kroki2">
+    <div class="krok"><div class="n">1</div><p>Przepisz do tabeli czas pracy przy każdym z ośmiu kroków. Karta sumuje kolumnę sama.</p></div>
+    <div class="krok"><div class="n">2</div><p>Zrób to samo z czasem czekania. Dni przelicz na minuty — jeden dzień pracy warsztatu to 480 minut.</p></div>
+    <div class="krok"><div class="n">3</div><p>Porównaj obie sumy. Ta różnica jest pointą całego ćwiczenia.</p></div>
+    <div class="krok"><div class="n">4</div><p>Wskaż krok, który przepuszcza najmniej — czyli ten, przed którym rzeczy się gromadzą.</p></div>
+    <div class="krok"><div class="n">5</div><p>Odpowiedz jednym zdaniem: co konkretnie musiałoby się zmienić w tym jednym kroku, żeby cała firma przyspieszyła.</p></div>
+    </div>
+    <div class="dane"><b>SKĄD DANE</b>Karta firmy, część 7 — droga roweru z czasami. Wszystkie liczby są podane, nic nie trzeba szacować.</div>
+    <div class="wyj"><b>GOTOWE, KIEDY</b><p>masz dwie sumy, wskazany jeden krok i jedno zdanie o zmianie.</p></div>
+    <div class="akcje"><button class="btn primary" id="start">Zaczynam</button></div>
+    <div class="msg" id="wznow"></div>
+  </div>
+</section>
+
+
+<section id="zad" class="hide">
+  <div class="bar"><div class="prog"><i id="pi"></i></div><div class="count" id="pc">0 / 8</div></div>
+  <div class="card">
+    <h2>PRZEPISZ CZASY</h2>
+    <p class="mini" style="margin-bottom:12px">Czas pracy w minutach. Czas czekania też w minutach — dzień pracy warsztatu to 480 minut.</p>
+    <div id="wiersze"></div>
+  </div>
+  <div class="card">
+    <h2>DWIE SUMY</h2>
+    <div class="tab" id="sumy"></div>
+    <div id="komentarz"></div>
+    <div class="akcje"><button class="btn gold" id="doWyniku">Przejdź do wskazania</button></div>
+  </div>
+</section>
+
+<section id="wynik" class="hide">
+  <div class="big"><div class="num" id="krotnosc">—</div>
+    <div class="lab">tyle razy dłużej rower przechodzi przez firmę, niż trwa praca nad nim</div></div>
+  <div class="card">
+    <h2>WĄSKIE GARDŁO</h2>
+    <p class="mini">Który krok przepuszcza najmniej — czyli przed którym rzeczy się gromadzą.</p>
+    <div class="opts" id="wybor"></div>
+    <label class="f" for="p1">CO KONKRETNIE MUSIAŁOBY SIĘ ZMIENIĆ W TYM KROKU</label>
+    <textarea id="p1" placeholder="jedno zdanie"></textarea>
+    <div class="akcje">
+      <button class="btn primary" id="zapisz">Zapisz do teczki</button>
+      <button class="btn ghost" id="kopiuj">Kopiuj wynik</button>
+      <button class="btn ghost noprint" id="drukuj">Drukuj</button>
+    </div>
+    <div class="msg" id="stan"></div>
+  </div>
+  <div class="card noprint">
+    <h2>KOMENTARZ PROWADZĄCEGO</h2>
+    <p style="font-size:13.5px;margin:0">Otwiera się po wskazaniu kroku.</p>
+    <div class="akcje">
+      <button class="btn ghost" id="pokazKlucz" disabled>Pokaż komentarz</button>
+      <button class="btn ghost" id="odNowa">Zacznij od nowa</button>
+    </div>
+    <div id="klucz" class="hide" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<footer>
+  <span>ZMIANOLOGICA · dr Marcin Żółtak</span>
+  <span>Zarządzanie operacyjne · dzień 2 · ćwiczenie 9</span>
+</footer>
+</div>
+
+<script>
+
+var Teczka=(function(){var K='zo-nakole-v1';
+function all(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+function put(o){try{localStorage.setItem(K,JSON.stringify(o));return true}catch(e){return false}}
+return{zapisz:function(p,d){var a=all();a[p]={dane:d,ts:Date.now()};return put(a)},
+ czytaj:function(p){var w=all()[p];return w?w.dane:null},
+ usun:function(p){var a=all();delete a[p];return put(a)},
+ lista:function(){return Object.keys(all())},
+ kopiuj:function(t,btn){function ok(){if(!btn)return;var s=btn.textContent;btn.textContent='Skopiowane';
+   setTimeout(function(){btn.textContent=s},1600)}
+  function zap(){var e=document.createElement('textarea');e.value=t;e.style.position='fixed';e.style.opacity='0';
+   document.body.appendChild(e);e.select();try{document.execCommand('copy');ok()}catch(x){}document.body.removeChild(e)}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,zap)}else{zap()}}
+}})();
+var $=function(x){return document.getElementById(x)};
+
+var PUNKT='9';
+
+var K=[[1,"Klient wchodzi i czeka na obsługę",0,6,"6 min"],[2,"Przyjęcie roweru",10,0,"—"],[3,"Rower stoi na regale przyjęć",0,2880,"2 dni"],[4,"Diagnoza przy stanowisku",8,0,"—"],[5,"Zamówienie i oczekiwanie na część",5,2880,"1–3 dni (średnio 2)"],[6,"Naprawa",45,0,"—"],[7,"Rower stoi na regale wydań",0,1440,"1 dzień"],[8,"Wydanie, płatność, paragon",7,0,"—"]];
+var dane={},wybrany=null;
+
+K.forEach(function(w){
+  var d=document.createElement('div');d.className='wz';d.style.marginBottom='8px';
+  d.innerHTML='<div class="row"><h3>Krok '+w[0]+' · '+w[1]+'</h3>'+
+    '<p class="mini">z karty firmy: praca '+w[2]+' min · czekanie '+w[4]+'</p>'+
+    '<div class="lb">CZAS PRACY (MIN)</div><input type="number" min="0" id="p'+w[0]+'" placeholder="0">'+
+    '<div class="lb">CZAS CZEKANIA (MIN)</div><input type="number" min="0" id="c'+w[0]+'" placeholder="0"></div>';
+  $('wiersze').appendChild(d)});
+K.forEach(function(w){['p','c'].forEach(function(t){
+  $(t+w[0]).oninput=function(){dane[w[0]]=dane[w[0]]||{};dane[w[0]][t]=this.value;rysuj()}})});
+
+function sumy(){var p=0,c=0,n=0;
+  K.forEach(function(w){var a=dane[w[0]]||{};
+    if(a.p!==undefined&&a.p!==''&&a.c!==undefined&&a.c!=='')n++;
+    p+=(+a.p||0);c+=(+a.c||0)});
+  return{p:p,c:c,n:n}}
+function rysuj(){
+  var s=sumy();
+  $('pc').textContent=s.n+' / 8';$('pi').style.width=(s.n/8*100)+'%';
+  var dni=(s.c/480).toFixed(1).replace('.',',');
+  $('sumy').innerHTML='<div class="n">Czas pracy razem</div><div class="v">'+s.p+' min</div>'+
+    '<div class="n">Czas czekania razem</div><div class="v">'+s.c+' min</div>'+
+    '<div class="n s">Czekanie w dniach pracy</div><div class="v s">'+dni+'</div>';
+  if(s.n===8){
+    var kr=s.p?Math.round(s.c/s.p):0;
+    $('komentarz').innerHTML='<div class="box gold2"><b>CO Z TEGO WYNIKA</b>Praca nad jednym rowerem trwa '+s.p+
+      ' minut. Rower jest w firmie '+dni+' dnia roboczego. To '+kr+' razy dłużej, niż ktokolwiek przy nim pracuje. '+
+      'Klient ocenia tę drugą liczbę, nie pierwszą.</div>';
+  } else $('komentarz').innerHTML='';
+  $('doWyniku').textContent=s.n===8?'Przejdź do wskazania':'Wskazanie ('+s.n+' z 8)';
+}
+K.forEach(function(w){
+  var b=document.createElement('button');b.type='button';b.className='opt';b.dataset.k=w[0];
+  b.innerHTML='<span><b>Krok '+w[0]+' · '+w[1]+'</b></span>';
+  b.onclick=function(){wybrany=w[0];
+    [].forEach.call($('wybor').children,function(x){x.classList.toggle('sel',+x.dataset.k===wybrany)});
+    $('pokazKlucz').disabled=false};
+  $('wybor').appendChild(b)});
+
+$('start').onclick=function(){$('intro').classList.add('hide');$('zad').classList.remove('hide');rysuj()};
+$('doWyniku').onclick=function(){var s=sumy();
+  $('zad').classList.add('hide');$('wynik').classList.remove('hide');
+  $('krotnosc').textContent=s.p?Math.round(s.c/s.p)+'×':'—';
+  var z=Teczka.czytaj(PUNKT);if(z){if(z.p1)$('p1').value=z.p1;
+    if(z.wybrany){wybrany=z.wybrany;
+      [].forEach.call($('wybor').children,function(x){x.classList.toggle('sel',+x.dataset.k===wybrany)});
+      $('pokazKlucz').disabled=false}}
+  window.scrollTo({top:0})};
+function tekst(){var s=sumy(),t='ĆWICZENIE 9 — WĄSKIE GARDŁO\n\n';
+  K.forEach(function(w){var a=dane[w[0]]||{};t+=w[0]+'. '+w[1]+': praca '+(a.p||0)+' min, czekanie '+(a.c||0)+' min\n'});
+  t+='\nRAZEM praca: '+s.p+' min | czekanie: '+s.c+' min ('+(s.c/480).toFixed(1)+' dnia)\n';
+  t+='Wąskie gardło: krok '+(wybrany||'—')+'\nZmiana: '+($('p1').value||'—')+'\n';return t}
+$('zapisz').onclick=function(){var ok=Teczka.zapisz(PUNKT,{dane:dane,wybrany:wybrany,p1:$('p1').value});
+  $('stan').textContent=ok?'Zapisane w teczce.':'Nie udało się zapisać — skopiuj wynik.'};
+$('kopiuj').onclick=function(){Teczka.kopiuj(tekst(),this)};
+$('drukuj').onclick=function(){window.print()};
+$('pokazKlucz').onclick=function(){
+  var ok=(wybrany===5);
+  $('klucz').innerHTML=
+   '<div class="box '+(ok?'green':'gold2')+'"><b>ODCZYT PROWADZĄCEGO</b>Wąskim gardłem nie jest naprawa, choć trwa najdłużej z prac. '+
+   'Jest nim krok piąty: część zamawia się dopiero po diagnozie, a diagnoza odbywa się dopiero po dwóch dniach leżenia roweru na regale. '+
+   (ok?'Wskazałeś go poprawnie.':'Ty wskazałeś krok '+(wybrany||'—')+'.')+'</div>'+
+   '<div class="box blue"><b>DLACZEGO NIE NAPRAWA</b>Naprawa trwa czterdzieści pięć minut i to jest najdłuższa praca w całym procesie. '+
+   'Ale rzeczy nie gromadzą się przed nią — gromadzą się przed diagnozą i w oczekiwaniu na część. '+
+   'Wąskie gardło poznaje się po kolejce, która przed nim rośnie, a nie po długości samej czynności.</div>'+
+   '<div class="box green"><b>ZMIANA, KTÓRA NIC NIE KOSZTUJE</b>Diagnoza przy przyjęciu roweru, a nie dwa dni później. '+
+   'Wtedy część zamawia się w poniedziałek zamiast w środę i cała droga skraca się o dwa dni. '+
+   'Nie trzeba zatrudniać nikogo ani kupować narzędzi — wystarczy przestawić kolejność dwóch kroków.</div>';
+  $('klucz').classList.remove('hide');this.disabled=true};
+$('odNowa').onclick=function(){if(!confirm('Skasować odpowiedzi?'))return;
+  dane={};wybrany=null;Teczka.usun(PUNKT);
+  K.forEach(function(w){$('p'+w[0]).value='';$('c'+w[0]).value=''});
+  [].forEach.call($('wybor').children,function(x){x.classList.remove('sel')});
+  $('wynik').classList.add('hide');$('intro').classList.remove('hide');$('klucz').classList.add('hide');
+  $('p1').value='';$('stan').textContent='';window.scrollTo({top:0})};
+(function(){var z=Teczka.czytaj(PUNKT);
+  if(z&&z.dane){dane=z.dane;
+    K.forEach(function(w){var a=dane[w[0]]||{};if(a.p)$('p'+w[0]).value=a.p;if(a.c)$('c'+w[0]).value=a.c});
+    $('wznow').textContent='Masz tu zapisane liczby z poprzedniego wejścia.'}})();
+
+</script>
+</body>
+</html>

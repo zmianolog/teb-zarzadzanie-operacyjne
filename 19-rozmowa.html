@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ćwiczenie 19 · Rozmowa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F4460; --navy-d:#163450; --navy-x:#102839;
+  --gold:#E8B62C; --gold-d:#5C4810; --gold-t:#FDF4DC;
+  --text:#2C3540; --mid:#6B7680; --line:#D8DDE3; --bg:#F5F5F7;
+  --dim:#C3D2DE; --green:#1E6B4F; --green-t:#ECF6F1; --wine:#8E2749; --wine-t:#F7ECF0;
+  --blue-t:#F0F6FB;
+  --f:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 0 44px;background:var(--bg);color:var(--text);
+  font-family:var(--f);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{background:var(--navy-x);color:#fff;margin:0 -16px 18px;padding:30px 16px 26px}
+header .in{max-width:1080px;margin:0 auto}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--gold)}
+h1{margin:12px 0 10px;font-size:29px;line-height:1.12;font-weight:700;letter-spacing:-.3px}
+header p{margin:0;color:var(--dim);font-size:14.5px;max-width:56ch}
+.wroc{display:inline-block;margin-bottom:4px;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  color:var(--dim);text-decoration:none}
+.wroc:hover{color:var(--gold)}
+h2{font-size:10.5px;letter-spacing:1.8px;color:var(--mid);margin:0 0 12px;font-weight:700}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 16px;margin:12px 0}
+.krok{display:flex;gap:12px;align-items:flex-start;margin:0 0 10px}
+.krok .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--gold);color:var(--gold-d);
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.krok p{margin:0;font-size:14.5px;line-height:1.45}
+.wyj{background:var(--gold);color:var(--gold-d);border-radius:8px;padding:16px;margin:14px 0}
+.wyj b{display:block;font-size:10px;font-weight:700;letter-spacing:1.6px;margin-bottom:7px}
+.wyj p{margin:0;font-size:14px;line-height:1.45}
+.dane{background:var(--blue-t);border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13.5px}
+.dane b{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--navy);margin-bottom:6px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:4px;
+  display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.prog{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.count{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;letter-spacing:.4px}
+.nrk{font-size:10.5px;font-weight:700;letter-spacing:1.6px;color:var(--gold)}
+.sprawa{font-size:20px;font-weight:700;color:var(--navy);line-height:1.28;margin:8px 0 6px}
+.od{font-size:12px;color:var(--mid);margin:0 0 4px;letter-spacing:.3px}
+.pyt{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--mid);margin:20px 0 8px;
+  padding-top:14px;border-top:1px solid var(--line)}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opts.dwa{grid-template-columns:1fr 1fr}
+.opts.trzy{grid-template-columns:1fr}
+button.opt{text-align:left;font:inherit;font-size:14.5px;cursor:pointer;min-height:50px;width:100%;
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:11px 13px;color:var(--text);
+  display:flex;gap:10px;align-items:center;transition:.12s}
+button.opt:hover{border-color:var(--navy);background:var(--blue-t)}
+button.opt .m{color:var(--gold);font-size:17px;flex:0 0 auto;line-height:1}
+button.opt small{display:block;font-size:11.5px;opacity:.7;font-weight:400;margin-top:1px}
+button.opt b{font-weight:700}
+button.opt.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+button.opt.sel .m{color:var(--gold)}
+.nav{display:flex;gap:8px;margin-top:18px}
+.nav .btn{flex:1}
+.btn{font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;border-radius:7px;padding:13px 18px;
+  min-height:48px;border:none;letter-spacing:.2px}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);color:var(--gold-d)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.35;cursor:default}
+.akcje{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.akcje .btn{flex:1 1 auto}
+.siatka{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.kw{aspect-ratio:1;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;
+  font-size:13px;font-weight:700;color:var(--mid);cursor:pointer;padding:0}
+.kw.ok{background:var(--navy);border-color:var(--navy);color:#fff}
+.kw.tu{outline:2px solid var(--gold);outline-offset:1px}
+.big{background:var(--navy-x);color:#fff;border-radius:8px;padding:26px 20px;text-align:center;margin:12px 0}
+.big .num{font-size:52px;font-weight:700;line-height:1;color:var(--gold);letter-spacing:-1px}
+.big .lab{font-size:12.5px;color:var(--dim);margin-top:10px;max-width:36ch;margin-left:auto;margin-right:auto}
+.tab{display:grid;grid-template-columns:1fr auto;gap:0 12px;font-size:14.5px}
+.tab .n{padding:10px 0;border-bottom:1px solid var(--line)}
+.tab .v{padding:10px 0;border-bottom:1px solid var(--line);font-weight:700;color:var(--navy);text-align:right}
+.tab .n.s,.tab .v.s{border-bottom:none;border-top:2px solid var(--navy);font-weight:700}
+label.f{display:block;font-size:10px;font-weight:700;letter-spacing:1.3px;color:var(--mid);margin:16px 0 6px}
+input[type=text],input[type=number],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--text);
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:12px}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+textarea{min-height:84px;resize:vertical}
+.msg{font-size:12.5px;color:var(--mid);margin-top:10px;min-height:18px}
+.por{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;font-size:13.5px;
+  padding:9px 0;border-bottom:1px solid var(--line)}
+.por .zn{font-weight:700}
+.por.z .zn{color:var(--green)} .por.r .zn{color:var(--wine)}
+.box{border-radius:7px;padding:14px;margin:12px 0;font-size:13.5px;line-height:1.45}
+.box b{display:block;font-size:10px;letter-spacing:1.4px;margin-bottom:6px}
+.box.blue{background:var(--blue-t)} .box.blue b{color:var(--navy)}
+.box.green{background:var(--green-t)} .box.green b{color:var(--green)}
+.box.gold2{background:var(--gold-t)} .box.gold2 b{color:var(--gold-d)}
+.box.wine{background:var(--wine-t)} .box.wine b{color:var(--wine)}
+.wz{display:grid;grid-template-columns:1fr;gap:10px}
+.wz .row{border:1px solid var(--line);border-radius:7px;padding:12px;background:#fff}
+.wz .row.wzor{background:var(--gold-t);border-color:var(--gold)}
+.wz .row h3{margin:0 0 8px;font-size:15px;color:var(--navy);font-weight:700;line-height:1.3}
+.wz .row .lb{font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--mid);margin:10px 0 5px}
+.mini{font-size:12.5px;color:var(--mid);margin:4px 0 0}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{background:var(--navy);color:#fff;text-align:left;padding:9px 10px;font-size:11.5px;
+  letter-spacing:.6px;font-weight:700}
+table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:nth-child(even) td{background:var(--bg)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mid);
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hide{display:none!important}
+@media (min-width:660px){
+  header{padding:40px 16px 34px} h1{font-size:36px}
+  .card{padding:22px 24px}
+  .opts{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .opts.trzy{grid-template-columns:repeat(3,1fr)}
+  .akcje .btn{flex:0 0 auto}
+  .kroki2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  .wz{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1000px){
+  .wrap{padding:0 32px}
+  header{padding:48px 32px 40px}
+  h1{font-size:42px}
+  header p{font-size:15.5px;max-width:66ch}
+  .big .num{font-size:62px}
+}
+@media print{body{background:#fff}.bar,.akcje,.nav,.noprint{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header><div class="in">
+  <a class="wroc" href="index.html">← WSZYSTKIE ĆWICZENIA</a>
+  <div class="kicker">ĆWICZENIE 19 · 30 MINUT · W PARACH Z OBSERWATOREM</div>
+  <h1>Rozmowa</h1>
+  <p>Sześć sytuacji z opisanym tłem. Wybieracie dwie, rozstrzygacie klasę problemu i przeprowadzacie rozmowę w czterech krokach. Obserwator sprawdza dwie konkretne rzeczy.</p>
+</div></header>
+
+<div class="wrap">
+
+<section id="intro">
+  <div class="card">
+    <div class="kroki2">
+    <div class="krok"><div class="n">1</div><p>Dobierzcie się w trójki i wybierzcie pierwszą sytuację. Przeczytajcie tło.</p></div>
+    <div class="krok"><div class="n">2</div><p>Zanim zaczniecie rozmowę, rozstrzygnijcie klasę problemu: czy człowiek nie umie, czy umie i nie robi. To decyduje o całej reakcji.</p></div>
+    <div class="krok"><div class="n">3</div><p>Przygotujcie cztery zdania: fakt z datą, skutek, oczekiwanie, uzgodnienie. Wpiszcie je na karcie, zanim zagracie scenkę.</p></div>
+    <div class="krok"><div class="n">4</div><p>Zagrajcie rozmowę. Trwa pięć minut, w cztery oczy — obserwator siedzi z boku i nie wtrąca się.</p></div>
+    <div class="krok"><div class="n">5</div><p>Obserwator sprawdza dwie rzeczy: czy w kroku pierwszym padł konkret z datą i czy w kroku czwartym padł termin sprawdzenia.</p></div>
+    <div class="krok"><div class="n">6</div><p>Zamieńcie się rolami przy drugiej sytuacji.</p></div>
+    </div>
+    <div class="dane"><b>SKĄD DANE</b>Sytuacje są opisane w całości — nie musicie niczego dopowiadać.</div>
+    <div class="wyj"><b>GOTOWE, KIEDY</b><p>obie rozmowy skończyły się ustalonym terminem sprawdzenia.</p></div>
+    <div class="akcje"><button class="btn primary" id="start">Zaczynam</button></div>
+    <div class="msg" id="wznow"></div>
+  </div>
+</section>
+
+
+<section id="zad" class="hide">
+  <div class="bar"><div class="prog"><i id="pi"></i></div><div class="count" id="pc">RUNDA 1 Z 2</div></div>
+  <div class="card">
+    <h2>WYBIERZ SYTUACJĘ</h2>
+    <div class="opts dwa" id="syt"></div>
+  </div>
+  <div class="card" id="tloCard" style="display:none">
+    <h2>TŁO</h2>
+    <p id="tlo" style="font-size:14.5px;line-height:1.55;margin:0"></p>
+    <div class="pyt">KLASA PROBLEMU</div>
+    <div class="opts dwa" id="klasa"></div>
+    <div id="klasaKom"></div>
+  </div>
+  <div class="card">
+    <h2>CZTERY ZDANIA — NAPISZ PRZED SCENKĄ</h2>
+    <div id="pola"></div>
+    <label class="f" for="obs">OBSERWATOR: CO ZAUWAŻYŁEŚ</label>
+    <input type="text" id="obs" placeholder="czy padł konkret z datą i termin sprawdzenia">
+    <div class="akcje">
+      <button class="btn primary" id="dalejRunda">Zapisz rundę</button>
+      <button class="btn gold" id="doWyniku">Podsumowanie</button>
+    </div>
+    <div class="msg" id="info"></div>
+  </div>
+</section>
+
+<section id="wynik" class="hide">
+  <div class="card"><h2>DWIE ROZMOWY</h2><div class="scroll"><table class="t" id="grid"></table></div></div>
+  <div class="card">
+    <h2>JEDNO PYTANIE</h2>
+    <label class="f" for="pq">KTÓRĄ Z SZEŚCIU SYTUACJI ODKŁADASZ U SIEBIE DŁUŻEJ NIŻ DWA TYGODNIE</label>
+    <textarea id="pq" placeholder="jedno zdanie"></textarea>
+    <div class="akcje">
+      <button class="btn primary" id="zapisz">Zapisz do teczki</button>
+      <button class="btn ghost" id="kopiuj">Kopiuj wynik</button>
+      <button class="btn ghost noprint" id="drukuj">Drukuj</button>
+    </div>
+    <div class="msg" id="stan"></div>
+  </div>
+  <div class="card noprint">
+    <h2>KOMENTARZ PROWADZĄCEGO</h2>
+    <div class="akcje">
+      <button class="btn ghost" id="pokazKlucz">Pokaż komentarz</button>
+      <button class="btn ghost" id="odNowa">Zacznij od nowa</button>
+    </div>
+    <div id="klucz" class="hide" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<footer>
+  <span>ZMIANOLOGICA · dr Marcin Żółtak</span>
+  <span>Zarządzanie operacyjne · dzień 4 · ćwiczenie 19</span>
+</footer>
+</div>
+
+<script>
+
+var Teczka=(function(){var K='zo-nakole-v1';
+function all(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+function put(o){try{localStorage.setItem(K,JSON.stringify(o));return true}catch(e){return false}}
+return{zapisz:function(p,d){var a=all();a[p]={dane:d,ts:Date.now()};return put(a)},
+ czytaj:function(p){var w=all()[p];return w?w.dane:null},
+ usun:function(p){var a=all();delete a[p];return put(a)},
+ lista:function(){return Object.keys(all())},
+ kopiuj:function(t,btn){function ok(){if(!btn)return;var s=btn.textContent;btn.textContent='Skopiowane';
+   setTimeout(function(){btn.textContent=s},1600)}
+  function zap(){var e=document.createElement('textarea');e.value=t;e.style.position='fixed';e.style.opacity='0';
+   document.body.appendChild(e);e.select();try{document.execCommand('copy');ok()}catch(x){}document.body.removeChild(e)}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,zap)}else{zap()}}
+}})();
+var $=function(x){return document.getElementById(x)};
+
+var PUNKT='19';
+
+var S=[["spoz","Ktoś regularnie się spóźnia","wolno","Kamil w tym miesiącu cztery razy otworzył warsztat po wpół do jedenastej zamiast o dziesiątej. Ola w tym czasie stała sama przy ladzie. Kamil nigdy nie tłumaczył się z opóźnienia, a Paweł nigdy o nim nie wspomniał."],["kolega","Kolega został podwładnym","wolno","Kamil i Paweł znają się od liceum. Od roku Kamil jest u niego zatrudniony. Ostatnio przy klientach zwraca się do Pawła po imieniu w sposób, który klient odbiera jako spoufalenie, i dwa razy zakwestionował przy kliencie podany przez Pawła termin."],["odchodzi","Dobry pracownik odchodzi","wolno","Ola powiedziała Kamilowi, że rozgląda się za inną pracą. Kamil powtórzył to Pawłowi. Ola nic Pawłowi nie mówiła i formalnie nic się nie stało. Ola pracuje trzy miesiące i jest jedyną osobą, która ogarnia ladę."],["klient","Klient krzyczy przy ladzie","umie","Klient przyjechał po rower w obiecany czwartek. Roweru nie ma, bo czekał na część. Podnosi głos przy trzech innych klientach. Ola nie wie, co powiedzieć, i idzie po Pawła do warsztatu."],["konflikt","Dwie osoby w konflikcie","umie","Kamil i Ola nie mogą się dogadać, kto odkłada gotowe rowery na regał wydań. Każde uważa, że robi to drugie. W efekcie dwa rowery w tym tygodniu stały w warsztacie zamiast na regale i klienci czekali dłużej."],["lepszy","Ktoś umie coś lepiej od ciebie","umie","Kamil od pół roku sam czyta o hamulcach hydraulicznych i robi je szybciej i lepiej niż Paweł. Klienci zaczęli pytać o niego z imienia. Paweł nadal sprawdza po nim każdą taką naprawę."]];
+var KR=[["k1","Fakt z datą","Co konkretnie widziałeś i kiedy — bez „ciągle” i „zawsze”"],["k2","Skutek","Co to powoduje dla firmy albo dla innych"],["k3","Oczekiwanie","Co ma być inaczej, powiedziane wprost jako oczekiwanie"],["k4","Uzgodnienie","Pytanie, czy coś to uniemożliwia, i termin sprawdzenia"]];
+var runda=1,wybrana='',klasa='',pola={},rundy=[];
+
+S.forEach(function(o){
+  var b=document.createElement('button');b.type='button';b.className='opt';b.dataset.k=o[0];
+  b.innerHTML='<span><b>'+o[1]+'</b></span>';
+  b.onclick=function(){wybrana=o[0];klasa='';
+    [].forEach.call($('syt').children,function(x){x.classList.toggle('sel',x.dataset.k===wybrana)});
+    [].forEach.call($('klasa').children,function(x){x.classList.remove('sel')});
+    $('klasaKom').innerHTML='';
+    $('tloCard').style.display='';$('tlo').textContent=o[3]};
+  $('syt').appendChild(b)});
+[['umie','Nie umie','nie potrafi odtworzyć kroków'],
+ ['wolno','Umie, ale nie robi','potrafi opowiedzieć, jak powinno być']].forEach(function(o){
+  var b=document.createElement('button');b.type='button';b.className='opt';b.dataset.k=o[0];
+  b.innerHTML='<span><b>'+o[1]+'</b><small>'+o[2]+'</small></span>';
+  b.onclick=function(){klasa=o[0];
+    [].forEach.call($('klasa').children,function(x){x.classList.toggle('sel',x.dataset.k===klasa)});
+    $('klasaKom').innerHTML='<div class="box '+(klasa==='umie'?'blue':'gold2')+'"><b>REAKCJA</b>'+
+      (klasa==='umie'?'Instruktaż w czterech krokach i sprawdzenie za tydzień. Rozmowa dyscyplinująca w tym miejscu tylko psuje relację.'
+                     :'Rozmowa w czterech krokach z ustaloną konsekwencją. Powtórne uczenie jest tu odczytywane jako brak reakcji.')+'</div>'};
+  $('klasa').appendChild(b)});
+KR.forEach(function(k){
+  var d=document.createElement('div');
+  d.innerHTML='<div class="lb">'+k[1].toUpperCase()+'</div><p class="mini" style="margin:-4px 0 6px">'+k[2]+'</p>'+
+    '<input type="text" id="'+k[0]+'" placeholder="twoje zdanie">';
+  $('pola').appendChild(d)});
+KR.forEach(function(k){$(k[0]).oninput=function(){pola[k[0]]=this.value}});
+
+function nazwaS(k){var n='—';S.forEach(function(x){if(x[0]===k)n=x[1]});return n}
+function reset(){wybrana='';klasa='';pola={};
+  [].forEach.call($('syt').children,function(x){x.classList.remove('sel')});
+  [].forEach.call($('klasa').children,function(x){x.classList.remove('sel')});
+  $('klasaKom').innerHTML='';$('tloCard').style.display='none';
+  KR.forEach(function(k){$(k[0]).value=''});$('obs').value=''}
+$('start').onclick=function(){$('intro').classList.add('hide');$('zad').classList.remove('hide')};
+$('dalejRunda').onclick=function(){
+  if(!wybrana){$('info').textContent='Wybierz najpierw sytuację.';return}
+  rundy.push({nr:runda,syt:wybrana,klasa:klasa,pola:JSON.parse(JSON.stringify(pola)),obs:$('obs').value});
+  if(runda<2){runda=2;$('pc').textContent='RUNDA 2 Z 2';$('pi').style.width='50%';reset();
+    $('info').textContent='Runda zapisana. Zamieńcie się rolami i weźcie inną sytuację.';window.scrollTo({top:0})}
+  else{$('pi').style.width='100%';$('info').textContent='Dwie rundy zapisane.'}};
+$('doWyniku').onclick=function(){
+  if(wybrana&&rundy.length<2)rundy.push({nr:runda,syt:wybrana,klasa:klasa,pola:JSON.parse(JSON.stringify(pola)),obs:$('obs').value});
+  $('zad').classList.add('hide');$('wynik').classList.remove('hide');
+  var h='<tr><th>Runda</th><th>Sytuacja</th><th>Klasa</th><th>Uwaga obserwatora</th></tr>';
+  rundy.forEach(function(r){
+    h+='<tr><td><b>'+r.nr+'</b></td><td>'+nazwaS(r.syt)+'</td><td>'+
+       (r.klasa==='umie'?'Nie umie':r.klasa==='wolno'?'Umie, nie robi':'—')+'</td><td>'+(r.obs||'—')+'</td></tr>'});
+  $('grid').innerHTML=h;
+  var z=Teczka.czytaj(PUNKT);if(z&&z.pq)$('pq').value=z.pq;
+  window.scrollTo({top:0})};
+function tekst(){var s='ĆWICZENIE 19 — ROZMOWA\n\n';
+  rundy.forEach(function(r){s+='Runda '+r.nr+': '+nazwaS(r.syt)+' — '+
+    (r.klasa==='umie'?'nie umie':r.klasa==='wolno'?'umie, nie robi':'—')+'\n';
+    KR.forEach(function(k){s+='   '+k[1]+': '+(r.pola[k[0]]||'—')+'\n'});
+    s+='   obserwator: '+(r.obs||'—')+'\n'});
+  s+='\nOdkładam u siebie: '+($('pq').value||'—')+'\n';return s}
+$('zapisz').onclick=function(){var ok=Teczka.zapisz(PUNKT,{rundy:rundy,pq:$('pq').value});
+  $('stan').textContent=ok?'Zapisane w teczce.':'Nie udało się zapisać — skopiuj wynik.'};
+$('kopiuj').onclick=function(){Teczka.kopiuj(tekst(),this)};
+$('drukuj').onclick=function(){window.print()};
+$('pokazKlucz').onclick=function(){
+  var zg=0;rundy.forEach(function(r){S.forEach(function(x){if(x[0]===r.syt&&x[2]===r.klasa)zg++})});
+  $('klucz').innerHTML=
+   '<div class="box blue"><b>KLASY PROBLEMÓW W SZEŚCIU SYTUACJACH</b>Spóźnienia, kolega-podwładny i odchodzące Ola to „umie, ale nie robi” — '+
+   'wszyscy wiedzą, jak powinno być. Klient przy ladzie, konflikt o regał i Kamil lepszy od Pawła to „nie umie” — brakuje umiejętności albo ustalonej zasady. '+
+   'W twoich rundach zgodnych klas: '+zg+' z '+rundy.length+'.</div>'+
+   '<div class="box gold2"><b>NAJCZĘSTSZY BŁĄD W KROKU PIERWSZYM</b>„Ciągle się spóźniasz” zamiast „w środę i w piątek otworzyłeś o wpół do jedenastej”. '+
+   'Uogólnienie zawsze da się podważyć, konkret z datą nie. Sprawdź swoje zdanie z kroku pierwszego pod tym kątem.</div>'+
+   '<div class="box wine"><b>NAJCZĘŚCIEJ POMIJANY KROK CZWARTY</b>Rozmowa kończy się na oczekiwaniu, bo obu stronom ulżyło. '+
+   'Bez terminu sprawdzenia nie ma czego sprawdzać i za miesiąc rozmawiacie od nowa — tyle że ostrzej.</div>'+
+   '<div class="box green"><b>KIEDY ROZMAWIAĆ</b>Po drugim wystąpieniu, dokładnie tak samo jak przy pisaniu standardu. '+
+   'Zachowanie tolerowane przez dwa miesiące staje się zasadą, a rozmowa po dwóch miesiącach dotyczy już zmiany ustalonego stanu.</div>';
+  $('klucz').classList.remove('hide');this.disabled=true};
+$('odNowa').onclick=function(){if(!confirm('Skasować rundy?'))return;
+  rundy=[];runda=1;reset();Teczka.usun(PUNKT);$('pc').textContent='RUNDA 1 Z 2';$('pi').style.width='0%';
+  $('wynik').classList.add('hide');$('intro').classList.remove('hide');$('klucz').classList.add('hide');
+  $('pq').value='';$('stan').textContent='';window.scrollTo({top:0})};
+(function(){var z=Teczka.czytaj(PUNKT);
+  if(z&&z.rundy&&z.rundy.length){rundy=z.rundy;runda=Math.min(2,rundy.length+1);
+    $('pc').textContent='RUNDA '+runda+' Z 2'}})();
+
+</script>
+</body>
+</html>

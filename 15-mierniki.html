@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ćwiczenie 15 · Które z tych mierników da się mierzyć</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F4460; --navy-d:#163450; --navy-x:#102839;
+  --gold:#E8B62C; --gold-d:#5C4810; --gold-t:#FDF4DC;
+  --text:#2C3540; --mid:#6B7680; --line:#D8DDE3; --bg:#F5F5F7;
+  --dim:#C3D2DE; --green:#1E6B4F; --green-t:#ECF6F1; --wine:#8E2749; --wine-t:#F7ECF0;
+  --blue-t:#F0F6FB;
+  --f:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 0 44px;background:var(--bg);color:var(--text);
+  font-family:var(--f);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{background:var(--navy-x);color:#fff;margin:0 -16px 18px;padding:30px 16px 26px}
+header .in{max-width:1080px;margin:0 auto}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--gold)}
+h1{margin:12px 0 10px;font-size:29px;line-height:1.12;font-weight:700;letter-spacing:-.3px}
+header p{margin:0;color:var(--dim);font-size:14.5px;max-width:56ch}
+.wroc{display:inline-block;margin-bottom:4px;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  color:var(--dim);text-decoration:none}
+.wroc:hover{color:var(--gold)}
+h2{font-size:10.5px;letter-spacing:1.8px;color:var(--mid);margin:0 0 12px;font-weight:700}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 16px;margin:12px 0}
+.krok{display:flex;gap:12px;align-items:flex-start;margin:0 0 10px}
+.krok .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--gold);color:var(--gold-d);
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.krok p{margin:0;font-size:14.5px;line-height:1.45}
+.wyj{background:var(--gold);color:var(--gold-d);border-radius:8px;padding:16px;margin:14px 0}
+.wyj b{display:block;font-size:10px;font-weight:700;letter-spacing:1.6px;margin-bottom:7px}
+.wyj p{margin:0;font-size:14px;line-height:1.45}
+.dane{background:var(--blue-t);border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13.5px}
+.dane b{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--navy);margin-bottom:6px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:4px;
+  display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.prog{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.count{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;letter-spacing:.4px}
+.nrk{font-size:10.5px;font-weight:700;letter-spacing:1.6px;color:var(--gold)}
+.sprawa{font-size:20px;font-weight:700;color:var(--navy);line-height:1.28;margin:8px 0 6px}
+.od{font-size:12px;color:var(--mid);margin:0 0 4px;letter-spacing:.3px}
+.pyt{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--mid);margin:20px 0 8px;
+  padding-top:14px;border-top:1px solid var(--line)}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opts.dwa{grid-template-columns:1fr 1fr}
+.opts.trzy{grid-template-columns:1fr}
+button.opt{text-align:left;font:inherit;font-size:14.5px;cursor:pointer;min-height:50px;width:100%;
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:11px 13px;color:var(--text);
+  display:flex;gap:10px;align-items:center;transition:.12s}
+button.opt:hover{border-color:var(--navy);background:var(--blue-t)}
+button.opt .m{color:var(--gold);font-size:17px;flex:0 0 auto;line-height:1}
+button.opt small{display:block;font-size:11.5px;opacity:.7;font-weight:400;margin-top:1px}
+button.opt b{font-weight:700}
+button.opt.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+button.opt.sel .m{color:var(--gold)}
+.nav{display:flex;gap:8px;margin-top:18px}
+.nav .btn{flex:1}
+.btn{font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;border-radius:7px;padding:13px 18px;
+  min-height:48px;border:none;letter-spacing:.2px}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);color:var(--gold-d)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.35;cursor:default}
+.akcje{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.akcje .btn{flex:1 1 auto}
+.siatka{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.kw{aspect-ratio:1;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;
+  font-size:13px;font-weight:700;color:var(--mid);cursor:pointer;padding:0}
+.kw.ok{background:var(--navy);border-color:var(--navy);color:#fff}
+.kw.tu{outline:2px solid var(--gold);outline-offset:1px}
+.big{background:var(--navy-x);color:#fff;border-radius:8px;padding:26px 20px;text-align:center;margin:12px 0}
+.big .num{font-size:52px;font-weight:700;line-height:1;color:var(--gold);letter-spacing:-1px}
+.big .lab{font-size:12.5px;color:var(--dim);margin-top:10px;max-width:36ch;margin-left:auto;margin-right:auto}
+.tab{display:grid;grid-template-columns:1fr auto;gap:0 12px;font-size:14.5px}
+.tab .n{padding:10px 0;border-bottom:1px solid var(--line)}
+.tab .v{padding:10px 0;border-bottom:1px solid var(--line);font-weight:700;color:var(--navy);text-align:right}
+.tab .n.s,.tab .v.s{border-bottom:none;border-top:2px solid var(--navy);font-weight:700}
+label.f{display:block;font-size:10px;font-weight:700;letter-spacing:1.3px;color:var(--mid);margin:16px 0 6px}
+input[type=text],input[type=number],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--text);
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:12px}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+textarea{min-height:84px;resize:vertical}
+.msg{font-size:12.5px;color:var(--mid);margin-top:10px;min-height:18px}
+.por{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;font-size:13.5px;
+  padding:9px 0;border-bottom:1px solid var(--line)}
+.por .zn{font-weight:700}
+.por.z .zn{color:var(--green)} .por.r .zn{color:var(--wine)}
+.box{border-radius:7px;padding:14px;margin:12px 0;font-size:13.5px;line-height:1.45}
+.box b{display:block;font-size:10px;letter-spacing:1.4px;margin-bottom:6px}
+.box.blue{background:var(--blue-t)} .box.blue b{color:var(--navy)}
+.box.green{background:var(--green-t)} .box.green b{color:var(--green)}
+.box.gold2{background:var(--gold-t)} .box.gold2 b{color:var(--gold-d)}
+.box.wine{background:var(--wine-t)} .box.wine b{color:var(--wine)}
+.wz{display:grid;grid-template-columns:1fr;gap:10px}
+.wz .row{border:1px solid var(--line);border-radius:7px;padding:12px;background:#fff}
+.wz .row.wzor{background:var(--gold-t);border-color:var(--gold)}
+.wz .row h3{margin:0 0 8px;font-size:15px;color:var(--navy);font-weight:700;line-height:1.3}
+.wz .row .lb{font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--mid);margin:10px 0 5px}
+.mini{font-size:12.5px;color:var(--mid);margin:4px 0 0}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{background:var(--navy);color:#fff;text-align:left;padding:9px 10px;font-size:11.5px;
+  letter-spacing:.6px;font-weight:700}
+table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:nth-child(even) td{background:var(--bg)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mid);
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hide{display:none!important}
+@media (min-width:660px){
+  header{padding:40px 16px 34px} h1{font-size:36px}
+  .card{padding:22px 24px}
+  .opts{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .opts.trzy{grid-template-columns:repeat(3,1fr)}
+  .akcje .btn{flex:0 0 auto}
+  .kroki2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  .wz{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1000px){
+  .wrap{padding:0 32px}
+  header{padding:48px 32px 40px}
+  h1{font-size:42px}
+  header p{font-size:15.5px;max-width:66ch}
+  .big .num{font-size:62px}
+}
+@media print{body{background:#fff}.bar,.akcje,.nav,.noprint{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header><div class="in">
+  <a class="wroc" href="index.html">← WSZYSTKIE ĆWICZENIA</a>
+  <div class="kicker">ĆWICZENIE 15 · 20 MINUT · INDYWIDUALNIE, POTEM W PARACH</div>
+  <h1>Które z tych mierników da się mierzyć</h1>
+  <p>Cztery propozycje mierników dla Na Kole. Wszystkie brzmią rozsądnie. Sprawdzasz każdą czterema pytaniami i przepisujesz dwie najgorsze tak, żeby dało się je policzyć.</p>
+</div></header>
+
+<div class="wrap">
+
+<section id="intro">
+  <div class="card">
+    <div class="kroki2">
+    <div class="krok"><div class="n">1</div><p>Przy każdej propozycji odpowiedz na cztery pytania: czy wiadomo, co dokładnie mierzymy; czy wiadomo, skąd dane; czy wiadomo, kto liczy i jak często; czy jest podany próg reakcji.</p></div>
+    <div class="krok"><div class="n">2</div><p>Zaznacz przy każdym pytaniu „przechodzi” albo „nie przechodzi”. Dwie propozycje nie przechodzą więcej niż jednego.</p></div>
+    <div class="krok"><div class="n">3</div><p>Wybierz dwie najgorsze i przepisz je tak, żeby przeszły wszystkie cztery.</p></div>
+    <div class="krok"><div class="n">4</div><p>W parze sprawdźcie sobie nawzajem jedną rzecz: czy poprawioną miarę da się policzyć w dziesięć minut, ręcznie, z zegarkiem.</p></div>
+    </div>
+    <div class="dane"><b>SKĄD DANE</b>Karta firmy, część 1 i część 2 — co w firmie w ogóle jest zapisywane i skąd można wziąć liczby.</div>
+    <div class="wyj"><b>GOTOWE, KIEDY</b><p>dwie propozycje są przepisane i przechodzą wszystkie cztery pytania.</p></div>
+    <div class="akcje"><button class="btn primary" id="start">Zaczynam</button></div>
+    <div class="msg" id="wznow"></div>
+  </div>
+</section>
+
+
+<section id="zad" class="hide">
+  <div class="bar"><div class="prog"><i id="pi"></i></div><div class="count" id="pc">0 / 4</div></div>
+  <div class="card">
+    <div class="nrk" id="nrk">PROPOZYCJA 1 Z 4</div>
+    <p class="sprawa" id="tresc"></p>
+    <div id="pytania"></div>
+    <div class="box gold2" id="ocena" style="margin-top:12px"><b>PRZECHODZI</b>—</div>
+    <div class="nav">
+      <button class="btn ghost" id="wstecz">Wstecz</button>
+      <button class="btn primary" id="dalej">Dalej</button>
+    </div>
+  </div>
+  <div class="card noprint">
+    <div class="siatka" id="siatka" style="grid-template-columns:repeat(4,1fr)"></div>
+    <div class="akcje"><button class="btn gold" id="doWyniku">Przejdź do poprawek</button></div>
+  </div>
+</section>
+
+<section id="wynik" class="hide">
+  <div class="card"><h2>TWOJA OCENA</h2><div class="scroll"><table class="t" id="grid"></table></div></div>
+  <div class="card">
+    <h2>PRZEPISZ DWIE NAJGORSZE</h2>
+    <p class="mini" style="margin-bottom:10px">Każda poprawiona miara musi mieć: co mierzę, skąd dane, kto liczy i jak często, przy jakiej wartości reaguję.</p>
+    <label class="f" for="m1">POPRAWIONA MIARA 1</label>
+    <textarea id="m1" placeholder="np. Liczba rowerów oddanych w terminie, liczona w piątek przez Olę z zeszytu zgłoszeń, reagujemy poniżej 90%"></textarea>
+    <label class="f" for="m2">POPRAWIONA MIARA 2</label>
+    <textarea id="m2" placeholder="to samo, dla drugiej propozycji"></textarea>
+    <div id="test"></div>
+    <div class="akcje">
+      <button class="btn primary" id="zapisz">Zapisz do teczki</button>
+      <button class="btn ghost" id="kopiuj">Kopiuj wynik</button>
+      <button class="btn ghost noprint" id="drukuj">Drukuj</button>
+    </div>
+    <div class="msg" id="stan"></div>
+  </div>
+  <div class="card noprint">
+    <h2>KOMENTARZ PROWADZĄCEGO</h2>
+    <p style="font-size:13.5px;margin:0">Otwiera się po ocenieniu wszystkich czterech propozycji.</p>
+    <div class="akcje">
+      <button class="btn ghost" id="pokazKlucz" disabled>Pokaż komentarz</button>
+      <button class="btn ghost" id="odNowa">Zacznij od nowa</button>
+    </div>
+    <div id="klucz" class="hide" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<footer>
+  <span>ZMIANOLOGICA · dr Marcin Żółtak</span>
+  <span>Zarządzanie operacyjne · dzień 4 · ćwiczenie 15</span>
+</footer>
+</div>
+
+<script>
+
+var Teczka=(function(){var K='zo-nakole-v1';
+function all(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+function put(o){try{localStorage.setItem(K,JSON.stringify(o));return true}catch(e){return false}}
+return{zapisz:function(p,d){var a=all();a[p]={dane:d,ts:Date.now()};return put(a)},
+ czytaj:function(p){var w=all()[p];return w?w.dane:null},
+ usun:function(p){var a=all();delete a[p];return put(a)},
+ lista:function(){return Object.keys(all())},
+ kopiuj:function(t,btn){function ok(){if(!btn)return;var s=btn.textContent;btn.textContent='Skopiowane';
+   setTimeout(function(){btn.textContent=s},1600)}
+  function zap(){var e=document.createElement('textarea');e.value=t;e.style.position='fixed';e.style.opacity='0';
+   document.body.appendChild(e);e.select();try{document.execCommand('copy');ok()}catch(x){}document.body.removeChild(e)}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,zap)}else{zap()}}
+}})();
+var $=function(x){return document.getElementById(x)};
+
+var PUNKT='15';
+
+var M=[[1,"Zadowolenie klientów",{"co":0,"skad":0,"kto":0,"prog":0},"Nie przechodzi żadnego z czterech pytań. Nie wiadomo, co się liczy, skąd dane, kto liczy ani kiedy reagować. Poprawiona wersja: liczba rowerów oddanych w obiecanym terminie, liczona w piątek z zeszytu zgłoszeń, reagujemy poniżej dziewięćdziesięciu procent."],[2,"Liczba rowerów oddanych w obiecanym terminie, liczona w piątek z zeszytu zgłoszeń; reagujemy, gdy spadnie poniżej 90%",{"co":1,"skad":1,"kto":1,"prog":1},"Przechodzi wszystkie cztery. Definicja jest ostra, źródło istnieje, pora i osoba ustalone, próg podany z góry. Policzenie zajmuje kilka minut przeglądania zeszytu."],[3,"Średni czas naprawy",{"co":0,"skad":0,"kto":0,"prog":0},"Wygląda konkretnie i nie przechodzi żadnego pytania. Od kiedy do kiedy liczymy — od przyjęcia czy od wzięcia na stanowisko? Nikt tych godzin nie zapisuje, więc danych nie ma. Żeby ten miernik działał, trzeba najpierw zacząć zbierać dane, a to osobna decyzja i osobny koszt."],[4,"Marża na zleceniach w rozbiciu na pięć typów usług, liczona co miesiąc",{"co":1,"skad":0,"kto":0,"prog":0},"Wie, co mierzy, ale reszta nie działa. Rozbicie na pięć typów wymaga przepisywania paragonów; miesięczny rytm jest za rzadki, żeby cokolwiek poprawić; progu nie ma. Miara, której nie da się policzyć w dziesięć minut tygodniowo, nie przetrwa pierwszego gorącego tygodnia."]];
+var PYT=[['co','Co dokładnie mierzę','definicja tak ostra, żeby dwie osoby policzyły to samo'],
+         ['skad','Skąd biorę dane','źródło, które już istnieje'],
+         ['kto','Kto liczy i jak często','imię i pora, nie „będziemy sprawdzać”'],
+         ['prog','Przy jakiej wartości reaguję','próg ustalony z góry']];
+var odp={},i=0;
+
+PYT.forEach(function(q){
+  var d=document.createElement('div');
+  d.innerHTML='<div class="pyt">'+q[1].toUpperCase()+'</div>'+
+    '<p class="mini" style="margin:-4px 0 8px">'+q[2]+'</p>'+
+    '<div class="opts dwa">'+
+    '<button type="button" class="opt" data-q="'+q[0]+'" data-v="1"><span><b>Przechodzi</b></span></button>'+
+    '<button type="button" class="opt" data-q="'+q[0]+'" data-v="0"><span><b>Nie przechodzi</b></span></button></div>';
+  $('pytania').appendChild(d)});
+[].forEach.call(document.querySelectorAll('#pytania button.opt'),function(b){
+  b.onclick=function(){odp[i]=odp[i]||{};odp[i][b.dataset.q]=+b.dataset.v;rysuj()}});
+for(var s=0;s<4;s++){(function(n){
+  var b=document.createElement('button');b.type='button';b.className='kw';b.textContent=n+1;b.id='kw'+n;
+  b.onclick=function(){i=n;rysuj();window.scrollTo({top:0,behavior:'smooth'})};
+  $('siatka').appendChild(b)})(s)}
+
+function pelne(k){var a=odp[k];if(!a)return false;
+  for(var q=0;q<PYT.length;q++)if(a[PYT[q][0]]===undefined)return false;return true}
+function ile(){var n=0;for(var k=0;k<4;k++)if(pelne(k))n++;return n}
+function przechodzi(k){var a=odp[k]||{},n=0;PYT.forEach(function(q){if(a[q[0]]===1)n++});return n}
+function rysuj(){
+  var a=odp[i]||{};
+  $('nrk').textContent='PROPOZYCJA '+(i+1)+' Z 4';
+  $('tresc').textContent='„'+M[i][1]+'”';
+  [].forEach.call(document.querySelectorAll('#pytania button.opt'),function(b){
+    b.classList.toggle('sel',a[b.dataset.q]===+b.dataset.v)});
+  $('ocena').innerHTML='<b>PRZECHODZI</b>'+(pelne(i)?przechodzi(i)+' z 4 pytań':'—');
+  $('wstecz').disabled=(i===0);$('dalej').disabled=(i===3);
+  var n=ile();$('pc').textContent=n+' / 4';$('pi').style.width=(n/4*100)+'%';
+  for(var s=0;s<4;s++){var kw=$('kw'+s);kw.classList.toggle('ok',pelne(s));kw.classList.toggle('tu',s===i)}
+  $('doWyniku').textContent=n===4?'Przejdź do poprawek':'Poprawki ('+n+' z 4)';
+}
+function sprawdzMiare(t){
+  var b=[];
+  if(!/(liczb|ile|licz|procent|%|złot|zł|szt|min)/i.test(t))b.push('co dokładnie mierzysz');
+  if(!/(zeszyt|paragon|kalendarz|kasa|regał|regal|system|lista|tablic|zgłosz|zglosz)/i.test(t))b.push('skąd dane');
+  if(!/(codzien|tygodn|piąt|piat|poniedział|poniedzial|raz w|miesi)/i.test(t))b.push('kto i jak często');
+  if(!/(poniżej|ponizej|powyżej|powyzej|gdy|kiedy|reag|próg|prog|mniej niż|wiecej niż|więcej niż)/i.test(t))b.push('próg reakcji');
+  return b;
+}
+function testuj(){var h='';
+  [['m1','Miara 1'],['m2','Miara 2']].forEach(function(p){
+    var t=$(p[0]).value.trim();if(!t)return;
+    var b=sprawdzMiare(t);
+    h+='<div class="box '+(b.length?'gold2':'green')+'"><b>'+p[1].toUpperCase()+'</b>'+
+      (b.length?'Nie widzę tu: '+b.join(', ')+'.':'Widzę wszystkie cztery elementy. Sprawdź jeszcze, czy policzysz to w dziesięć minut.')+'</div>'});
+  $('test').innerHTML=h}
+$('start').onclick=function(){$('intro').classList.add('hide');$('zad').classList.remove('hide');rysuj()};
+$('wstecz').onclick=function(){if(i>0){i--;rysuj();window.scrollTo({top:0})}};
+$('dalej').onclick=function(){if(i<3){i++;rysuj();window.scrollTo({top:0})}};
+$('doWyniku').onclick=function(){
+  $('zad').classList.add('hide');$('wynik').classList.remove('hide');
+  var h='<tr><th>Propozycja</th><th>Twoja ocena</th></tr>';
+  M.forEach(function(w,k){h+='<tr><td>'+(k+1)+'. '+w[1]+'</td><td><b>'+(pelne(k)?przechodzi(k)+' z 4':'—')+'</b></td></tr>'});
+  $('grid').innerHTML=h;$('pokazKlucz').disabled=(ile()<4);
+  var z=Teczka.czytaj(PUNKT);if(z){$('m1').value=z.m1||'';$('m2').value=z.m2||'';testuj()}
+  window.scrollTo({top:0})};
+$('m1').oninput=testuj;$('m2').oninput=testuj;
+function tekst(){var s='ĆWICZENIE 15 — MIERNIKI\n\n';
+  M.forEach(function(w,k){s+=(k+1)+'. '+w[1]+' — '+(pelne(k)?przechodzi(k)+' z 4':'—')+'\n'});
+  s+='\nPOPRAWIONA MIARA 1: '+($('m1').value||'—')+'\nPOPRAWIONA MIARA 2: '+($('m2').value||'—')+'\n';return s}
+$('zapisz').onclick=function(){var ok=Teczka.zapisz(PUNKT,{odp:odp,m1:$('m1').value,m2:$('m2').value});
+  $('stan').textContent=ok?'Zapisane w teczce.':'Nie udało się zapisać — skopiuj wynik.'};
+$('kopiuj').onclick=function(){Teczka.kopiuj(tekst(),this)};
+$('drukuj').onclick=function(){window.print()};
+$('pokazKlucz').onclick=function(){
+  var h='',zg=0;
+  M.forEach(function(w,k){var a=odp[k]||{},ok=true;
+    PYT.forEach(function(q){if(a[q[0]]!==w[2][q[0]])ok=false});if(ok)zg++;
+    var kl=0;PYT.forEach(function(q){if(w[2][q[0]])kl++});
+    h+='<div class="box '+(ok?'green':'gold2')+'"><b>'+(k+1)+' · '+w[1].toUpperCase().slice(0,60)+'</b>'+
+       '<span style="display:block;margin-bottom:6px"><b style="display:inline;font-size:13px;letter-spacing:0">Odczyt prowadzącego:</b> przechodzi '+kl+' z 4</span>'+w[3]+'</div>'});
+  $('klucz').innerHTML='<div class="box blue"><b>ZGODNOŚĆ</b>'+zg+' z 4 propozycji ocenionych identycznie we wszystkich czterech pytaniach.</div>'+h;
+  $('klucz').classList.remove('hide');this.disabled=true};
+$('odNowa').onclick=function(){if(!confirm('Skasować odpowiedzi?'))return;
+  odp={};i=0;Teczka.usun(PUNKT);$('wynik').classList.add('hide');$('intro').classList.remove('hide');
+  $('klucz').classList.add('hide');$('m1').value='';$('m2').value='';$('test').innerHTML='';
+  $('stan').textContent='';window.scrollTo({top:0})};
+(function(){var z=Teczka.czytaj(PUNKT);
+  if(z&&z.odp){odp=z.odp;$('wznow').textContent='Masz tu zapisane odpowiedzi z poprzedniego wejścia.'}})();
+
+</script>
+</body>
+</html>

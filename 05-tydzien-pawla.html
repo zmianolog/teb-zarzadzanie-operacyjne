@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ćwiczenie 5 · Ułóż tydzień Pawła</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F4460; --navy-d:#163450; --navy-x:#102839;
+  --gold:#E8B62C; --gold-d:#5C4810; --gold-t:#FDF4DC;
+  --text:#2C3540; --mid:#6B7680; --line:#D8DDE3; --bg:#F5F5F7;
+  --dim:#C3D2DE; --green:#1E6B4F; --green-t:#ECF6F1; --wine:#8E2749; --wine-t:#F7ECF0;
+  --blue-t:#F0F6FB;
+  --f:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 0 44px;background:var(--bg);color:var(--text);
+  font-family:var(--f);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{background:var(--navy-x);color:#fff;margin:0 -16px 18px;padding:30px 16px 26px}
+header .in{max-width:1080px;margin:0 auto}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--gold)}
+h1{margin:12px 0 10px;font-size:29px;line-height:1.12;font-weight:700;letter-spacing:-.3px}
+header p{margin:0;color:var(--dim);font-size:14.5px;max-width:56ch}
+.wroc{display:inline-block;margin-bottom:4px;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  color:var(--dim);text-decoration:none}
+.wroc:hover{color:var(--gold)}
+h2{font-size:10.5px;letter-spacing:1.8px;color:var(--mid);margin:0 0 12px;font-weight:700}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 16px;margin:12px 0}
+.krok{display:flex;gap:12px;align-items:flex-start;margin:0 0 10px}
+.krok .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--gold);color:var(--gold-d);
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.krok p{margin:0;font-size:14.5px;line-height:1.45}
+.wyj{background:var(--gold);color:var(--gold-d);border-radius:8px;padding:16px;margin:14px 0}
+.wyj b{display:block;font-size:10px;font-weight:700;letter-spacing:1.6px;margin-bottom:7px}
+.wyj p{margin:0;font-size:14px;line-height:1.45}
+.dane{background:var(--blue-t);border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13.5px}
+.dane b{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--navy);margin-bottom:6px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:4px;
+  display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.prog{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.count{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;letter-spacing:.4px}
+.nrk{font-size:10.5px;font-weight:700;letter-spacing:1.6px;color:var(--gold)}
+.sprawa{font-size:20px;font-weight:700;color:var(--navy);line-height:1.28;margin:8px 0 6px}
+.od{font-size:12px;color:var(--mid);margin:0 0 4px;letter-spacing:.3px}
+.pyt{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--mid);margin:20px 0 8px;
+  padding-top:14px;border-top:1px solid var(--line)}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opts.dwa{grid-template-columns:1fr 1fr}
+.opts.trzy{grid-template-columns:1fr}
+button.opt{text-align:left;font:inherit;font-size:14.5px;cursor:pointer;min-height:50px;width:100%;
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:11px 13px;color:var(--text);
+  display:flex;gap:10px;align-items:center;transition:.12s}
+button.opt:hover{border-color:var(--navy);background:var(--blue-t)}
+button.opt .m{color:var(--gold);font-size:17px;flex:0 0 auto;line-height:1}
+button.opt small{display:block;font-size:11.5px;opacity:.7;font-weight:400;margin-top:1px}
+button.opt b{font-weight:700}
+button.opt.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+button.opt.sel .m{color:var(--gold)}
+.nav{display:flex;gap:8px;margin-top:18px}
+.nav .btn{flex:1}
+.btn{font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;border-radius:7px;padding:13px 18px;
+  min-height:48px;border:none;letter-spacing:.2px}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);color:var(--gold-d)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.35;cursor:default}
+.akcje{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.akcje .btn{flex:1 1 auto}
+.siatka{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.kw{aspect-ratio:1;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;
+  font-size:13px;font-weight:700;color:var(--mid);cursor:pointer;padding:0}
+.kw.ok{background:var(--navy);border-color:var(--navy);color:#fff}
+.kw.tu{outline:2px solid var(--gold);outline-offset:1px}
+.big{background:var(--navy-x);color:#fff;border-radius:8px;padding:26px 20px;text-align:center;margin:12px 0}
+.big .num{font-size:52px;font-weight:700;line-height:1;color:var(--gold);letter-spacing:-1px}
+.big .lab{font-size:12.5px;color:var(--dim);margin-top:10px;max-width:36ch;margin-left:auto;margin-right:auto}
+.tab{display:grid;grid-template-columns:1fr auto;gap:0 12px;font-size:14.5px}
+.tab .n{padding:10px 0;border-bottom:1px solid var(--line)}
+.tab .v{padding:10px 0;border-bottom:1px solid var(--line);font-weight:700;color:var(--navy);text-align:right}
+.tab .n.s,.tab .v.s{border-bottom:none;border-top:2px solid var(--navy);font-weight:700}
+label.f{display:block;font-size:10px;font-weight:700;letter-spacing:1.3px;color:var(--mid);margin:16px 0 6px}
+input[type=text],input[type=number],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--text);
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:12px}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+textarea{min-height:84px;resize:vertical}
+.msg{font-size:12.5px;color:var(--mid);margin-top:10px;min-height:18px}
+.por{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;font-size:13.5px;
+  padding:9px 0;border-bottom:1px solid var(--line)}
+.por .zn{font-weight:700}
+.por.z .zn{color:var(--green)} .por.r .zn{color:var(--wine)}
+.box{border-radius:7px;padding:14px;margin:12px 0;font-size:13.5px;line-height:1.45}
+.box b{display:block;font-size:10px;letter-spacing:1.4px;margin-bottom:6px}
+.box.blue{background:var(--blue-t)} .box.blue b{color:var(--navy)}
+.box.green{background:var(--green-t)} .box.green b{color:var(--green)}
+.box.gold2{background:var(--gold-t)} .box.gold2 b{color:var(--gold-d)}
+.box.wine{background:var(--wine-t)} .box.wine b{color:var(--wine)}
+.wz{display:grid;grid-template-columns:1fr;gap:10px}
+.wz .row{border:1px solid var(--line);border-radius:7px;padding:12px;background:#fff}
+.wz .row.wzor{background:var(--gold-t);border-color:var(--gold)}
+.wz .row h3{margin:0 0 8px;font-size:15px;color:var(--navy);font-weight:700;line-height:1.3}
+.wz .row .lb{font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--mid);margin:10px 0 5px}
+.mini{font-size:12.5px;color:var(--mid);margin:4px 0 0}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{background:var(--navy);color:#fff;text-align:left;padding:9px 10px;font-size:11.5px;
+  letter-spacing:.6px;font-weight:700}
+table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:nth-child(even) td{background:var(--bg)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mid);
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hide{display:none!important}
+@media (min-width:660px){
+  header{padding:40px 16px 34px} h1{font-size:36px}
+  .card{padding:22px 24px}
+  .opts{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .opts.trzy{grid-template-columns:repeat(3,1fr)}
+  .akcje .btn{flex:0 0 auto}
+  .kroki2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  .wz{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1000px){
+  .wrap{padding:0 32px}
+  header{padding:48px 32px 40px}
+  h1{font-size:42px}
+  header p{font-size:15.5px;max-width:66ch}
+  .big .num{font-size:62px}
+}
+@media print{body{background:#fff}.bar,.akcje,.nav,.noprint{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header><div class="in">
+  <a class="wroc" href="index.html">← WSZYSTKIE ĆWICZENIA</a>
+  <div class="kicker">ĆWICZENIE 5 · 30 MINUT · INDYWIDUALNIE, POTEM OMÓWIENIE NA FORUM</div>
+  <h1>Ułóż tydzień Pawła</h1>
+  <p>Warsztat jest otwarty od poniedziałku do piątku w godzinach 10–18 i w sobotę 10–14. Masz sześć bloków do wstawienia w tydzień i trzy warunki, których nie wolno złamać.</p>
+</div></header>
+
+<div class="wrap">
+
+<section id="intro">
+  <div class="card">
+    <div class="kroki2">
+    <div class="krok"><div class="n">1</div><p>Każdemu blokowi ustaw dzień i godzinę rozpoczęcia. Dwa bloki są codzienne — przy nich wybierasz tylko godzinę.</p></div>
+    <div class="krok"><div class="n">2</div><p>Trzy warunki, których nie wolno złamać: odprawa zaczyna się przed otwarciem o dziesiątej, uczenie nie wypada w sobotę, przegląd liczb odbywa się w piątek albo w sobotę.</p></div>
+    <div class="krok"><div class="n">3</div><p>Blok priorytetu operacyjnego musi dostać konkretny dzień i konkretną porę. To ten sam priorytet, który wybrałeś w ćwiczeniu 4.</p></div>
+    <div class="krok"><div class="n">4</div><p>Sprawdź swoją siatkę pytaniem: co się stanie z każdym z bloków w piątek w szczycie sezonu, gdy przy ladzie stoi trzech klientów.</p></div>
+    <div class="krok"><div class="n">5</div><p>Zapisz jedno zdanie: który blok wypadnie pierwszy i co zrobisz, żeby wrócił.</p></div>
+    </div>
+    <div class="dane"><b>SKĄD DANE</b>Karta firmy, część 1 — godziny otwarcia i obsada. Priorytet operacyjny bierzesz z własnego ćwiczenia 4.</div>
+    <div class="wyj"><b>GOTOWE, KIEDY</b><p>w siatce jest sześć bloków, wszystkie trzy warunki są spełnione, a pod siatką stoi jedno zdanie o tym, który blok wypadnie pierwszy.</p></div>
+    <div class="akcje"><button class="btn primary" id="start">Zaczynam</button></div>
+    <div class="msg" id="wznow"></div>
+  </div>
+</section>
+
+
+<section id="zad" class="hide">
+  <div class="bar"><div class="prog"><i id="pi"></i></div><div class="count" id="pc">0 / 6</div></div>
+  <div class="card">
+    <h2>SZEŚĆ BLOKÓW DO WSTAWIENIA</h2>
+    <div id="lista"></div>
+  </div>
+  <div class="card">
+    <h2>TWÓJ TYDZIEŃ</h2>
+    <div class="scroll"><table class="t" id="grid"></table></div>
+    <div id="warunki"></div>
+    <div class="akcje"><button class="btn gold" id="doWyniku">Przejdź do sprawdzenia</button></div>
+  </div>
+</section>
+
+<section id="wynik" class="hide">
+  <div class="card"><h2>TWÓJ TYDZIEŃ</h2><div class="scroll"><table class="t" id="grid2"></table></div></div>
+  <div class="card">
+    <h2>SPRAWDZENIE</h2>
+    <label class="f" for="p1">KTÓRY BLOK WYPADNIE PIERWSZY W PIĄTEK W SZCZYCIE SEZONU I CO ZROBISZ, ŻEBY WRÓCIŁ</label>
+    <textarea id="p1" placeholder="jedno zdanie, konkretnie"></textarea>
+    <div class="akcje">
+      <button class="btn primary" id="zapisz">Zapisz do teczki</button>
+      <button class="btn ghost" id="kopiuj">Kopiuj wynik</button>
+      <button class="btn ghost noprint" id="drukuj">Drukuj</button>
+    </div>
+    <div class="msg" id="stan"></div>
+  </div>
+  <div class="card noprint">
+    <h2>KOMENTARZ PROWADZĄCEGO</h2>
+    <p style="font-size:13.5px;margin:0">Otwiera się po wstawieniu wszystkich sześciu bloków. Poprawnych rozwiązań jest kilka — komentarz mówi, czego szukać, a nie co jest jedyne słuszne.</p>
+    <div class="akcje">
+      <button class="btn ghost" id="pokazKlucz" disabled>Pokaż komentarz</button>
+      <button class="btn ghost" id="odNowa">Zacznij od nowa</button>
+    </div>
+    <div id="klucz" class="hide" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<footer>
+  <span>ZMIANOLOGICA · dr Marcin Żółtak</span>
+  <span>Zarządzanie operacyjne · dzień 1 · ćwiczenie 5</span>
+</footer>
+</div>
+
+<script>
+
+var Teczka=(function(){var K='zo-nakole-v1';
+function all(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+function put(o){try{localStorage.setItem(K,JSON.stringify(o));return true}catch(e){return false}}
+return{zapisz:function(p,d){var a=all();a[p]={dane:d,ts:Date.now()};return put(a)},
+ czytaj:function(p){var w=all()[p];return w?w.dane:null},
+ usun:function(p){var a=all();delete a[p];return put(a)},
+ lista:function(){return Object.keys(all())},
+ kopiuj:function(t,btn){function ok(){if(!btn)return;var s=btn.textContent;btn.textContent='Skopiowane';
+   setTimeout(function(){btn.textContent=s},1600)}
+  function zap(){var e=document.createElement('textarea');e.value=t;e.style.position='fixed';e.style.opacity='0';
+   document.body.appendChild(e);e.select();try{document.execCommand('copy');ok()}catch(x){}document.body.removeChild(e)}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,zap)}else{zap()}}
+}})();
+var $=function(x){return document.getElementById(x)};
+
+var PUNKT='5';
+
+var B=[["otw","Otwarcie tygodnia","20 min","Ustalić, co robimy w tym tygodniu i kto za co odpowiada"],["odp","Odprawa","15 min","Przejść przez jedną liczbę i ustalić, co robimy inaczej od dziś"],["ucz","Uczenie","60 min","Nauczyć jednej czynności i sprawdzić poprzednią"],["licz","Przegląd liczb","20 min","Uzupełnić tablicę i zobaczyć, w którą stronę idą cztery liczby"],["okno","Okno na przerwania","30 min","Zebrać pytania, które nie muszą być rozstrzygnięte natychmiast"],["prio","Twój priorytet operacyjny","60 min","Godziny na to, co wybrałeś w ćwiczeniu 4"]];
+var DNI=['pon','wt','śr','czw','pt','sob'];
+var CODZ={odp:1,okno:1};
+var GODZ=[];for(var g=9;g<=17;g++){GODZ.push(g+':00');GODZ.push(g+':30')}
+var plan={};
+
+B.forEach(function(b){
+  var d=document.createElement('div');d.className='wz';d.style.marginBottom='10px';
+  var sel='';
+  if(!CODZ[b[0]]){sel='<div class="lb">DZIEŃ</div><select id="d_'+b[0]+'"><option value="">— wybierz —</option>'+
+    DNI.map(function(x,k){return '<option value="'+k+'">'+x+'</option>'}).join('')+'</select>';}
+  else{sel='<div class="lb">DZIEŃ</div><div style="font-size:14px;font-weight:700;color:var(--navy);padding:6px 0">codziennie</div>';}
+  d.innerHTML='<div class="row"><h3>'+b[1]+' <span style="color:var(--mid);font-weight:400;font-size:13px">· '+b[2]+'</span></h3>'+
+    '<p class="mini">'+b[3]+'</p>'+sel+
+    '<div class="lb">GODZINA</div><select id="g_'+b[0]+'"><option value="">— wybierz —</option>'+
+    GODZ.map(function(x){return '<option value="'+x+'">'+x+'</option>'}).join('')+'</select></div>';
+  $('lista').appendChild(d);
+});
+B.forEach(function(b){
+  var ds=$('d_'+b[0]),gs=$('g_'+b[0]);
+  if(ds)ds.onchange=function(){plan[b[0]]=plan[b[0]]||{};plan[b[0]].d=this.value;rysuj()};
+  gs.onchange=function(){plan[b[0]]=plan[b[0]]||{};plan[b[0]].g=this.value;rysuj()};
+});
+
+function pelny(k){var p=plan[k];if(!p)return false;return CODZ[k]?!!p.g:!!(p.d!==''&&p.d!==undefined&&p.g)}
+function ile(){var n=0;B.forEach(function(b){if(pelny(b[0]))n++});return n}
+function godzNa(g){return parseInt(g.split(':')[0],10)*60+parseInt(g.split(':')[1],10)}
+
+function sprawdz(){
+  var w=[];
+  var o=plan.odp,u=plan.ucz,l=plan.licz;
+  if(o&&o.g)w.push([godzNa(o.g)<600,'Odprawa zaczyna się przed otwarciem o 10:00']);
+  if(u&&u.d!==undefined&&u.d!=='')w.push([u.d!=='5','Uczenie nie wypada w sobotę']);
+  if(l&&l.d!==undefined&&l.d!=='')w.push([l.d==='4'||l.d==='5','Przegląd liczb w piątek albo w sobotę']);
+  return w;
+}
+function rysujGrid(el){
+  var h='<tr><th>Blok</th><th>Dzień</th><th>Godzina</th></tr>';
+  B.forEach(function(b){var p=plan[b[0]]||{};
+    var d=CODZ[b[0]]?'codziennie':(p.d!==''&&p.d!==undefined?DNI[p.d]:'—');
+    h+='<tr><td><b>'+b[1]+'</b><br><small style="color:var(--mid)">'+b[2]+'</small></td><td>'+d+'</td><td>'+(p.g||'—')+'</td></tr>'});
+  el.innerHTML=h;
+}
+function rysuj(){
+  var n=ile();$('pc').textContent=n+' / 6';$('pi').style.width=(n/6*100)+'%';
+  rysujGrid($('grid'));
+  var w=sprawdz(),h='';
+  w.forEach(function(x){h+='<div class="box '+(x[0]?'green':'wine')+'"><b>'+(x[0]?'WARUNEK SPEŁNIONY':'WARUNEK ZŁAMANY')+'</b>'+x[1]+'</div>'});
+  $('warunki').innerHTML=h;
+  $('doWyniku').textContent=n===6?'Przejdź do sprawdzenia':'Sprawdzenie ('+n+' z 6)';
+}
+$('start').onclick=function(){$('intro').classList.add('hide');$('zad').classList.remove('hide');rysuj()};
+$('doWyniku').onclick=function(){
+  $('zad').classList.add('hide');$('wynik').classList.remove('hide');rysujGrid($('grid2'));
+  $('pokazKlucz').disabled=(ile()<6);
+  var z=Teczka.czytaj(PUNKT);if(z&&z.p1)$('p1').value=z.p1;
+  window.scrollTo({top:0})};
+function tekst(){var s='ĆWICZENIE 5 — UŁÓŻ TYDZIEŃ PAWŁA\n\n';
+  B.forEach(function(b){var p=plan[b[0]]||{};
+    s+=b[1]+' ('+b[2]+'): '+(CODZ[b[0]]?'codziennie':(p.d!==''&&p.d!==undefined?DNI[p.d]:'—'))+' '+(p.g||'—')+'\n'});
+  s+='\nKtóry blok wypadnie pierwszy: '+($('p1').value||'—')+'\n';return s}
+$('zapisz').onclick=function(){
+  var ok=Teczka.zapisz(PUNKT,{plan:plan,p1:$('p1').value});
+  $('stan').textContent=ok?'Zapisane w teczce.':'Nie udało się zapisać — skopiuj wynik.'};
+$('kopiuj').onclick=function(){Teczka.kopiuj(tekst(),this)};
+$('drukuj').onclick=function(){window.print()};
+$('pokazKlucz').onclick=function(){
+  var w=sprawdz(),zle=w.filter(function(x){return !x[0]}).length;
+  var p=plan.prio||{},pDzien=(p.d!==''&&p.d!==undefined)?DNI[p.d]:'—';
+  $('klucz').innerHTML=
+    '<div class="box '+(zle?'wine':'green')+'"><b>WARUNKI</b>'+
+      (zle?'Złamane warunki: '+zle+'. Wróć i popraw — to nie są sugestie, tylko ograniczenia wynikające z godzin otwarcia.'
+          :'Wszystkie trzy warunki spełnione.')+'</div>'+
+    '<div class="box blue"><b>NA CO PATRZY PROWADZĄCY</b>Nie ma jednego poprawnego układu. Sprawdzamy trzy rzeczy. '+
+      'Po pierwsze — czy odprawa stoi przed otwarciem, a nie w środku dnia; w środku dnia zawsze przegra z klientem. '+
+      'Po drugie — czy uczenie dostało pełną godzinę w dniu, w którym jest spokojniej, a nie w piątek po południu. '+
+      'Po trzecie — czy przegląd liczb stoi po ostatnim dniu roboczym, bo inaczej mierzysz niepełny tydzień.</div>'+
+    '<div class="box gold2"><b>TWÓJ PRIORYTET OPERACYJNY</b>Wstawiłeś go na '+pDzien+', godz. '+(p.g||'—')+'. '+
+      'To jest jedyny blok, którego nie ma w żadnym podręczniku — jest twój i wynika z celu, który wybrałeś w ćwiczeniu 4. '+
+      'Jeżeli nie ma go w kalendarzu, cel z ćwiczenia 4 nie zdarzy się w tym kwartale.</div>';
+  $('klucz').classList.remove('hide');this.disabled=true};
+$('odNowa').onclick=function(){if(!confirm('Skasować odpowiedzi?'))return;
+  plan={};Teczka.usun(PUNKT);
+  B.forEach(function(b){var d=$('d_'+b[0]);if(d)d.value='';$('g_'+b[0]).value=''});
+  $('wynik').classList.add('hide');$('intro').classList.remove('hide');$('klucz').classList.add('hide');
+  $('p1').value='';$('stan').textContent='';window.scrollTo({top:0})};
+(function(){var z=Teczka.czytaj(PUNKT);
+  if(z&&z.plan){plan=z.plan;
+    B.forEach(function(b){var p=plan[b[0]]||{},d=$('d_'+b[0]);if(d&&p.d!==undefined)d.value=p.d;if(p.g)$('g_'+b[0]).value=p.g});
+    $('wznow').textContent='Masz tu zapisany tydzień z poprzedniego wejścia.'}})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ćwiczenie 7 · Rozpisz drogę roweru</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F4460; --navy-d:#163450; --navy-x:#102839;
+  --gold:#E8B62C; --gold-d:#5C4810; --gold-t:#FDF4DC;
+  --text:#2C3540; --mid:#6B7680; --line:#D8DDE3; --bg:#F5F5F7;
+  --dim:#C3D2DE; --green:#1E6B4F; --green-t:#ECF6F1; --wine:#8E2749; --wine-t:#F7ECF0;
+  --blue-t:#F0F6FB;
+  --f:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 0 44px;background:var(--bg);color:var(--text);
+  font-family:var(--f);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{background:var(--navy-x);color:#fff;margin:0 -16px 18px;padding:30px 16px 26px}
+header .in{max-width:1080px;margin:0 auto}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--gold)}
+h1{margin:12px 0 10px;font-size:29px;line-height:1.12;font-weight:700;letter-spacing:-.3px}
+header p{margin:0;color:var(--dim);font-size:14.5px;max-width:56ch}
+.wroc{display:inline-block;margin-bottom:4px;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  color:var(--dim);text-decoration:none}
+.wroc:hover{color:var(--gold)}
+h2{font-size:10.5px;letter-spacing:1.8px;color:var(--mid);margin:0 0 12px;font-weight:700}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 16px;margin:12px 0}
+.krok{display:flex;gap:12px;align-items:flex-start;margin:0 0 10px}
+.krok .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--gold);color:var(--gold-d);
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.krok p{margin:0;font-size:14.5px;line-height:1.45}
+.wyj{background:var(--gold);color:var(--gold-d);border-radius:8px;padding:16px;margin:14px 0}
+.wyj b{display:block;font-size:10px;font-weight:700;letter-spacing:1.6px;margin-bottom:7px}
+.wyj p{margin:0;font-size:14px;line-height:1.45}
+.dane{background:var(--blue-t);border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13.5px}
+.dane b{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--navy);margin-bottom:6px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:4px;
+  display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.prog{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.count{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;letter-spacing:.4px}
+.nrk{font-size:10.5px;font-weight:700;letter-spacing:1.6px;color:var(--gold)}
+.sprawa{font-size:20px;font-weight:700;color:var(--navy);line-height:1.28;margin:8px 0 6px}
+.od{font-size:12px;color:var(--mid);margin:0 0 4px;letter-spacing:.3px}
+.pyt{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--mid);margin:20px 0 8px;
+  padding-top:14px;border-top:1px solid var(--line)}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opts.dwa{grid-template-columns:1fr 1fr}
+.opts.trzy{grid-template-columns:1fr}
+button.opt{text-align:left;font:inherit;font-size:14.5px;cursor:pointer;min-height:50px;width:100%;
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:11px 13px;color:var(--text);
+  display:flex;gap:10px;align-items:center;transition:.12s}
+button.opt:hover{border-color:var(--navy);background:var(--blue-t)}
+button.opt .m{color:var(--gold);font-size:17px;flex:0 0 auto;line-height:1}
+button.opt small{display:block;font-size:11.5px;opacity:.7;font-weight:400;margin-top:1px}
+button.opt b{font-weight:700}
+button.opt.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+button.opt.sel .m{color:var(--gold)}
+.nav{display:flex;gap:8px;margin-top:18px}
+.nav .btn{flex:1}
+.btn{font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;border-radius:7px;padding:13px 18px;
+  min-height:48px;border:none;letter-spacing:.2px}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);color:var(--gold-d)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.35;cursor:default}
+.akcje{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.akcje .btn{flex:1 1 auto}
+.siatka{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.kw{aspect-ratio:1;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;
+  font-size:13px;font-weight:700;color:var(--mid);cursor:pointer;padding:0}
+.kw.ok{background:var(--navy);border-color:var(--navy);color:#fff}
+.kw.tu{outline:2px solid var(--gold);outline-offset:1px}
+.big{background:var(--navy-x);color:#fff;border-radius:8px;padding:26px 20px;text-align:center;margin:12px 0}
+.big .num{font-size:52px;font-weight:700;line-height:1;color:var(--gold);letter-spacing:-1px}
+.big .lab{font-size:12.5px;color:var(--dim);margin-top:10px;max-width:36ch;margin-left:auto;margin-right:auto}
+.tab{display:grid;grid-template-columns:1fr auto;gap:0 12px;font-size:14.5px}
+.tab .n{padding:10px 0;border-bottom:1px solid var(--line)}
+.tab .v{padding:10px 0;border-bottom:1px solid var(--line);font-weight:700;color:var(--navy);text-align:right}
+.tab .n.s,.tab .v.s{border-bottom:none;border-top:2px solid var(--navy);font-weight:700}
+label.f{display:block;font-size:10px;font-weight:700;letter-spacing:1.3px;color:var(--mid);margin:16px 0 6px}
+input[type=text],input[type=number],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--text);
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:12px}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+textarea{min-height:84px;resize:vertical}
+.msg{font-size:12.5px;color:var(--mid);margin-top:10px;min-height:18px}
+.por{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;font-size:13.5px;
+  padding:9px 0;border-bottom:1px solid var(--line)}
+.por .zn{font-weight:700}
+.por.z .zn{color:var(--green)} .por.r .zn{color:var(--wine)}
+.box{border-radius:7px;padding:14px;margin:12px 0;font-size:13.5px;line-height:1.45}
+.box b{display:block;font-size:10px;letter-spacing:1.4px;margin-bottom:6px}
+.box.blue{background:var(--blue-t)} .box.blue b{color:var(--navy)}
+.box.green{background:var(--green-t)} .box.green b{color:var(--green)}
+.box.gold2{background:var(--gold-t)} .box.gold2 b{color:var(--gold-d)}
+.box.wine{background:var(--wine-t)} .box.wine b{color:var(--wine)}
+.wz{display:grid;grid-template-columns:1fr;gap:10px}
+.wz .row{border:1px solid var(--line);border-radius:7px;padding:12px;background:#fff}
+.wz .row.wzor{background:var(--gold-t);border-color:var(--gold)}
+.wz .row h3{margin:0 0 8px;font-size:15px;color:var(--navy);font-weight:700;line-height:1.3}
+.wz .row .lb{font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--mid);margin:10px 0 5px}
+.mini{font-size:12.5px;color:var(--mid);margin:4px 0 0}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{background:var(--navy);color:#fff;text-align:left;padding:9px 10px;font-size:11.5px;
+  letter-spacing:.6px;font-weight:700}
+table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:nth-child(even) td{background:var(--bg)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mid);
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hide{display:none!important}
+@media (min-width:660px){
+  header{padding:40px 16px 34px} h1{font-size:36px}
+  .card{padding:22px 24px}
+  .opts{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .opts.trzy{grid-template-columns:repeat(3,1fr)}
+  .akcje .btn{flex:0 0 auto}
+  .kroki2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  .wz{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1000px){
+  .wrap{padding:0 32px}
+  header{padding:48px 32px 40px}
+  h1{font-size:42px}
+  header p{font-size:15.5px;max-width:66ch}
+  .big .num{font-size:62px}
+}
+@media print{body{background:#fff}.bar,.akcje,.nav,.noprint{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header><div class="in">
+  <a class="wroc" href="index.html">← WSZYSTKIE ĆWICZENIA</a>
+  <div class="kicker">ĆWICZENIE 7 · 30 MINUT · INDYWIDUALNIE, POTEM W PARACH</div>
+  <h1>Rozpisz drogę roweru</h1>
+  <p>Opowieść o tym, co dzieje się w Na Kole od wejścia klientki do odbioru roweru, i tabela ośmiu kroków. Cztery kroki są już wpisane. Uzupełniasz pozostałe cztery.</p>
+</div></header>
+
+<div class="wrap">
+
+<section id="intro">
+  <div class="card">
+    <div class="kroki2">
+    <div class="krok"><div class="n">1</div><p>Przeczytaj opowieść w całości, zanim zaczniesz wypełniać. Wszystkie osiem kroków w niej jest — także te, w których nikt nic nie robi.</p></div>
+    <div class="krok"><div class="n">2</div><p>Uzupełnij cztery brakujące wiersze: nazwa kroku, kto go wykonuje, co jest gotowe po tym kroku, ile trwa.</p></div>
+    <div class="krok"><div class="n">3</div><p>Kolumna „co jest gotowe” jest najważniejsza. Sprawdzian: czy da się jednym spojrzeniem powiedzieć „jest” albo „nie ma”. Jeżeli w kroku nie powstaje nic, wpisz „nic” — to też jest odpowiedź.</p></div>
+    <div class="krok"><div class="n">4</div><p>W parze porównajcie mapy i zaznaczcie kroki, przy których się różnicie.</p></div>
+    <div class="krok"><div class="n">5</div><p>Zapisz albo wydrukuj mapę. Wracasz do niej w ćwiczeniu 8 i jutro w ćwiczeniu 11.</p></div>
+    </div>
+    <div class="dane"><b>SKĄD DANE</b>Karta firmy, część 7 — droga roweru. Wypełnioną kartkę zabierasz ze sobą: jutro piszesz standard do kroku trzeciego z własnej mapy.</div>
+    <div class="wyj"><b>GOTOWE, KIEDY</b><p>wszystkie osiem kroków ma wypełnione cztery kolumny.</p></div>
+    <div class="akcje"><button class="btn primary" id="start">Zaczynam</button></div>
+    <div class="msg" id="wznow"></div>
+  </div>
+</section>
+
+
+<section id="zad" class="hide">
+  <div class="bar"><div class="prog"><i id="pi"></i></div><div class="count" id="pc">4 / 8</div></div>
+  <div class="card">
+    <h2>CO SIĘ WYDARZYŁO</h2>
+    <p id="opow" style="font-size:14.5px;line-height:1.55;white-space:pre-line;margin:0"></p>
+  </div>
+  <div class="card">
+    <h2>MAPA PROCESU — OSIEM KROKÓW</h2>
+    <div id="wiersze"></div>
+    <div class="akcje"><button class="btn gold" id="doWyniku">Przejdź do podsumowania</button></div>
+  </div>
+</section>
+
+<section id="wynik" class="hide">
+  <div class="card"><h2>TWOJA MAPA</h2><div class="scroll"><table class="t" id="grid"></table></div></div>
+  <div class="card">
+    <h2>DWA PYTANIA</h2>
+    <label class="f" for="p1">1 · PRZY KTÓRYM KROKU NAJTRUDNIEJ BYŁO POWIEDZIEĆ, CO PO NIM JEST GOTOWE</label>
+    <input type="text" id="p1" placeholder="numer kroku i dlaczego">
+    <label class="f" for="p2">2 · ILE ŁĄCZNIE TRWA PRACA, A ILE PRZEJŚCIE CAŁEJ DROGI</label>
+    <input type="text" id="p2" placeholder="np. 75 minut pracy, cztery dni przejścia">
+    <div class="akcje">
+      <button class="btn primary" id="zapisz">Zapisz do teczki</button>
+      <button class="btn ghost" id="kopiuj">Kopiuj mapę</button>
+      <button class="btn ghost noprint" id="drukuj">Drukuj mapę</button>
+    </div>
+    <div class="msg" id="stan"></div>
+  </div>
+  <div class="card noprint">
+    <h2>PORÓWNANIE Z MAPĄ PROWADZĄCEGO</h2>
+    <p style="font-size:13.5px;margin:0">Otwiera się po wypełnieniu wszystkich ośmiu kroków.</p>
+    <div class="akcje">
+      <button class="btn ghost" id="pokazKlucz" disabled>Pokaż porównanie</button>
+      <button class="btn ghost" id="odNowa">Zacznij od nowa</button>
+    </div>
+    <div id="klucz" class="hide" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<footer>
+  <span>ZMIANOLOGICA · dr Marcin Żółtak</span>
+  <span>Zarządzanie operacyjne · dzień 2 · ćwiczenie 7</span>
+</footer>
+</div>
+
+<script>
+
+var Teczka=(function(){var K='zo-nakole-v1';
+function all(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+function put(o){try{localStorage.setItem(K,JSON.stringify(o));return true}catch(e){return false}}
+return{zapisz:function(p,d){var a=all();a[p]={dane:d,ts:Date.now()};return put(a)},
+ czytaj:function(p){var w=all()[p];return w?w.dane:null},
+ usun:function(p){var a=all();delete a[p];return put(a)},
+ lista:function(){return Object.keys(all())},
+ kopiuj:function(t,btn){function ok(){if(!btn)return;var s=btn.textContent;btn.textContent='Skopiowane';
+   setTimeout(function(){btn.textContent=s},1600)}
+  function zap(){var e=document.createElement('textarea');e.value=t;e.style.position='fixed';e.style.opacity='0';
+   document.body.appendChild(e);e.select();try{document.execCommand('copy');ok()}catch(x){}document.body.removeChild(e)}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,zap)}else{zap()}}
+}})();
+var $=function(x){return document.getElementById(x)};
+
+var PUNKT='7';
+
+var M=[[1,"Klient wchodzi i czeka na obsługę","Ola","nic — klient stoi przy ladzie","0 min","6 min",1],[2,"Przyjęcie: oględziny, spisanie zgłoszenia, termin","Ola lub Paweł","zgłoszenie z opisem usterki i terminem","10 min","—",1],[3,"Rower stoi na regale przyjęć","—","nic","0 min","2 dni",0],[4,"Diagnoza przy stanowisku","Kamil","wiadomo, co wymienić","8 min","—",1],[5,"Zamówienie i oczekiwanie na część","Paweł","część leży przy rowerze","5 min","1–3 dni",0],[6,"Naprawa","Kamil lub Paweł","rower sprawny","45 min","—",1],[7,"Rower stoi na regale wydań","—","nic","0 min","1 dzień",0],[8,"Wydanie, płatność, paragon","Ola","klient wyjeżdża, kasa się zgadza","7 min","—",0]];
+var OPOW="Klientka wchodzi do Na Kole w poniedziałek po południu. Przy ladzie stoi już jedna osoba, więc czeka kilka minut. Ola ogląda z nią rower, wypisuje zgłoszenie — co nie działa, imię, telefon — zagląda do kolejki i podaje termin na czwartek. Przykleja numer na ramę i odstawia rower na regał przyjęć.\nRower stoi na tym regale do środy rano, bo przed nim czeka kilkanaście innych. W środę Kamil bierze go na stanowisko i w kilka minut ustala, że trzeba wymienić kasetę. Kasety nie ma w magazynku, więc Paweł zamawia ją u dostawcy; przychodzi w piątek. W piątek po południu Kamil robi naprawę, która zajmuje mu trzy kwadranse, i odkłada rower na regał wydań.\nKlientka odbiera rower w sobotę rano. Ola wydaje go, przyjmuje płatność i drukuje paragon.";
+var dane={};
+M.forEach(function(w){if(w[6])dane[w[0]]={k:w[1],kto:w[2],go:w[3],cp:w[4],cz:w[5]}});
+$('opow').textContent=OPOW;
+
+M.forEach(function(w){
+  var nr=w[0],wz=w[6];
+  var d=document.createElement('div');d.className='wz';d.style.marginBottom='10px';
+  if(wz){
+    d.innerHTML='<div class="row wzor"><h3>Krok '+nr+' · '+w[1]+'</h3>'+
+      '<p class="mini"><b>kto:</b> '+w[2]+'<br><b>co jest gotowe:</b> '+w[3]+'<br><b>czas pracy:</b> '+w[4]+' &nbsp;·&nbsp; <b>czekanie:</b> '+w[5]+'</p>'+
+      '<p class="mini" style="margin-top:8px;color:var(--gold-d)"><b>WZÓR — wypełnione</b></p></div>';
+  } else {
+    d.innerHTML='<div class="row"><h3>Krok '+nr+'</h3>'+
+      '<div class="lb">NAZWA KROKU</div><input type="text" id="k'+nr+'" placeholder="co się dzieje">'+
+      '<div class="lb">KTO GO WYKONUJE</div><input type="text" id="kto'+nr+'" placeholder="imię albo „nikt”">'+
+      '<div class="lb">CO JEST GOTOWE PO TYM KROKU</div><input type="text" id="go'+nr+'" placeholder="efekt albo „nic”">'+
+      '<div class="lb">CZAS PRACY</div><input type="text" id="cp'+nr+'" placeholder="np. 7 min">'+
+      '<div class="lb">CZAS CZEKANIA</div><input type="text" id="cz'+nr+'" placeholder="np. 2 dni albo „—”"></div>';
+  }
+  $('wiersze').appendChild(d);
+});
+M.forEach(function(w){if(w[6])return;var nr=w[0];
+  ['k','kto','go','cp','cz'].forEach(function(p){
+    $(p+nr).oninput=function(){dane[nr]=dane[nr]||{};dane[nr][p]=this.value;rysuj()}})});
+
+function pelny(nr){var a=dane[nr];return !!(a&&a.k&&a.kto&&a.go&&a.cp)}
+function ile(){var n=0;M.forEach(function(w){if(pelny(w[0]))n++});return n}
+function rysuj(){var n=ile();$('pc').textContent=n+' / 8';$('pi').style.width=(n/8*100)+'%';
+  $('doWyniku').textContent=n===8?'Przejdź do podsumowania':'Podsumowanie ('+n+' z 8)'}
+function tabela(el){
+  var h='<tr><th>Krok</th><th>Kto</th><th>Co gotowe</th><th>Praca</th><th>Czekanie</th></tr>';
+  M.forEach(function(w){var a=dane[w[0]]||{};
+    h+='<tr><td><b>'+w[0]+'.</b> '+(a.k||'—')+'</td><td>'+(a.kto||'—')+'</td><td>'+(a.go||'—')+
+       '</td><td>'+(a.cp||'—')+'</td><td>'+(a.cz||'—')+'</td></tr>'});
+  el.innerHTML=h;
+}
+$('start').onclick=function(){$('intro').classList.add('hide');$('zad').classList.remove('hide');rysuj()};
+$('doWyniku').onclick=function(){$('zad').classList.add('hide');$('wynik').classList.remove('hide');
+  tabela($('grid'));$('pokazKlucz').disabled=(ile()<8);
+  var z=Teczka.czytaj(PUNKT);if(z){$('p1').value=z.p1||'';$('p2').value=z.p2||''}
+  window.scrollTo({top:0})};
+function tekst(){var s='ĆWICZENIE 7 — DROGA ROWERU\n\n';
+  M.forEach(function(w){var a=dane[w[0]]||{};
+    s+=w[0]+'. '+(a.k||'—')+'\n   kto: '+(a.kto||'—')+' | gotowe: '+(a.go||'—')+
+       ' | praca: '+(a.cp||'—')+' | czekanie: '+(a.cz||'—')+'\n'});
+  s+='\n1. Najtrudniejszy krok: '+($('p1').value||'—')+'\n2. Praca a przejście: '+($('p2').value||'—')+'\n';return s}
+$('zapisz').onclick=function(){var ok=Teczka.zapisz(PUNKT,{dane:dane,p1:$('p1').value,p2:$('p2').value});
+  $('stan').textContent=ok?'Zapisane. Ta mapa wraca w ćwiczeniu 8 i jutro w ćwiczeniu 11.'
+    :'Nie udało się zapisać — skopiuj mapę.'};
+$('kopiuj').onclick=function(){Teczka.kopiuj(tekst(),this)};
+$('drukuj').onclick=function(){window.print()};
+$('pokazKlucz').onclick=function(){
+  var h='<div class="scroll"><table class="t"><tr><th>Krok</th><th>Mapa prowadzącego</th></tr>';
+  M.forEach(function(w){h+='<tr><td><b>'+w[0]+'.</b> '+w[1]+'</td><td>'+w[2]+' · '+w[3]+
+    '<br><small style="color:var(--mid)">praca '+w[4]+', czekanie '+w[5]+'</small></td></tr>'});
+  h+='</table></div>';
+  $('klucz').innerHTML='<div class="box blue"><b>NA CO PATRZEĆ</b>Nie chodzi o identyczne nazwy. '+
+    'Sprawdź trzy rzeczy: czy masz wszystkie trzy kroki, w których nikt nic nie robi (3, 5 i 7); '+
+    'czy przy nich w kolumnie „co gotowe” stoi „nic”; i czy suma czasu pracy wyszła około siedemdziesięciu pięciu minut '+
+    'przy przejściu trwającym cztery do sześciu dni. Ta druga para liczb jest pointą całego ćwiczenia.</div>'+h;
+  $('klucz').classList.remove('hide');this.disabled=true};
+$('odNowa').onclick=function(){if(!confirm('Skasować mapę?'))return;
+  dane={};M.forEach(function(w){if(w[6])dane[w[0]]={k:w[1],kto:w[2],go:w[3],cp:w[4],cz:w[5]};
+    else ['k','kto','go','cp','cz'].forEach(function(p){$(p+w[0]).value=''})});
+  Teczka.usun(PUNKT);$('wynik').classList.add('hide');$('intro').classList.remove('hide');
+  $('klucz').classList.add('hide');$('p1').value='';$('p2').value='';$('stan').textContent='';window.scrollTo({top:0})};
+(function(){var z=Teczka.czytaj(PUNKT);
+  if(z&&z.dane){dane=z.dane;
+    M.forEach(function(w){if(w[6])return;var a=dane[w[0]]||{};
+      ['k','kto','go','cp','cz'].forEach(function(p){if(a[p])$(p+w[0]).value=a[p]})});
+    $('wznow').textContent='Masz tu zapisaną mapę z poprzedniego wejścia.'}})();
+
+</script>
+</body>
+</html>

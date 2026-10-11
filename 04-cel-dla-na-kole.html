@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ćwiczenie 4 · Rozdziel i wybierz cel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F4460; --navy-d:#163450; --navy-x:#102839;
+  --gold:#E8B62C; --gold-d:#5C4810; --gold-t:#FDF4DC;
+  --text:#2C3540; --mid:#6B7680; --line:#D8DDE3; --bg:#F5F5F7;
+  --dim:#C3D2DE; --green:#1E6B4F; --green-t:#ECF6F1; --wine:#8E2749; --wine-t:#F7ECF0;
+  --blue-t:#F0F6FB;
+  --f:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 0 44px;background:var(--bg);color:var(--text);
+  font-family:var(--f);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{background:var(--navy-x);color:#fff;margin:0 -16px 18px;padding:30px 16px 26px}
+header .in{max-width:1080px;margin:0 auto}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--gold)}
+h1{margin:12px 0 10px;font-size:29px;line-height:1.12;font-weight:700;letter-spacing:-.3px}
+header p{margin:0;color:var(--dim);font-size:14.5px;max-width:56ch}
+.wroc{display:inline-block;margin-bottom:4px;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  color:var(--dim);text-decoration:none}
+.wroc:hover{color:var(--gold)}
+h2{font-size:10.5px;letter-spacing:1.8px;color:var(--mid);margin:0 0 12px;font-weight:700}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 16px;margin:12px 0}
+.krok{display:flex;gap:12px;align-items:flex-start;margin:0 0 10px}
+.krok .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--gold);color:var(--gold-d);
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.krok p{margin:0;font-size:14.5px;line-height:1.45}
+.wyj{background:var(--gold);color:var(--gold-d);border-radius:8px;padding:16px;margin:14px 0}
+.wyj b{display:block;font-size:10px;font-weight:700;letter-spacing:1.6px;margin-bottom:7px}
+.wyj p{margin:0;font-size:14px;line-height:1.45}
+.dane{background:var(--blue-t);border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13.5px}
+.dane b{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--navy);margin-bottom:6px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:4px;
+  display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.prog{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.count{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;letter-spacing:.4px}
+.nrk{font-size:10.5px;font-weight:700;letter-spacing:1.6px;color:var(--gold)}
+.sprawa{font-size:20px;font-weight:700;color:var(--navy);line-height:1.28;margin:8px 0 6px}
+.od{font-size:12px;color:var(--mid);margin:0 0 4px;letter-spacing:.3px}
+.pyt{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--mid);margin:20px 0 8px;
+  padding-top:14px;border-top:1px solid var(--line)}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opts.dwa{grid-template-columns:1fr 1fr}
+.opts.trzy{grid-template-columns:1fr}
+button.opt{text-align:left;font:inherit;font-size:14.5px;cursor:pointer;min-height:50px;width:100%;
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:11px 13px;color:var(--text);
+  display:flex;gap:10px;align-items:center;transition:.12s}
+button.opt:hover{border-color:var(--navy);background:var(--blue-t)}
+button.opt .m{color:var(--gold);font-size:17px;flex:0 0 auto;line-height:1}
+button.opt small{display:block;font-size:11.5px;opacity:.7;font-weight:400;margin-top:1px}
+button.opt b{font-weight:700}
+button.opt.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+button.opt.sel .m{color:var(--gold)}
+.nav{display:flex;gap:8px;margin-top:18px}
+.nav .btn{flex:1}
+.btn{font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;border-radius:7px;padding:13px 18px;
+  min-height:48px;border:none;letter-spacing:.2px}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);color:var(--gold-d)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.35;cursor:default}
+.akcje{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.akcje .btn{flex:1 1 auto}
+.siatka{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.kw{aspect-ratio:1;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;
+  font-size:13px;font-weight:700;color:var(--mid);cursor:pointer;padding:0}
+.kw.ok{background:var(--navy);border-color:var(--navy);color:#fff}
+.kw.tu{outline:2px solid var(--gold);outline-offset:1px}
+.big{background:var(--navy-x);color:#fff;border-radius:8px;padding:26px 20px;text-align:center;margin:12px 0}
+.big .num{font-size:52px;font-weight:700;line-height:1;color:var(--gold);letter-spacing:-1px}
+.big .lab{font-size:12.5px;color:var(--dim);margin-top:10px;max-width:36ch;margin-left:auto;margin-right:auto}
+.tab{display:grid;grid-template-columns:1fr auto;gap:0 12px;font-size:14.5px}
+.tab .n{padding:10px 0;border-bottom:1px solid var(--line)}
+.tab .v{padding:10px 0;border-bottom:1px solid var(--line);font-weight:700;color:var(--navy);text-align:right}
+.tab .n.s,.tab .v.s{border-bottom:none;border-top:2px solid var(--navy);font-weight:700}
+label.f{display:block;font-size:10px;font-weight:700;letter-spacing:1.3px;color:var(--mid);margin:16px 0 6px}
+input[type=text],input[type=number],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--text);
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:12px}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+textarea{min-height:84px;resize:vertical}
+.msg{font-size:12.5px;color:var(--mid);margin-top:10px;min-height:18px}
+.por{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;font-size:13.5px;
+  padding:9px 0;border-bottom:1px solid var(--line)}
+.por .zn{font-weight:700}
+.por.z .zn{color:var(--green)} .por.r .zn{color:var(--wine)}
+.box{border-radius:7px;padding:14px;margin:12px 0;font-size:13.5px;line-height:1.45}
+.box b{display:block;font-size:10px;letter-spacing:1.4px;margin-bottom:6px}
+.box.blue{background:var(--blue-t)} .box.blue b{color:var(--navy)}
+.box.green{background:var(--green-t)} .box.green b{color:var(--green)}
+.box.gold2{background:var(--gold-t)} .box.gold2 b{color:var(--gold-d)}
+.box.wine{background:var(--wine-t)} .box.wine b{color:var(--wine)}
+.wz{display:grid;grid-template-columns:1fr;gap:10px}
+.wz .row{border:1px solid var(--line);border-radius:7px;padding:12px;background:#fff}
+.wz .row.wzor{background:var(--gold-t);border-color:var(--gold)}
+.wz .row h3{margin:0 0 8px;font-size:15px;color:var(--navy);font-weight:700;line-height:1.3}
+.wz .row .lb{font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--mid);margin:10px 0 5px}
+.mini{font-size:12.5px;color:var(--mid);margin:4px 0 0}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{background:var(--navy);color:#fff;text-align:left;padding:9px 10px;font-size:11.5px;
+  letter-spacing:.6px;font-weight:700}
+table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:nth-child(even) td{background:var(--bg)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mid);
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hide{display:none!important}
+@media (min-width:660px){
+  header{padding:40px 16px 34px} h1{font-size:36px}
+  .card{padding:22px 24px}
+  .opts{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .opts.trzy{grid-template-columns:repeat(3,1fr)}
+  .akcje .btn{flex:0 0 auto}
+  .kroki2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  .wz{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1000px){
+  .wrap{padding:0 32px}
+  header{padding:48px 32px 40px}
+  h1{font-size:42px}
+  header p{font-size:15.5px;max-width:66ch}
+  .big .num{font-size:62px}
+}
+@media print{body{background:#fff}.bar,.akcje,.nav,.noprint{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header><div class="in">
+  <a class="wroc" href="index.html">← WSZYSTKIE ĆWICZENIA</a>
+  <div class="kicker">ĆWICZENIE 4 · 25 MINUT · INDYWIDUALNIE, POTEM W PARACH</div>
+  <h1>Rozdziel i wybierz cel</h1>
+  <p>Pięć propozycji celów dla Na Kole, wymieszanych i zapisanych różnie — część poprawnie, część jako życzenia. Rozdzielasz je, sprawdzasz czterema sprawdzianami i wybierasz dwa na najbliższy kwartał.</p>
+</div></header>
+
+<div class="wrap">
+
+<section id="intro">
+  <div class="card">
+    <div class="kroki2">
+    <div class="krok"><div class="n">1</div><p>Przy każdej propozycji zaznacz rodzaj: cel biznesowy, czyli co ma urosnąć na zewnątrz, albo priorytet operacyjny, czyli co poprawiasz w sposobie pracy.</p></div>
+    <div class="krok"><div class="n">2</div><p>Sprawdź propozycję czterema sprawdzianami: liczba, data, właściciel, wpływ. Zaznacz ten, którego nie przechodzi — albo „przechodzi wszystkie”.</p></div>
+    <div class="krok"><div class="n">3</div><p>Wybierz jeden cel biznesowy i jeden priorytet operacyjny na kwartał.</p></div>
+    <div class="krok"><div class="n">4</div><p>Przepisz oba tak, żeby przeszły wszystkie cztery sprawdziany. W parze przeczytajcie je sobie i sprawdźcie, czy da się po kwartale odpowiedzieć „tak” albo „nie”.</p></div>
+    </div>
+    <div class="dane"><b>SKĄD DANE</b>Karta firmy, część 2 (usługi i ceny) oraz część 9 (cztery tygodnie) — stamtąd bierzesz punkt odniesienia dla liczb.</div>
+    <div class="wyj"><b>GOTOWE, KIEDY</b><p>masz dwa cele zapisane z liczbą, datą i nazwiskiem osoby odpowiedzialnej.</p></div>
+    <div class="akcje"><button class="btn primary" id="start">Zaczynam</button></div>
+    <div class="msg" id="wznow"></div>
+  </div>
+</section>
+
+
+<section id="zad" class="hide">
+  <div class="bar"><div class="prog"><i id="pi"></i></div><div class="count" id="pc">0 / 5</div></div>
+  <div class="card">
+    <div class="nrk" id="nrk">PROPOZYCJA 1 Z 5</div>
+    <p class="sprawa" id="tresc"></p>
+    <div class="pyt">RODZAJ</div>
+    <div class="opts dwa" id="rodzaj"></div>
+    <div class="pyt">KTÓREGO SPRAWDZIANU NIE PRZECHODZI</div>
+    <div class="opts" id="spr"></div>
+    <div class="nav">
+      <button class="btn ghost" id="wstecz">Wstecz</button>
+      <button class="btn primary" id="dalej">Dalej</button>
+    </div>
+  </div>
+  <div class="card noprint">
+    <h2>WSZYSTKIE PROPOZYCJE</h2>
+    <div class="siatka" id="siatka"></div>
+    <div class="akcje"><button class="btn gold" id="doWyniku">Przejdź do wyboru</button></div>
+  </div>
+</section>
+
+<section id="wynik" class="hide">
+  <div class="card">
+    <h2>TWOJE DWA CELE NA KWARTAŁ</h2>
+    <p class="mini">Przepisz je tak, żeby każdy miał liczbę, datę i osobę odpowiedzialną. Możesz wyjść od którejś z propozycji albo napisać własne.</p>
+    <label class="f" for="c1">CEL BIZNESOWY — CO MA UROSNĄĆ ALBO ZAROBIĆ</label>
+    <textarea id="c1" placeholder="Do … średnio … , odpowiada …"></textarea>
+    <label class="f" for="c2">PRIORYTET OPERACYJNY — CO POPRAWIASZ W SPOSOBIE PRACY</label>
+    <textarea id="c2" placeholder="Do … , odpowiada …"></textarea>
+    <div id="test"></div>
+    <div class="akcje">
+      <button class="btn primary" id="zapisz">Zapisz do teczki</button>
+      <button class="btn ghost" id="kopiuj">Kopiuj wynik</button>
+      <button class="btn ghost noprint" id="drukuj">Drukuj</button>
+    </div>
+    <div class="msg" id="stan"></div>
+  </div>
+  <div class="card noprint">
+    <h2>KOMENTARZ PROWADZĄCEGO DO PIĘCIU PROPOZYCJI</h2>
+    <p style="font-size:13.5px;margin:0">Otwiera się po ocenieniu wszystkich pięciu.</p>
+    <div class="akcje">
+      <button class="btn ghost" id="pokazKlucz" disabled>Pokaż komentarz</button>
+      <button class="btn ghost" id="odNowa">Zacznij od nowa</button>
+    </div>
+    <div id="klucz" class="hide" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<footer>
+  <span>ZMIANOLOGICA · dr Marcin Żółtak</span>
+  <span>Zarządzanie operacyjne · dzień 1 · ćwiczenie 4</span>
+</footer>
+</div>
+
+<script>
+
+var Teczka=(function(){var K='zo-nakole-v1';
+function all(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+function put(o){try{localStorage.setItem(K,JSON.stringify(o));return true}catch(e){return false}}
+return{zapisz:function(p,d){var a=all();a[p]={dane:d,ts:Date.now()};return put(a)},
+ czytaj:function(p){var w=all()[p];return w?w.dane:null},
+ usun:function(p){var a=all();delete a[p];return put(a)},
+ lista:function(){return Object.keys(all())},
+ kopiuj:function(t,btn){function ok(){if(!btn)return;var s=btn.textContent;btn.textContent='Skopiowane';
+   setTimeout(function(){btn.textContent=s},1600)}
+  function zap(){var e=document.createElement('textarea');e.value=t;e.style.position='fixed';e.style.opacity='0';
+   document.body.appendChild(e);e.select();try{document.execCommand('copy');ok()}catch(x){}document.body.removeChild(e)}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,zap)}else{zap()}}
+}})();
+var $=function(x){return document.getElementById(x)};
+
+var PUNKT='4';
+
+var C=[["Chcę mieć więcej klientów","biz","liczba","Kierunek jest dobry, ale nie da się rozstrzygnąć po kwartale. Brakuje liczby i daty. Poprawnie: do 30 czerwca średnio 75 obsłużonych rowerów tygodniowo."],["Do 31 maja Kamil centruje koła bez sprawdzania przez Pawła","op","brak","Przechodzi wszystkie cztery sprawdziany: jest data, jest sprawdzalny efekt, wiadomo kto odpowiada i wszystko zależy od firmy."],["Poprawić obsługę klienta","op","liczba","Nie przechodzi trzech sprawdzianów naraz: bez liczby, bez daty i bez wskazanej osoby. Najczęstszy zapis celu w małej firmie i najbardziej bezużyteczny."],["Do 30 czerwca z usług zostaje średnio 4 500 zł tygodniowo","biz","brak","Przechodzi wszystkie cztery. To jest cel biznesowy w poprawnym zapisie — liczba, data, mierzalne z paragonów."],["Więcej turystów na trasie nad jeziorem","biz","wplyw","Nawet gdyby dopisać liczbę i datę, cel zostaje życzeniem: liczba turystów zależy od pogody i gminy, nie od Pawła."]];
+var R={biz:'Cel biznesowy',op:'Priorytet operacyjny'};
+var S={liczba:'Nie ma liczby',data:'Nie ma daty',wlasc:'Nie ma właściciela',wplyw:'Nie zależy od ciebie',brak:'Przechodzi wszystkie'};
+var odp={},i=0;
+
+[['biz','Cel biznesowy','co ma urosnąć albo zarobić'],['op','Priorytet operacyjny','co poprawiam w sposobie pracy']].forEach(function(o){
+  var b=document.createElement('button');b.type='button';b.className='opt';b.dataset.k=o[0];
+  b.innerHTML='<span><b>'+o[1]+'</b><small>'+o[2]+'</small></span>';
+  b.onclick=function(){odp[i]=odp[i]||{};odp[i].r=o[0];rysuj()};$('rodzaj').appendChild(b)});
+['liczba','data','wlasc','wplyw','brak'].forEach(function(k){
+  var b=document.createElement('button');b.type='button';b.className='opt';b.dataset.k=k;
+  b.innerHTML='<span><b>'+S[k]+'</b></span>';
+  b.onclick=function(){odp[i]=odp[i]||{};odp[i].s=k;rysuj();
+    if(odp[i].r&&i<4)setTimeout(function(){i++;rysuj();window.scrollTo({top:0,behavior:'smooth'})},240)};
+  $('spr').appendChild(b)});
+for(var s=0;s<5;s++){(function(n){
+  var b=document.createElement('button');b.type='button';b.className='kw';b.textContent=n+1;b.id='kw'+n;
+  b.onclick=function(){i=n;rysuj();window.scrollTo({top:0,behavior:'smooth'})};
+  $('siatka').appendChild(b)})(s)}
+
+function pelne(k){var a=odp[k];return !!(a&&a.r&&a.s)}
+function ile(){var n=0;for(var k=0;k<5;k++)if(pelne(k))n++;return n}
+function rysuj(){
+  $('nrk').textContent='PROPOZYCJA '+(i+1)+' Z 5';
+  $('tresc').textContent='„'+C[i][0]+'”';
+  var a=odp[i]||{};
+  [].forEach.call($('rodzaj').children,function(b){b.classList.toggle('sel',a.r===b.dataset.k)});
+  [].forEach.call($('spr').children,function(b){b.classList.toggle('sel',a.s===b.dataset.k)});
+  $('wstecz').disabled=(i===0);$('dalej').disabled=(i===4);
+  var n=ile();$('pc').textContent=n+' / 5';$('pi').style.width=(n/5*100)+'%';
+  for(var s=0;s<5;s++){var kw=$('kw'+s);kw.classList.toggle('ok',pelne(s));kw.classList.toggle('tu',s===i)}
+  $('doWyniku').textContent=n===5?'Przejdź do wyboru':'Wybór celów ('+n+' z 5)';
+}
+function sprawdzCel(t){
+  var b=[];
+  if(!/\d/.test(t))b.push('liczby');
+  if(!/(do |Do |stycz|lut|marc|kwiet|maj|czerw|lip|sierp|wrześ|wrzes|paźdz|pazdz|listop|grud|kwarta|tygod|mies)/.test(t))b.push('daty');
+  if(!/[A-ZŁŚŻŹĆŃÓĄĘ][a-ząćęłńóśżź]{2,}/.test(t.replace(/^Do |^do /,'')))b.push('osoby');
+  return b;
+}
+function testuj(){
+  var h='';
+  [['c1','Cel biznesowy'],['c2','Priorytet operacyjny']].forEach(function(p){
+    var t=$(p[0]).value.trim();if(!t)return;
+    var b=sprawdzCel(t);
+    h+='<div class="box '+(b.length?'gold2':'green')+'"><b>'+p[1].toUpperCase()+'</b>'+
+       (b.length?'Nie widzę tu '+b.join(' ani ')+'. Sprawdź, czy po kwartale da się odpowiedzieć „tak” albo „nie”.'
+                :'Widzę liczbę, termin i osobę. Ten cel da się rozliczyć.')+'</div>'});
+  $('test').innerHTML=h;
+}
+$('start').onclick=function(){$('intro').classList.add('hide');$('zad').classList.remove('hide');rysuj()};
+$('wstecz').onclick=function(){if(i>0){i--;rysuj();window.scrollTo({top:0})}};
+$('dalej').onclick=function(){if(i<4){i++;rysuj();window.scrollTo({top:0})}};
+$('doWyniku').onclick=function(){
+  $('zad').classList.add('hide');$('wynik').classList.remove('hide');
+  $('pokazKlucz').disabled=(ile()<5);
+  var z=Teczka.czytaj(PUNKT);if(z){$('c1').value=z.c1||'';$('c2').value=z.c2||'';testuj()}
+  window.scrollTo({top:0})};
+$('c1').oninput=testuj;$('c2').oninput=testuj;
+function tekst(){var s='ĆWICZENIE 4 — ROZDZIEL I WYBIERZ CEL\n\n';
+  C.forEach(function(w,k){var a=odp[k]||{};
+    s+=(k+1)+'. „'+w[0]+'”\n   rodzaj: '+(R[a.r]||'—')+' | sprawdzian: '+(S[a.s]||'—')+'\n'});
+  s+='\nCEL BIZNESOWY: '+($('c1').value||'—')+'\nPRIORYTET OPERACYJNY: '+($('c2').value||'—')+'\n';return s}
+$('zapisz').onclick=function(){
+  var ok=Teczka.zapisz(PUNKT,{odp:odp,c1:$('c1').value,c2:$('c2').value});
+  $('stan').textContent=ok?'Zapisane. Priorytet operacyjny wraca w ćwiczeniu 5 — dostanie godzinę w tygodniu.'
+    :'Nie udało się zapisać — skopiuj wynik.'};
+$('kopiuj').onclick=function(){Teczka.kopiuj(tekst(),this)};
+$('drukuj').onclick=function(){window.print()};
+$('pokazKlucz').onclick=function(){
+  var h='',zg=0;
+  C.forEach(function(w,k){var a=odp[k]||{},ok=(a.r===w[1]&&a.s===w[2]);if(ok)zg++;
+    h+='<div class="box '+(ok?'green':'gold2')+'"><b>'+(k+1)+' · '+w[0].toUpperCase()+'</b>'+
+       '<span style="display:block;margin-bottom:6px"><b style="display:inline;font-size:13px;letter-spacing:0">Odczyt prowadzącego:</b> '+
+       R[w[1]]+', '+S[w[2]].toLowerCase()+'</span>'+w[3]+'</div>'});
+  $('klucz').innerHTML='<div class="box blue"><b>ZGODNOŚĆ</b>'+zg+' z 5 propozycji ocenionych tak samo.</div>'+h;
+  $('klucz').classList.remove('hide');this.disabled=true};
+$('odNowa').onclick=function(){if(!confirm('Skasować odpowiedzi?'))return;
+  odp={};i=0;Teczka.usun(PUNKT);$('wynik').classList.add('hide');$('intro').classList.remove('hide');
+  $('klucz').classList.add('hide');$('c1').value='';$('c2').value='';$('test').innerHTML='';
+  $('stan').textContent='';window.scrollTo({top:0})};
+(function(){var z=Teczka.czytaj(PUNKT);
+  if(z&&z.odp){odp=z.odp;$('wznow').textContent='Masz tu zapisane odpowiedzi z poprzedniego wejścia.'}})();
+
+</script>
+</body>
+</html>

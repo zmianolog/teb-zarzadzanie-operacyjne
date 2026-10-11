@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zarządzanie operacyjne · ćwiczenia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F4460; --navy-d:#163450; --navy-x:#102839;
+  --gold:#E8B62C; --gold-d:#5C4810; --gold-t:#FDF4DC;
+  --text:#2C3540; --mid:#6B7680; --line:#D8DDE3; --bg:#F5F5F7;
+  --dim:#C3D2DE; --green:#1E6B4F; --green-t:#ECF6F1; --wine:#8E2749; --wine-t:#F7ECF0;
+  --blue-t:#F0F6FB;
+  --f:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 0 44px;background:var(--bg);color:var(--text);
+  font-family:var(--f);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{background:var(--navy-x);color:#fff;margin:0 -16px 18px;padding:30px 16px 26px}
+header .in{max-width:1080px;margin:0 auto}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--gold)}
+h1{margin:12px 0 10px;font-size:29px;line-height:1.12;font-weight:700;letter-spacing:-.3px}
+header p{margin:0;color:var(--dim);font-size:14.5px;max-width:56ch}
+.wroc{display:inline-block;margin-bottom:4px;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  color:var(--dim);text-decoration:none}
+.wroc:hover{color:var(--gold)}
+h2{font-size:10.5px;letter-spacing:1.8px;color:var(--mid);margin:0 0 12px;font-weight:700}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 16px;margin:12px 0}
+.krok{display:flex;gap:12px;align-items:flex-start;margin:0 0 10px}
+.krok .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--gold);color:var(--gold-d);
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.krok p{margin:0;font-size:14.5px;line-height:1.45}
+.wyj{background:var(--gold);color:var(--gold-d);border-radius:8px;padding:16px;margin:14px 0}
+.wyj b{display:block;font-size:10px;font-weight:700;letter-spacing:1.6px;margin-bottom:7px}
+.wyj p{margin:0;font-size:14px;line-height:1.45}
+.dane{background:var(--blue-t);border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13.5px}
+.dane b{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--navy);margin-bottom:6px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:4px;
+  display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.prog{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.count{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;letter-spacing:.4px}
+.nrk{font-size:10.5px;font-weight:700;letter-spacing:1.6px;color:var(--gold)}
+.sprawa{font-size:20px;font-weight:700;color:var(--navy);line-height:1.28;margin:8px 0 6px}
+.od{font-size:12px;color:var(--mid);margin:0 0 4px;letter-spacing:.3px}
+.pyt{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--mid);margin:20px 0 8px;
+  padding-top:14px;border-top:1px solid var(--line)}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opts.dwa{grid-template-columns:1fr 1fr}
+.opts.trzy{grid-template-columns:1fr}
+button.opt{text-align:left;font:inherit;font-size:14.5px;cursor:pointer;min-height:50px;width:100%;
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:11px 13px;color:var(--text);
+  display:flex;gap:10px;align-items:center;transition:.12s}
+button.opt:hover{border-color:var(--navy);background:var(--blue-t)}
+button.opt .m{color:var(--gold);font-size:17px;flex:0 0 auto;line-height:1}
+button.opt small{display:block;font-size:11.5px;opacity:.7;font-weight:400;margin-top:1px}
+button.opt b{font-weight:700}
+button.opt.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+button.opt.sel .m{color:var(--gold)}
+.nav{display:flex;gap:8px;margin-top:18px}
+.nav .btn{flex:1}
+.btn{font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;border-radius:7px;padding:13px 18px;
+  min-height:48px;border:none;letter-spacing:.2px}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);color:var(--gold-d)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.35;cursor:default}
+.akcje{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.akcje .btn{flex:1 1 auto}
+.siatka{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.kw{aspect-ratio:1;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;
+  font-size:13px;font-weight:700;color:var(--mid);cursor:pointer;padding:0}
+.kw.ok{background:var(--navy);border-color:var(--navy);color:#fff}
+.kw.tu{outline:2px solid var(--gold);outline-offset:1px}
+.big{background:var(--navy-x);color:#fff;border-radius:8px;padding:26px 20px;text-align:center;margin:12px 0}
+.big .num{font-size:52px;font-weight:700;line-height:1;color:var(--gold);letter-spacing:-1px}
+.big .lab{font-size:12.5px;color:var(--dim);margin-top:10px;max-width:36ch;margin-left:auto;margin-right:auto}
+.tab{display:grid;grid-template-columns:1fr auto;gap:0 12px;font-size:14.5px}
+.tab .n{padding:10px 0;border-bottom:1px solid var(--line)}
+.tab .v{padding:10px 0;border-bottom:1px solid var(--line);font-weight:700;color:var(--navy);text-align:right}
+.tab .n.s,.tab .v.s{border-bottom:none;border-top:2px solid var(--navy);font-weight:700}
+label.f{display:block;font-size:10px;font-weight:700;letter-spacing:1.3px;color:var(--mid);margin:16px 0 6px}
+input[type=text],input[type=number],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--text);
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:12px}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+textarea{min-height:84px;resize:vertical}
+.msg{font-size:12.5px;color:var(--mid);margin-top:10px;min-height:18px}
+.por{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;font-size:13.5px;
+  padding:9px 0;border-bottom:1px solid var(--line)}
+.por .zn{font-weight:700}
+.por.z .zn{color:var(--green)} .por.r .zn{color:var(--wine)}
+.box{border-radius:7px;padding:14px;margin:12px 0;font-size:13.5px;line-height:1.45}
+.box b{display:block;font-size:10px;letter-spacing:1.4px;margin-bottom:6px}
+.box.blue{background:var(--blue-t)} .box.blue b{color:var(--navy)}
+.box.green{background:var(--green-t)} .box.green b{color:var(--green)}
+.box.gold2{background:var(--gold-t)} .box.gold2 b{color:var(--gold-d)}
+.box.wine{background:var(--wine-t)} .box.wine b{color:var(--wine)}
+.wz{display:grid;grid-template-columns:1fr;gap:10px}
+.wz .row{border:1px solid var(--line);border-radius:7px;padding:12px;background:#fff}
+.wz .row.wzor{background:var(--gold-t);border-color:var(--gold)}
+.wz .row h3{margin:0 0 8px;font-size:15px;color:var(--navy);font-weight:700;line-height:1.3}
+.wz .row .lb{font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--mid);margin:10px 0 5px}
+.mini{font-size:12.5px;color:var(--mid);margin:4px 0 0}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{background:var(--navy);color:#fff;text-align:left;padding:9px 10px;font-size:11.5px;
+  letter-spacing:.6px;font-weight:700}
+table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:nth-child(even) td{background:var(--bg)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mid);
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hide{display:none!important}
+@media (min-width:660px){
+  header{padding:40px 16px 34px} h1{font-size:36px}
+  .card{padding:22px 24px}
+  .opts{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .opts.trzy{grid-template-columns:repeat(3,1fr)}
+  .akcje .btn{flex:0 0 auto}
+  .kroki2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  .wz{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1000px){
+  .wrap{padding:0 32px}
+  header{padding:48px 32px 40px}
+  h1{font-size:42px}
+  header p{font-size:15.5px;max-width:66ch}
+  .big .num{font-size:62px}
+}
+@media print{body{background:#fff}.bar,.akcje,.nav,.noprint{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+.cwl{display:grid;gap:8px}
+.cw{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--text);
+  border:1px solid var(--line);border-radius:7px;padding:12px 13px;background:#fff;transition:.12s}
+.cw:hover{border-color:var(--navy);background:var(--blue-t)}
+.cw .no{flex:0 0 30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-size:13px;
+  font-weight:700;display:flex;align-items:center;justify-content:center}
+.cw .tt{flex:1}
+.cw .tt b{display:block;font-size:14.5px;line-height:1.3}
+.cw .tt small{display:block;font-size:11.5px;color:var(--mid);margin-top:2px}
+.cw .st{font-size:10.5px;font-weight:700;letter-spacing:1px;color:var(--mid);white-space:nowrap}
+.cw .st.ok{color:var(--green)}
+.cw.off{opacity:.45;background:var(--bg)}
+.cw.off .no{background:var(--line);color:var(--mid)}
+@media (min-width:760px){.cwl{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<header><div class="in">
+  <div class="kicker">ZARZĄDZANIE OPERACYJNE · NA KOLE</div>
+  <h1>Ćwiczenia</h1>
+  <p>Dwadzieścia jeden kart do wypełnienia na telefonie. Wszystkie dotyczą jednej firmy — serwisu rowerowego Na Kole w Sukcesowicach Wielkopolskich. Dane masz podane w karcie firmy, którą dostajesz na papierze. Odpowiedzi zapisują się w tej przeglądarce, więc wracaj do nich z tego samego urządzenia.</p>
+</div></header>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2>DZIEŃ 1 · ROLA SZEFA, PRZERWANIA, CELE, TYDZIEŃ</h2>
+    <div class="cwl">
+      <a class="cw" href="01-ktore-role.html" data-nr="1"><span class="no">1</span><span class="tt"><b>Które role już pełnisz</b><small>12 min · indywidualnie</small></span><span class="st" id="st1"></span></a>
+      <a class="cw" href="02-dzien-pawla.html" data-nr="2"><span class="no">2</span><span class="tt"><b>Rozdziel dzień Pawła</b><small>20 min · indywidualnie, potem w parach</small></span><span class="st" id="st2"></span></a>
+      <a class="cw" href="03-dwanascie-przerwan.html" data-nr="3"><span class="no">3</span><span class="tt"><b>Dwanaście przerwań</b><small>25 min · indywidualnie, potem w trójkach</small></span><span class="st" id="st3"></span></a>
+      <a class="cw" href="04-cel-dla-na-kole.html" data-nr="4"><span class="no">4</span><span class="tt"><b>Rozdziel i wybierz cel</b><small>25 min · indywidualnie, potem w parach</small></span><span class="st" id="st4"></span></a>
+      <a class="cw" href="05-tydzien-pawla.html" data-nr="5"><span class="no">5</span><span class="tt"><b>Ułóż tydzień Pawła</b><small>30 min · indywidualnie, omówienie na forum</small></span><span class="st" id="st5"></span></a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>DZIEŃ 2 · KLIENT, PROCES, STRATY, PRZEPUSTOWOŚĆ</h2>
+    <div class="cwl">
+      <a class="cw" href="06-trzy-skargi.html" data-nr="6"><span class="no">6</span><span class="tt"><b>Trzy skargi</b><small>20 min · indywidualnie, potem w parach</small></span><span class="st" id="st6"></span></a>
+      <a class="cw" href="07-droga-roweru.html" data-nr="7"><span class="no">7</span><span class="tt"><b>Rozpisz drogę roweru</b><small>30 min · indywidualnie, potem w parach</small></span><span class="st" id="st7"></span></a>
+      <a class="cw" href="08-znajdz-straty.html" data-nr="8"><span class="no">8</span><span class="tt"><b>Znajdź straty na własnej mapie</b><small>25 min · indywidualnie, potem w trójkach</small></span><span class="st" id="st8"></span></a>
+      <a class="cw" href="09-waskie-gardlo.html" data-nr="9"><span class="no">9</span><span class="tt"><b>Znajdź wąskie gardło</b><small>20 min · indywidualnie</small></span><span class="st" id="st9"></span></a>
+      <a class="cw" href="10-przelicz-i-zdecyduj.html" data-nr="10"><span class="no">10</span><span class="tt"><b>Przelicz i zdecyduj</b><small>30 min · indywidualnie, omówienie na forum</small></span><span class="st" id="st10"></span></a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>DZIEŃ 3 · STANDARD I LUDZIE</h2>
+    <div class="cwl">
+      <a class="cw" href="11-napisz-standard.html" data-nr="11"><span class="no">11</span><span class="tt"><b>Napisz standard do własnego kroku</b><small>30 min · indywidualnie, potem w parach</small></span><span class="st" id="st11"></span></a>
+      <a class="cw" href="12-scenki-instruktaz.html" data-nr="12"><span class="no">12</span><span class="tt"><b>Scenki instruktażowe</b><small>30 min · w parach z obserwatorem</small></span><span class="st" id="st12"></span></a>
+      <a class="cw" href="13-kamil-i-ola.html" data-nr="13"><span class="no">13</span><span class="tt"><b>Kamil i Ola</b><small>25 min · indywidualnie, potem w parach</small></span><span class="st" id="st13"></span></a>
+      <a class="cw" href="14-trzy-kubelki.html" data-nr="14"><span class="no">14</span><span class="tt"><b>Trzy kubełki</b><small>25 min · indywidualnie, potem w parach</small></span><span class="st" id="st14"></span></a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>DZIEŃ 4 · POMIAR, ODPRAWA, KOREKTA, ZAMKNIĘCIE</h2>
+    <div class="cwl">
+      <a class="cw" href="15-mierniki.html" data-nr="15"><span class="no">15</span><span class="tt"><b>Które z tych mierników da się mierzyć</b><small>20 min · indywidualnie, potem w parach</small></span><span class="st" id="st15"></span></a>
+      <a class="cw" href="16-tablica.html" data-nr="16"><span class="no">16</span><span class="tt"><b>Tablica Na Kole za cztery tygodnie</b><small>30 min · indywidualnie, omówienie na forum</small></span><span class="st" id="st16"></span></a>
+      <a class="cw" href="17-poprowadz-odprawe.html" data-nr="17"><span class="no">17</span><span class="tt"><b>Poprowadź odprawę</b><small>30 min · w trójkach, dwie rundy</small></span><span class="st" id="st17"></span></a>
+      <a class="cw" href="18-reklamacja.html" data-nr="18"><span class="no">18</span><span class="tt"><b>Reklamacja w Na Kole</b><small>25 min · indywidualnie, potem w trójkach</small></span><span class="st" id="st18"></span></a>
+      <a class="cw" href="19-rozmowa.html" data-nr="19"><span class="no">19</span><span class="tt"><b>Rozmowa</b><small>30 min · w parach z obserwatorem</small></span><span class="st" id="st19"></span></a>
+      <a class="cw" href="20-role-drugi-przebieg.html" data-nr="20"><span class="no">20</span><span class="tt"><b>Które role pełnisz — drugi przebieg</b><small>15 min · indywidualnie</small></span><span class="st" id="st20"></span></a>
+      <a class="cw" href="21-trzydziesci-dni.html" data-nr="21"><span class="no">21</span><span class="tt"><b>Trzydzieści dni</b><small>25 min · indywidualnie, omówienie na forum</small></span><span class="st" id="st21"></span></a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>NA KONIEC CZTERECH DNI</h2>
+    <div class="cwl">
+      <a class="cw" href="test-koncowy.html" data-nr="TEST"><span class="no">?</span><span class="tt"><b>Test podsumowujący</b><small>25 min · 20 pytań · indywidualnie</small></span><span class="st" id="stTEST"></span></a>
+    </div>
+  </div>
+
+  <div class="card noprint">
+    <h2>TWOJA TECZKA</h2>
+    <p style="font-size:13.5px;margin:0 0 4px" id="stanTeczki">—</p>
+    <p class="mini">Odpowiedzi są zapisane wyłącznie w tej przeglądarce, na tym urządzeniu. Nie wysyłamy ich nigdzie. Jeżeli wyczyścisz dane przeglądarki albo otworzysz karty na innym telefonie, zaczniesz od zera.</p>
+    <div class="akcje">
+      <button class="btn ghost" id="kopiujAll">Kopiuj wszystko</button>
+      <button class="btn ghost" id="czysc">Wyczyść teczkę</button>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+<footer>
+  <span>ZMIANOLOGICA · dr Marcin Żółtak</span>
+  <span>zmianologi.ca</span>
+</footer>
+</div>
+
+<script>
+
+var Teczka=(function(){var K='zo-nakole-v1';
+function all(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+function put(o){try{localStorage.setItem(K,JSON.stringify(o));return true}catch(e){return false}}
+return{zapisz:function(p,d){var a=all();a[p]={dane:d,ts:Date.now()};return put(a)},
+ czytaj:function(p){var w=all()[p];return w?w.dane:null},
+ usun:function(p){var a=all();delete a[p];return put(a)},
+ lista:function(){return Object.keys(all())},
+ kopiuj:function(t,btn){function ok(){if(!btn)return;var s=btn.textContent;btn.textContent='Skopiowane';
+   setTimeout(function(){btn.textContent=s},1600)}
+  function zap(){var e=document.createElement('textarea');e.value=t;e.style.position='fixed';e.style.opacity='0';
+   document.body.appendChild(e);e.select();try{document.execCommand('copy');ok()}catch(x){}document.body.removeChild(e)}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,zap)}else{zap()}}
+}})();
+var $=function(x){return document.getElementById(x)};
+
+(function(){
+  var l=Teczka.lista(),n=0;
+  l.forEach(function(p){var e=$('st'+p);if(e){e.textContent='WYPEŁNIONE';e.className='st ok';n++}});
+  $('stanTeczki').textContent = n? 'Masz wypełnione ćwiczenia: '+l.sort(function(a,b){return a-b}).join(', ')+'.'
+    : 'Nie masz jeszcze zapisanego żadnego ćwiczenia.';
+  $('kopiujAll').onclick=function(){
+    var s='ZARZĄDZANIE OPERACYJNE — TECZKA\n\n';
+    Teczka.lista().sort(function(a,b){return a-b}).forEach(function(p){
+      s+='— ĆWICZENIE '+p+' —\n'+JSON.stringify(Teczka.czytaj(p))+'\n\n'});
+    Teczka.kopiuj(s,this)};
+  $('czysc').onclick=function(){
+    if(!confirm('Skasować wszystkie zapisane odpowiedzi?'))return;
+    Teczka.lista().forEach(function(p){Teczka.usun(p)});
+    $('msg').textContent='Teczka wyczyszczona.';location.reload()};
+})();
+</script>
+</body>
+</html>

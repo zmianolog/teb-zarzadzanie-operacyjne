@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ćwiczenie 17 · Poprowadź odprawę</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F4460; --navy-d:#163450; --navy-x:#102839;
+  --gold:#E8B62C; --gold-d:#5C4810; --gold-t:#FDF4DC;
+  --text:#2C3540; --mid:#6B7680; --line:#D8DDE3; --bg:#F5F5F7;
+  --dim:#C3D2DE; --green:#1E6B4F; --green-t:#ECF6F1; --wine:#8E2749; --wine-t:#F7ECF0;
+  --blue-t:#F0F6FB;
+  --f:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;padding:0 0 44px;background:var(--bg);color:var(--text);
+  font-family:var(--f);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{background:var(--navy-x);color:#fff;margin:0 -16px 18px;padding:30px 16px 26px}
+header .in{max-width:1080px;margin:0 auto}
+.kicker{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--gold)}
+h1{margin:12px 0 10px;font-size:29px;line-height:1.12;font-weight:700;letter-spacing:-.3px}
+header p{margin:0;color:var(--dim);font-size:14.5px;max-width:56ch}
+.wroc{display:inline-block;margin-bottom:4px;font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  color:var(--dim);text-decoration:none}
+.wroc:hover{color:var(--gold)}
+h2{font-size:10.5px;letter-spacing:1.8px;color:var(--mid);margin:0 0 12px;font-weight:700}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 16px;margin:12px 0}
+.krok{display:flex;gap:12px;align-items:flex-start;margin:0 0 10px}
+.krok .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--gold);color:var(--gold-d);
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.krok p{margin:0;font-size:14.5px;line-height:1.45}
+.wyj{background:var(--gold);color:var(--gold-d);border-radius:8px;padding:16px;margin:14px 0}
+.wyj b{display:block;font-size:10px;font-weight:700;letter-spacing:1.6px;margin-bottom:7px}
+.wyj p{margin:0;font-size:14px;line-height:1.45}
+.dane{background:var(--blue-t);border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13.5px}
+.dane b{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--navy);margin-bottom:6px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:4px;
+  display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.prog{flex:1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.count{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;letter-spacing:.4px}
+.nrk{font-size:10.5px;font-weight:700;letter-spacing:1.6px;color:var(--gold)}
+.sprawa{font-size:20px;font-weight:700;color:var(--navy);line-height:1.28;margin:8px 0 6px}
+.od{font-size:12px;color:var(--mid);margin:0 0 4px;letter-spacing:.3px}
+.pyt{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--mid);margin:20px 0 8px;
+  padding-top:14px;border-top:1px solid var(--line)}
+.opts{display:grid;grid-template-columns:1fr;gap:7px}
+.opts.dwa{grid-template-columns:1fr 1fr}
+.opts.trzy{grid-template-columns:1fr}
+button.opt{text-align:left;font:inherit;font-size:14.5px;cursor:pointer;min-height:50px;width:100%;
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:11px 13px;color:var(--text);
+  display:flex;gap:10px;align-items:center;transition:.12s}
+button.opt:hover{border-color:var(--navy);background:var(--blue-t)}
+button.opt .m{color:var(--gold);font-size:17px;flex:0 0 auto;line-height:1}
+button.opt small{display:block;font-size:11.5px;opacity:.7;font-weight:400;margin-top:1px}
+button.opt b{font-weight:700}
+button.opt.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+button.opt.sel .m{color:var(--gold)}
+.nav{display:flex;gap:8px;margin-top:18px}
+.nav .btn{flex:1}
+.btn{font:inherit;font-size:14.5px;font-weight:700;cursor:pointer;border-radius:7px;padding:13px 18px;
+  min-height:48px;border:none;letter-spacing:.2px}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);color:var(--gold-d)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.35;cursor:default}
+.akcje{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.akcje .btn{flex:1 1 auto}
+.siatka{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.kw{aspect-ratio:1;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;
+  font-size:13px;font-weight:700;color:var(--mid);cursor:pointer;padding:0}
+.kw.ok{background:var(--navy);border-color:var(--navy);color:#fff}
+.kw.tu{outline:2px solid var(--gold);outline-offset:1px}
+.big{background:var(--navy-x);color:#fff;border-radius:8px;padding:26px 20px;text-align:center;margin:12px 0}
+.big .num{font-size:52px;font-weight:700;line-height:1;color:var(--gold);letter-spacing:-1px}
+.big .lab{font-size:12.5px;color:var(--dim);margin-top:10px;max-width:36ch;margin-left:auto;margin-right:auto}
+.tab{display:grid;grid-template-columns:1fr auto;gap:0 12px;font-size:14.5px}
+.tab .n{padding:10px 0;border-bottom:1px solid var(--line)}
+.tab .v{padding:10px 0;border-bottom:1px solid var(--line);font-weight:700;color:var(--navy);text-align:right}
+.tab .n.s,.tab .v.s{border-bottom:none;border-top:2px solid var(--navy);font-weight:700}
+label.f{display:block;font-size:10px;font-weight:700;letter-spacing:1.3px;color:var(--mid);margin:16px 0 6px}
+input[type=text],input[type=number],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--text);
+  background:#fff;border:1px solid var(--line);border-radius:7px;padding:12px}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+textarea{min-height:84px;resize:vertical}
+.msg{font-size:12.5px;color:var(--mid);margin-top:10px;min-height:18px}
+.por{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;font-size:13.5px;
+  padding:9px 0;border-bottom:1px solid var(--line)}
+.por .zn{font-weight:700}
+.por.z .zn{color:var(--green)} .por.r .zn{color:var(--wine)}
+.box{border-radius:7px;padding:14px;margin:12px 0;font-size:13.5px;line-height:1.45}
+.box b{display:block;font-size:10px;letter-spacing:1.4px;margin-bottom:6px}
+.box.blue{background:var(--blue-t)} .box.blue b{color:var(--navy)}
+.box.green{background:var(--green-t)} .box.green b{color:var(--green)}
+.box.gold2{background:var(--gold-t)} .box.gold2 b{color:var(--gold-d)}
+.box.wine{background:var(--wine-t)} .box.wine b{color:var(--wine)}
+.wz{display:grid;grid-template-columns:1fr;gap:10px}
+.wz .row{border:1px solid var(--line);border-radius:7px;padding:12px;background:#fff}
+.wz .row.wzor{background:var(--gold-t);border-color:var(--gold)}
+.wz .row h3{margin:0 0 8px;font-size:15px;color:var(--navy);font-weight:700;line-height:1.3}
+.wz .row .lb{font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--mid);margin:10px 0 5px}
+.mini{font-size:12.5px;color:var(--mid);margin:4px 0 0}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{background:var(--navy);color:#fff;text-align:left;padding:9px 10px;font-size:11.5px;
+  letter-spacing:.6px;font-weight:700}
+table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t tr:nth-child(even) td{background:var(--bg)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mid);
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hide{display:none!important}
+@media (min-width:660px){
+  header{padding:40px 16px 34px} h1{font-size:36px}
+  .card{padding:22px 24px}
+  .opts{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .opts.trzy{grid-template-columns:repeat(3,1fr)}
+  .akcje .btn{flex:0 0 auto}
+  .kroki2{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+  .wz{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1000px){
+  .wrap{padding:0 32px}
+  header{padding:48px 32px 40px}
+  h1{font-size:42px}
+  header p{font-size:15.5px;max-width:66ch}
+  .big .num{font-size:62px}
+}
+@media print{body{background:#fff}.bar,.akcje,.nav,.noprint{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header><div class="in">
+  <a class="wroc" href="index.html">← WSZYSTKIE ĆWICZENIA</a>
+  <div class="kicker">ĆWICZENIE 17 · 30 MINUT · W TRÓJKACH, DWIE RUNDY</div>
+  <h1>Poprowadź odprawę</h1>
+  <p>Siedem minut, pięć punktów, na stojąco. Jedna osoba prowadzi, dwie grają zespół Na Kole według kart ról. Prowadzący zaczyna od jednej liczby z tablicy z ćwiczenia 16.</p>
+</div></header>
+
+<div class="wrap">
+
+<section id="intro">
+  <div class="card">
+    <div class="kroki2">
+    <div class="krok"><div class="n">1</div><p>Rozdzielcie role: prowadzący, Kamil, Ola. Grający czytają wyłącznie swoją kartę roli.</p></div>
+    <div class="krok"><div class="n">2</div><p>Prowadzący wybiera jedną liczbę z tablicy — tę, przy której próg został przekroczony — i zaczyna od niej.</p></div>
+    <div class="krok"><div class="n">3</div><p>Prowadź odprawę w pięciu punktach, w kolejności. Na całość masz siedem minut, licz je na telefonie.</p></div>
+    <div class="krok"><div class="n">4</div><p>Zespół gra według kart: jedna osoba zgłasza blokadę, druga wtrąca pytanie, które do odprawy nie należy.</p></div>
+    <div class="krok"><div class="n">5</div><p>Zakończ punktem piątym: jedno ustalenie z czasownikiem i imieniem. Wpisz je na karcie.</p></div>
+    <div class="krok"><div class="n">6</div><p>Zamieńcie się rolami i powtórzcie z inną liczbą z tablicy.</p></div>
+    </div>
+    <div class="dane"><b>SKĄD DANE</b>Twoja tablica z ćwiczenia 16 — jeżeli wypełniałeś ją na tym telefonie, wczyta się sama. Karty ról są niżej.</div>
+    <div class="wyj"><b>GOTOWE, KIEDY</b><p>każda runda skończyła się zapisanym ustaleniem, a odprawa zmieściła się w siedmiu minutach.</p></div>
+    <div class="akcje"><button class="btn primary" id="start">Zaczynam</button></div>
+    <div class="msg" id="wznow"></div>
+  </div>
+</section>
+
+
+<section id="zad" class="hide">
+  <div class="bar"><div class="prog"><i id="pi"></i></div><div class="count" id="pc">RUNDA 1 Z 2</div></div>
+  <div class="card">
+    <h2>OD KTÓREJ LICZBY ZACZYNASZ</h2>
+    <div class="opts dwa" id="liczby"></div>
+  </div>
+  <div class="card noprint">
+    <h2>KARTY RÓL — CZYTA TYLKO TA OSOBA</h2>
+    <div id="role"></div>
+  </div>
+  <div class="card">
+    <h2>PIĘĆ PUNKTÓW — ODHACZA OBSERWATOR</h2>
+    <div class="opts" id="punkty"></div>
+    <label class="f" for="ust">USTALENIE Z PUNKTU PIĄTEGO</label>
+    <input type="text" id="ust" placeholder="kto, co i od kiedy robi inaczej">
+    <label class="f" for="czas">ILE TRWAŁA ODPRAWA</label>
+    <input type="text" id="czas" placeholder="np. 9 minut">
+    <div class="akcje">
+      <button class="btn primary" id="dalejRunda">Zapisz rundę</button>
+      <button class="btn gold" id="doWyniku">Podsumowanie</button>
+    </div>
+    <div class="msg" id="info"></div>
+  </div>
+</section>
+
+<section id="wynik" class="hide">
+  <div class="card"><h2>DWIE RUNDY</h2><div class="scroll"><table class="t" id="grid"></table></div></div>
+  <div class="card">
+    <h2>JEDNO PYTANIE</h2>
+    <label class="f" for="pq">O KTÓREJ GODZINIE MOGŁABY SIĘ ODBYWAĆ TWOJA ODPRAWA, ŻEBY NIE KOLIDOWAŁA Z PIERWSZYM KLIENTEM</label>
+    <input type="text" id="pq" placeholder="godzina i dlaczego akurat ta">
+    <div class="akcje">
+      <button class="btn primary" id="zapisz">Zapisz do teczki</button>
+      <button class="btn ghost" id="kopiuj">Kopiuj wynik</button>
+      <button class="btn ghost noprint" id="drukuj">Drukuj</button>
+    </div>
+    <div class="msg" id="stan"></div>
+  </div>
+  <div class="card noprint">
+    <h2>KOMENTARZ PROWADZĄCEGO</h2>
+    <div class="akcje">
+      <button class="btn ghost" id="pokazKlucz">Pokaż komentarz</button>
+      <button class="btn ghost" id="odNowa">Zacznij od nowa</button>
+    </div>
+    <div id="klucz" class="hide" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<footer>
+  <span>ZMIANOLOGICA · dr Marcin Żółtak</span>
+  <span>Zarządzanie operacyjne · dzień 4 · ćwiczenie 17</span>
+</footer>
+</div>
+
+<script>
+
+var Teczka=(function(){var K='zo-nakole-v1';
+function all(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+function put(o){try{localStorage.setItem(K,JSON.stringify(o));return true}catch(e){return false}}
+return{zapisz:function(p,d){var a=all();a[p]={dane:d,ts:Date.now()};return put(a)},
+ czytaj:function(p){var w=all()[p];return w?w.dane:null},
+ usun:function(p){var a=all();delete a[p];return put(a)},
+ lista:function(){return Object.keys(all())},
+ kopiuj:function(t,btn){function ok(){if(!btn)return;var s=btn.textContent;btn.textContent='Skopiowane';
+   setTimeout(function(){btn.textContent=s},1600)}
+  function zap(){var e=document.createElement('textarea');e.value=t;e.style.position='fixed';e.style.opacity='0';
+   document.body.appendChild(e);e.select();try{document.execCommand('copy');ok()}catch(x){}document.body.removeChild(e)}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,zap)}else{zap()}}
+}})();
+var $=function(x){return document.getElementById(x)};
+
+var PUNKT='17';
+
+var P=[["p1","Jedna liczba z tablicy","2 min","Odczytana na głos, z kierunkiem — rośnie czy spada"],["p2","Co dziś przechodzi","4 min","Ile zleceń, które pilne, co obiecane klientom na dziś"],["p3","Kto co bierze","3 min","Przydział na dziś, głośno, przy wszystkich"],["p4","Co blokuje","3 min","Każdy mówi, czego mu brakuje albo na co czeka"],["p5","Co robimy inaczej","3 min","Jedno ustalenie na dziś, wynikające z punktu pierwszego"]];
+var R=[["Kamil","Masz dziś trzy przeglądy i jeden łańcuch. W punkcie czwartym zgłoś, że skończyły się klocki do hamulców tarczowych i czekasz na dostawę. Jeżeli prowadzący zacznie przy wszystkich rozwiązywać, co z tym zrobić — daj się wciągnąć w szczegóły techniczne."],["Ola","Masz dziś siedem rowerów do wydania. W punkcie drugim wtrąć pytanie o cenę centrowania koła z ósemką — to pytanie nie należy do odprawy, ale zadaj je i zobacz, czy prowadzący je odłoży."]];
+var LICZBY=[['kl','Ilu klientów'],['zl','Ile zostaje z usług'],['po','Ile poprawek'],['ko','Ile czeka w kolejce']];
+var tab=null,runda=1,wybrana='',check={},rundy=[];
+
+(function(){var z=Teczka.czytaj('16');
+  if(z&&z.dane){tab=z.dane;$('wznow').textContent='Wczytałem twoją tablicę z ćwiczenia 16.'}
+  else $('wznow').textContent='Nie znalazłem twojej tablicy z ćwiczenia 16 — użyj liczb z karty firmy, część 9.'})();
+
+LICZBY.forEach(function(o){
+  var opis='';
+  if(tab){var v=[1,2,3,4].map(function(t){return (tab[t]||{})[o[0]]||'—'});opis=v.join(' → ')}
+  var b=document.createElement('button');b.type='button';b.className='opt';b.dataset.k=o[0];
+  b.innerHTML='<span><b>'+o[1]+'</b>'+(opis?'<small>'+opis+'</small>':'')+'</span>';
+  b.onclick=function(){wybrana=o[0];
+    [].forEach.call($('liczby').children,function(x){x.classList.toggle('sel',x.dataset.k===wybrana)})};
+  $('liczby').appendChild(b)});
+$('role').innerHTML=R.map(function(r){
+  return '<div class="box blue"><b>KARTA ROLI — '+r[0].toUpperCase()+'</b>'+r[1]+'</div>'}).join('');
+P.forEach(function(o){
+  var b=document.createElement('button');b.type='button';b.className='opt';b.dataset.k=o[0];
+  b.innerHTML='<span class="m">☐</span><span><b>'+o[1]+' <small style="display:inline;opacity:.6">· '+o[2]+'</small></b><small>'+o[3]+'</small></span>';
+  b.onclick=function(){check[o[0]]=!check[o[0]];b.classList.toggle('sel',check[o[0]]);
+    b.querySelector('.m').textContent=check[o[0]]?'☑':'☐'};
+  $('punkty').appendChild(b)});
+
+function nazwaL(k){var n='—';LICZBY.forEach(function(x){if(x[0]===k)n=x[1]});return n}
+function reset(){wybrana='';check={};
+  [].forEach.call($('liczby').children,function(x){x.classList.remove('sel')});
+  [].forEach.call($('punkty').children,function(x){x.classList.remove('sel');x.querySelector('.m').textContent='☐'});
+  $('ust').value='';$('czas').value=''}
+$('start').onclick=function(){$('intro').classList.add('hide');$('zad').classList.remove('hide')};
+$('dalejRunda').onclick=function(){
+  if(!wybrana){$('info').textContent='Wybierz najpierw liczbę, od której zaczynasz.';return}
+  rundy.push({nr:runda,liczba:wybrana,check:JSON.parse(JSON.stringify(check)),ust:$('ust').value,czas:$('czas').value});
+  if(runda<2){runda=2;$('pc').textContent='RUNDA 2 Z 2';$('pi').style.width='50%';reset();
+    $('info').textContent='Runda zapisana. Zamieńcie się rolami.';window.scrollTo({top:0})}
+  else{$('pi').style.width='100%';$('info').textContent='Dwie rundy zapisane. Przejdź do podsumowania.'}};
+$('doWyniku').onclick=function(){
+  if(wybrana&&rundy.length<2)rundy.push({nr:runda,liczba:wybrana,check:JSON.parse(JSON.stringify(check)),ust:$('ust').value,czas:$('czas').value});
+  $('zad').classList.add('hide');$('wynik').classList.remove('hide');
+  var h='<tr><th>Runda</th><th>Liczba</th><th>Punkty</th><th>Czas</th><th>Ustalenie</th></tr>';
+  rundy.forEach(function(r){var od=P.filter(function(k){return r.check[k[0]]}).length;
+    h+='<tr><td><b>'+r.nr+'</b></td><td>'+nazwaL(r.liczba)+'</td><td>'+od+' z 5</td><td>'+(r.czas||'—')+'</td><td>'+(r.ust||'—')+'</td></tr>'});
+  $('grid').innerHTML=h;
+  var z=Teczka.czytaj(PUNKT);if(z&&z.pq)$('pq').value=z.pq;
+  window.scrollTo({top:0})};
+function tekst(){var s='ĆWICZENIE 17 — ODPRAWA\n\n';
+  rundy.forEach(function(r){s+='Runda '+r.nr+' — liczba: '+nazwaL(r.liczba)+', czas: '+(r.czas||'—')+'\n';
+    P.forEach(function(k){s+='   '+(r.check[k[0]]?'[x] ':'[ ] ')+k[1]+'\n'});
+    s+='   ustalenie: '+(r.ust||'—')+'\n'});
+  s+='\nGodzina mojej odprawy: '+($('pq').value||'—')+'\n';return s}
+$('zapisz').onclick=function(){var ok=Teczka.zapisz(PUNKT,{rundy:rundy,pq:$('pq').value});
+  $('stan').textContent=ok?'Zapisane w teczce.':'Nie udało się zapisać — skopiuj wynik.'};
+$('kopiuj').onclick=function(){Teczka.kopiuj(tekst(),this)};
+$('drukuj').onclick=function(){window.print()};
+$('pokazKlucz').onclick=function(){
+  var bezU=rundy.filter(function(r){return !r.ust}).length;
+  var dlugie=rundy.filter(function(r){return /1[0-9]|2[0-9]|3[0-9]/.test(r.czas||'')}).length;
+  $('klucz').innerHTML=
+   '<div class="box '+(bezU?'wine':'green')+'"><b>PUNKT PIĄTY</b>'+
+   (bezU?'W '+bezU+' rundzie nie padło ustalenie. Bez punktu piątego odprawa jest rytuałem: zajmuje kwadrans i niczego nie zmienia.'
+        :'W obu rundach padło ustalenie. To jest jedyna rzecz, która odróżnia odprawę od porannej informacji.')+'</div>'+
+   '<div class="box '+(dlugie?'gold2':'blue')+'"><b>CZAS</b>'+
+   (dlugie?'Któraś runda przekroczyła dziesięć minut. Odprawa psuje się zawsze tak samo — zaczyna wchłaniać rzeczy, na które ma inne miejsce.'
+          :'Zmieściliście się w czasie. Utrzymanie tego przy trzech osobach wymaga jednej rzeczy: odkładania problemów technicznych na po odprawie.')+'</div>'+
+   '<div class="box blue"><b>DWIE PUŁAPKI W KARTACH RÓL</b>Kamil miał wciągnąć prowadzącego w rozwiązywanie sprawy klocków. '+
+   'Właściwa reakcja: „zostajemy po odprawie we dwóch”. Ola miała wtrącić pytanie o cenę centrowania. '+
+   'Właściwa reakcja: „zapisz, wrócimy w oknie na przerwania”. Obie sprawy są prawdziwe i obie mają inne miejsce niż odprawa.</div>'+
+   '<div class="box green"><b>DLACZEGO JEDNA LICZBA PRZEZ CAŁY TYDZIEŃ</b>Bo zmiana liczby co dzień uniemożliwia zauważenie, czy cokolwiek drgnęło. '+
+   'Wybierasz tę, przy której próg został przekroczony, i wracasz do niej codziennie, dopóki nie wróci nad próg.</div>';
+  $('klucz').classList.remove('hide');this.disabled=true};
+$('odNowa').onclick=function(){if(!confirm('Skasować rundy?'))return;
+  rundy=[];runda=1;reset();Teczka.usun(PUNKT);$('pc').textContent='RUNDA 1 Z 2';$('pi').style.width='0%';
+  $('wynik').classList.add('hide');$('intro').classList.remove('hide');$('klucz').classList.add('hide');
+  $('pq').value='';$('stan').textContent='';window.scrollTo({top:0})};
+(function(){var z=Teczka.czytaj(PUNKT);
+  if(z&&z.rundy&&z.rundy.length){rundy=z.rundy;runda=Math.min(2,rundy.length+1);
+    $('pc').textContent='RUNDA '+runda+' Z 2'}})();
+
+</script>
+</body>
+</html>
